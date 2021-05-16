@@ -14,6 +14,19 @@ client.on('message', msg => {
   if (msg.content === 'ping') {
     msg.reply('pong');
   }
+  if (msg.content == 'монетка'){
+    mess.channel.send('Монета подбрасывается...')
+
+    var random = Math.floor(Math.random() * 4) + 1; // Объявление переменной random - она вычисляет случайное число от 1 до 3
+    
+    if (random === 1) { // Если вычислено число 1, то выпадает орёл.
+        mess.channel.send(':full_moon: Орёл!')
+    } else if (random === 2) { // Если вычислено число 2, то выпадает решка.
+        mess.channel.send(':new_moon: Решка!')
+    } else if (random === 3) { // Если вычислено число 3, то монета падает ребром.
+        mess.channel.send(':last_quarter_moon: Монета упала ребром!')
+    }
+  }
   if (msg.content === 'задачи' || msg.content === 'что там по задачкам?'){
     if (t.tasks.length){
         msg.reply('Задач в работе: ' + t.tasks.length)
