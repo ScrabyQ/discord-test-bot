@@ -1,12 +1,9 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs');
-const http = require('http');
-const port = 3000 || process.env.PORT;
 try {
     let t = require('./tasks.json')
 
-http.createServer().listen(port)
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
   console.log(t + typeof(t));
