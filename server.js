@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const cfg = require('./config.json');
 const fs = require('fs');
 try {
     let t = require('./tasks.json')
@@ -13,8 +14,7 @@ client.on('message', msg => {
   if (msg.content === 'ping') {
     msg.reply('pong');
   }
-  if (msg.content === 'задачи'){
-    console.log(t.tasks.length + '');
+  if (msg.content === 'задачи' || msg.content === 'что там по задачкам?'){
     if (t.tasks.length){
         msg.reply('Задач в работе: ' + t.tasks.length)
         for (key in t.tasks){
@@ -83,7 +83,6 @@ client.on('message', msg => {
   }
 });
 
-client.login('ODQzMjY0MzEzODQyMDczNjcx.YKBVFw.EA3S0XLLah7Qedc7MISjH7AZixs');
 }catch(e){
     let promise = new Promise((resolve, reject) => {
         fs.writeFile('tasks.json', `{"status": "empety"}`, (err, data) => {
@@ -93,3 +92,4 @@ client.login('ODQzMjY0MzEzODQyMDczNjcx.YKBVFw.EA3S0XLLah7Qedc7MISjH7AZixs');
     })
 
 }
+client.login(cfg.TOKEN);
