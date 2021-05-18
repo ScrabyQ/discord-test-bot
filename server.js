@@ -86,7 +86,7 @@ client.on('message', msg => {
                     return console.log('Ошибка: ' + err.message);
                 } else {
                     if (res.length){
-                        msg.reply('Задач в работе: ' + res.length)
+                        msg.reply('Задач в работе: ' + res.length + ' :muscle:')
                          for (key in res){
                              msg.reply('id задачи: '+res[key].id +'\n' +
                              'Заголовок задачи: ' +res[key].head +'\n'+
@@ -116,7 +116,7 @@ client.on('message', msg => {
                     return console.log('Ошибка: ' + err.message);
                 } else {
                     if (res.length){
-                        msg.reply('Задач в работе: ' + res.length)
+                        msg.reply('Задач в работе: ' + res.length + ' :muscle:')
                          for (key in res){
                              msg.reply('id задачи: '+res[key].id +'\n' +
                              'Заголовок задачи: ' +res[key].head +'\n'+
@@ -157,7 +157,7 @@ client.on('message', msg => {
                   return console.log('Ошибка: ' + err.message);
               } else {
                   if (res.length){
-                      msg.reply('Задач в работе: ' + res.length)
+                      msg.reply('Задач в работе: ' + res.length + ' :muscle:')
                        for (key in res){
                            msg.reply('id задачи: '+res[key].id +'\n' +
                            'Заголовок задачи: ' +res[key].head +'\n'+
@@ -187,7 +187,7 @@ client.on('message', msg => {
                     return console.log('Ошибка: ' + err.message);
                 } else {
                     if (res.length){
-                        msg.reply('Задач выполнено: ' + res.length)
+                        msg.reply('Задач выполнено: ' + res.length + ' :muscle:')
                          for (key in res){
                              msg.reply('id задачи: '+res[key].id +'\n' +
                              'Заголовок задачи: ' +res[key].head +'\n'+
@@ -227,7 +227,7 @@ client.on('message', msg => {
                   return console.log('Ошибка: ' + err.message);
               } else {
                   if (res.length){
-                      msg.reply('Задач выполнено: ' + res.length)
+                      msg.reply('Задач выполнено: ' + res.length + ' :muscle:')
                        for (key in res){
                            msg.reply('id задачи: '+res[key].id +'\n' +
                            'Заголовок задачи: ' +res[key].head +'\n'+
@@ -374,7 +374,7 @@ client.on('message', msg => {
                     return console.log('Ошибка: ' + err.message);
                 } else {
                      console.log(res);
-                     msg.reply(`Задача ${data[0]} успешно добавлена!`)
+                     msg.reply(`Задача ${data[0]} успешно добавлена! :clap:`)
                 }
                 })
             }
