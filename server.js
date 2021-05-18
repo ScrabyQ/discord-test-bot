@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const cfg = require('./config.json');
 const mysql = require("mysql2");
+var cron = require('node-cron');
+
 let today = new Date().toISOString().split('T')[0];
   
 const connection = mysql.createConnection({
@@ -14,7 +16,6 @@ const connection = mysql.createConnection({
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
-
 client.on('message', msg => {
   if (msg.content === 'ping') {
     msg.reply('pong');
@@ -380,7 +381,51 @@ client.on('message', msg => {
             }
          });
   }
+//   cron.schedule('1 * * * * *', () => {
+//     client.channels.cache.get('829032315937095693').send('Hello here!')
+//     console.log('send')
+//   });
 });
+cron.schedule('0 0 9 * * *', () => {
+    client.channels.cache.get('835159002403831879').send(`Короче, @everyone, 
+    я вас спас и в благородство играть не буду: 
+    выполните для меня пару задачек – и мы в расчете. 
+    Заодно посмотрим, как быстро у вас башка после очередной конфы прояснится. 
+    А по вашей теме постараюсь разузнать. 
+    Хрен его знает, на кой ляд вам эта заработная плата сдалась, 
+    но я в чужие дела не лезу, хотите получить, значит есть зачем…`, {files: ['https://memepedia.ru/wp-content/uploads/2018/05/sidorovich-shablon.jpg']})
+    console.log('send')
+    setTimeout( () => {connection.connect(function(err){
+                if (err) { 
+                client.channels.cache.get('835159002403831879').send('Не могу подключиться к БД');
+                return console.error("Ошибка: " + err.message);
+                }
+                else{
+                    console.log("Подключение к серверу MySQL успешно установлено");
+            let mData = `SELECT * FROM inWorkTasks`;
+                    connection.query(mData, (err, res) => {
+                    if (err){
+                        return console.log('Ошибка: ' + err.message);
+                    } else {
+                        if (res.length){
+                            client.channels.cache.get('835159002403831879').send('Задач в работе: ' + res.length + ' :muscle:')
+                             for (key in res){
+                                client.channels.cache.get('835159002403831879').send('id задачи: '+res[key].id +'\n' +
+                                 'Заголовок задачи: ' +res[key].head +'\n'+
+                                 'Описание задачи: ' +res[key].description+ '\n' +
+                                 'Срок: ' +res[key].deadline+ '\n'+
+                                 'Ответственный: ' +res[key].responsible);
+                             }
+                        } else { 
+                            client.channels.cache.get('835159002403831879').send("у меня для тебя ничего нет :cold_sweat:")
+                        }
+                    }
+                    })
+                }
+        })
+             },10000);
+      
+  });
 
 function username (discriminator) {
     const discriminators = {
