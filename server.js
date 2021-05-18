@@ -90,7 +90,7 @@ client.on("message", (msg) => {
       } else {
         console.log("Подключение к серверу MySQL успешно установлено");
         let mData = `SELECT * 
-        FROM inWorktasks 
+        FROM inWorkTasks 
         WHERE DATE(created_at) 
         BETWEEN 
         STR_TO_DATE("${firstDate}", "%Y-%m-%d") 
@@ -181,7 +181,7 @@ client.on("message", (msg) => {
       } else {
         console.log("Подключение к серверу MySQL успешно установлено");
         let mData = `SELECT * 
-      FROM inWorktasks 
+      FROM inWorkTasks 
       WHERE DATE(created_at) 
       BETWEEN 
       STR_TO_DATE("${firstDate}", "%Y-%m-%d") 
