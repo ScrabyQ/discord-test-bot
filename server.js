@@ -2,7 +2,9 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const cfg = require("./config.json");
 const mysql = require("mysql2");
+const sms = require('./smsru.js')
 var cron = require("node-cron");
+const { getBalance } = require("./smsru");
 
 let today = new Date().toISOString().split("T")[0];
 const connection = mysql.createConnection({
@@ -16,6 +18,9 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 client.on("message", (msg) => {
+  if (msg.content.toLowerCase === 'смс'){
+    msg.reply(`Текущий баланс sms.ru: ${sms.balance}`);
+  }
   if (msg.content === "ping") {
     msg.reply("pong");
     console.log(msg.author.username);
@@ -89,13 +94,7 @@ client.on("message", (msg) => {
         return console.error("Ошибка: " + err.message);
       } else {
         console.log("Подключение к серверу MySQL успешно установлено");
-        let mData = `SELECT * 
-        FROM inWorkTasks 
-        WHERE DATE(created_at) 
-        BETWEEN 
-        STR_TO_DATE("${firstDate}", "%Y-%m-%d") 
-        and
-        STR_TO_DATE("${secondDate}", "%Y-%m-%d")`;
+        let mData = `SELECT * FROM inWorkTasks WHERE DATE(created_at) BETWEEN STR_TO_DATE("${firstDate}", "%Y-%m-%d") and STR_TO_DATE("${secondDate}", "%Y-%m-%d")`;
         connection.query(mData, (err, res) => {
           if (err) {
             return console.log("Ошибка: " + err.message);

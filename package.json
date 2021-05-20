@@ -13,7 +13,8 @@
   "dependencies": {
     "discord.js": "^12.5.3",
     "mysql2": "^2.2.5",
-    "node-cron": "^3.0.0"
+    "node-cron": "^3.0.0",
+    "sms_ru": "0.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
