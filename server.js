@@ -13,8 +13,8 @@ express.get('/', (req, res) => {
   res.send('working')
 });
 express.get('/dishook', (req, res) => {
-  console.log('req ' + JSON.stringify(req));
-  console.log('req body: ' + JSON.stringify(req.body));
+  console.log('req ' + req.json());
+  console.log('req body: ' + req.body.json());
   res.send('working')
   res.status(200).end();
 });
