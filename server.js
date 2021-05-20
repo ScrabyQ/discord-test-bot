@@ -15,6 +15,7 @@ express.get('/', (req, res) => {
 express.get('/dishook', (req, res) => {
   console.log('req ' + req.author);
   console.log('req body: ' + req.body.name);
+  console.log('req url' + req.url);
   res.send('working')
   res.status(200).end();
 });
