@@ -1,10 +1,16 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const express = require('express')();
 const cfg = require("./config.json");
 const mysql = require("mysql2");
-const sms = require('./smsru.js')
+const sms = require('./smsru.js');
 var cron = require("node-cron");
-const { getBalance } = require("./smsru");
+
+express.get('/', (req, res) => {
+  console.log(req);
+  res.send('working')
+})
+
 
 let today = new Date().toISOString().split("T")[0];
 const connection = mysql.createConnection({
