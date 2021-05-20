@@ -8,9 +8,9 @@ const sms = require('./smsru.js');
 var cron = require("node-cron");
 let jsonParser = bp.json();
 express.use(bp.json())
-xpress.post('/dishook/slacontrole', jsonParser, (req, res) => {
+express.post('/dishook/slacontrole', jsonParser, (req, res) => {
   client.channels.cache.get('844987698594054165').send(`Не забыли про заявку? :eyes: 
-  Время последней активности превысило полчаса
+  Время последней активности превысило полчаса!
   Информация:
   Тема тикета: ${req.body.name}
   Оставил заявку: ${req.body.author}
