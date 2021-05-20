@@ -558,7 +558,25 @@ cron.schedule("0 0 9 * * *", () => {
     });
   }, 10000);
 });
-
+cron.schedule( '*/30 * * * *', ()=> {
+  if (Number(Math.floor(sms.balance)) >= 15000){
+    client.channels.cache
+  .get("844589763935207446")
+  .send(`На sms.ru ${sms.balance} руб. Все в порядке`);
+  }
+  else if(Number(Math.floor(sms.balance)) <= 15000 && Number(Math.floor(sms.balance)) >= 10000) {
+    client.channels.cache
+  .get("844589763935207446")
+  .send(`На sms.ru ${sms.balance} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
+  } else if(Number(Math.floor(sms.balance)) <= 5000 && Number(Math.floor(sms.balance)) >= 2000) {
+    client.channels.cache
+  .get("844589763935207446")
+  .send(`@Rlathey, атеншен!!1
+  На sms.ru ${sms.balance} руб.
+  Этого уже мало!`);
+  }
+  
+})
 function username(discriminator) {
   const discriminators = {
     user_1: ["4261", "Садовников Сергей"],
