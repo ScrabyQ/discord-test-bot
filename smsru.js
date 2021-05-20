@@ -7,3 +7,8 @@ sms.my_balance(function(e){
     res = e.balance;
     module.exports.balance = res;
   })
+
+sms.my_limit(function(e){
+    let res = e.current+' / '+e.total;
+    module.exports.limit = res;
+})

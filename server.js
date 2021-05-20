@@ -552,6 +552,12 @@ cron.schedule("0 0 9 * * *", () => {
                 .get("835159002403831879")
                 .send("у меня для тебя ничего нет :cold_sweat:");
             }
+            client.channels.cache
+            .get("844589763935207446")
+            .send(`На sms.ru ${sms.balance} руб.`);
+            client.channels.cache
+            .get("844589763935207446")
+            .send(`Лимиты по смс - ${sms.limit}`);
           }
         });
       }
@@ -575,6 +581,9 @@ cron.schedule( '*/30 * * * *', ()=> {
   На sms.ru ${sms.balance} руб.
   Этого уже мало!`);
   }
+  client.channels.cache
+  .get("844589763935207446")
+  .send(`Дневные лимиты: ${sms.limit}`);
   
 })
 function username(discriminator) {
