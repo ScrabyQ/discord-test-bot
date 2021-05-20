@@ -9,13 +9,13 @@ var cron = require("node-cron");
 let jsonParser = bp.json();
 express.use(bp.json())
 express.post('/dishook', jsonParser, (req, res) => {
-  client.channels.cache.get('844987698594054165').send(`Новая заяка в https://itgt.helpdeskeddy.com
+  client.channels.cache.get('844987698594054165').send(`Новая заяка в ХДЕ! :face_with_monocle:
   Информация:
   Тема тикета: ${req.body.name}
   Оставил заявку: ${req.body.author}
   Комментарий: ${req.body.message}
   Ссылка на тикет: https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`)
-  res.send('working')
+  res.send('send to Discord channel')
   res.status(200).end();
 });
 express.listen('3030', () => {
