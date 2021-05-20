@@ -8,15 +8,13 @@ const sms = require('./smsru.js');
 var cron = require("node-cron");
 let jsonParser = bp.json();
 express.use(bp.json())
-express.get('/', (req, res) => {
-  console.log(req);
-  res.send('working')
-});
 express.post('/dishook', jsonParser, (req, res) => {
-  console.log('req ' + req.author);
-  console.log('req body: ' + req.body.name);
-  console.log('req body: ' + req.body.id);
-  console.log('req url' + req.url);
+  client.channels.cache.get('844987698594054165').send(`Новая заяка в https://itgt.helpdeskeddy.com
+  Информация:
+  Тема тикета: ${req.body.name}
+  Оставил заявку: ${req.body.author}
+  Комментарий: ${req.body.message}
+  Ссылка на тикет: https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`)
   res.send('working')
   res.status(200).end();
 });
