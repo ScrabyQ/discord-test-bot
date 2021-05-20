@@ -1,15 +1,21 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const express = require('express')();
+const bp = require('body-parser');
 const cfg = require("./config.json");
 const mysql = require("mysql2");
 const sms = require('./smsru.js');
 var cron = require("node-cron");
 
-
+express.use(bp.json())
 express.get('/', (req, res) => {
   console.log(req);
   res.send('working')
+});
+express.get('/dishook', (req, res) => {
+  console.log(req.body);
+  res.send('working')
+  res.status(200).end();
 });
 express.listen('3030', () => {
   console.log("3030")
