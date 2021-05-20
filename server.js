@@ -8,6 +8,17 @@ const sms = require('./smsru.js');
 var cron = require("node-cron");
 let jsonParser = bp.json();
 express.use(bp.json())
+xpress.post('/dishook/slacontrole', jsonParser, (req, res) => {
+  client.channels.cache.get('844987698594054165').send(`Не забыли про заявку? :eyes: 
+  Время последней активности превысило полчаса
+  Информация:
+  Тема тикета: ${req.body.name}
+  Оставил заявку: ${req.body.author}
+  Время последнего ответа: ${req.body.message}
+  Ссылка на тикет: https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`)
+  res.send('send to Discord channel')
+  res.status(200).end();
+});
 express.post('/dishook', jsonParser, (req, res) => {
   client.channels.cache.get('844987698594054165').send(`Новая заяка в ХДЕ! :face_with_monocle:
   Информация:
