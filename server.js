@@ -18,12 +18,14 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 client.on("message", (msg) => {
-  if (msg.content.toLowerCase === 'смс'){
-    msg.reply(`Текущий баланс sms.ru: ${sms.balance}`);
-  }
+  console.log(msg.content)
+  
   if (msg.content === "ping") {
     msg.reply("pong");
     console.log(msg.author.username);
+  }
+  if (msg.content == "sms"){
+    msg.reply(`Текущий баланс sms.ru: ${sms.balance}`);
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
     msg.channel.send("Монета подбрасывается...");
