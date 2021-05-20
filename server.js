@@ -6,15 +6,16 @@ const cfg = require("./config.json");
 const mysql = require("mysql2");
 const sms = require('./smsru.js');
 var cron = require("node-cron");
-
+let jsonParser = bp.json();
 express.use(bp.json())
 express.get('/', (req, res) => {
   console.log(req);
   res.send('working')
 });
-express.get('/dishook', (req, res) => {
+express.post('/dishook', jsonParser, (req, res) => {
   console.log('req ' + req.author);
   console.log('req body: ' + req.body.name);
+  console.log('req body: ' + req.body.id);
   console.log('req url' + req.url);
   res.send('working')
   res.status(200).end();
