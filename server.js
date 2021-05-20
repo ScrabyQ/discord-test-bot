@@ -6,10 +6,14 @@ const mysql = require("mysql2");
 const sms = require('./smsru.js');
 var cron = require("node-cron");
 
+
 express.get('/', (req, res) => {
   console.log(req);
   res.send('working')
-})
+});
+express.listen('3030', () => {
+  console.log("3030")
+});
 
 
 let today = new Date().toISOString().split("T")[0];
