@@ -27,6 +27,9 @@ client.on("message", (msg) => {
   if (msg.content == "sms"){
     msg.reply(`Текущий баланс sms.ru: ${sms.balance}`);
   }
+  if (msg.content == "лимиты sms"){
+    msg.reply(`Текущий статус лимита по SMS.ru: ${sms.limit}`);
+  }
   if (msg.content.toLocaleLowerCase() == "монетка") {
     msg.channel.send("Монета подбрасывается...");
 
