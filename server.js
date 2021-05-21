@@ -606,6 +606,10 @@ cron.schedule("0 0 9 * * *", () => {
   }, 10000);
 });
 cron.schedule( '*/30 * * * *', ()=> {
+  let limit,
+      balance;
+      sms.getInfo(balance, limit);
+      console.log(balance + ' ' + limit)
   if (Number(Math.floor(sms.balance)) >= 15000){
     client.channels.cache
   .get("844589763935207446")
@@ -619,12 +623,13 @@ cron.schedule( '*/30 * * * *', ()=> {
     client.channels.cache
   .get("844589763935207446")
   .send(`@Rlathey, атеншен!!1
-  На sms.ru ${sms.balance} руб.
+  На sms.ru ${balance} руб.
   Этого уже мало!`);
   }
+  
   client.channels.cache
   .get("844589763935207446")
-  .send(`Дневные лимиты: ${sms.limit}`);
+  .send(`Дневные лимиты: ${limit}`);
   
 })
 function username(discriminator) {
