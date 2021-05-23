@@ -36,6 +36,31 @@ express.post('/dishook', jsonParser, (req, res) => {
   Оставил заявку: ${req.body.author}
   Комментарий: ${req.body.message}
   Ссылка на тикет: https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`)
+
+  client.channels.cache.get('844987698594054165').send({embed: {
+    color: 3447003, 
+    author: {
+      name: client.user.username,
+      icon_url: client.user.avatarURL
+    },
+    title: "Новый заявка в HDE!",
+    url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`, 
+    description: 'Информация по новому тикету', 
+    fields: [{
+      name: "Тема тикета",
+      value: req.body.name
+    }, 
+    {
+      name: "Оставил заявку",
+      value: req.body.author
+    },
+    {
+      name: "Комментарий",
+      value: req.body.message
+    }
+    ]
+  }})
+  
   res.send('send to Discord channel')
   res.status(200).end();
 });
@@ -529,10 +554,6 @@ client.on("message", (msg) => {
       }
     });
   }
-  //   cron.schedule('1 * * * * *', () => {
-  //     client.channels.cache.get('829032315937095693').send('Hello here!')
-  //     console.log('send')
-  //   });
 });
 cron.schedule("0 0 9 * * *", () => {
   client.channels.cache.get("835159002403831879").send(
@@ -623,14 +644,9 @@ cron.schedule( '*/30 * * * *', ()=> {
     client.channels.cache
   .get("844589763935207446")
   .send(`@Rlathey, атеншен!!1
-  На sms.ru ${balance} руб.
+  На sms.ru ${sms.balance} руб.
   Этого уже мало!`);
-  }
-  
-  client.channels.cache
-  .get("844589763935207446")
-  .send(`Дневные лимиты: ${limit}`);
-  
+  } 
 })
 function username(discriminator) {
   const discriminators = {
