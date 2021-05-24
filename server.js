@@ -752,9 +752,7 @@ function normaldateToISO(normal_date) {
 function getInfoSMSRU(type){
  if (type === 'balance'){
   sms.my_balance(function(e){
-    let res;
-    res = e.balance;
-    return res;
+    return e.balance;
   }) 
  } else if (type === 'limit'){
   sms.my_limit(function(e){
