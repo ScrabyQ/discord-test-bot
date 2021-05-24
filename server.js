@@ -10,7 +10,8 @@ let config = require('./config.json');
 let sms = new SMSru(config.SMSRU_TOKEN);
     
 
-
+let balance, 
+    limit;
 
 let jsonParser = bp.json();
 express.use(bp.json())
@@ -159,14 +160,10 @@ client.on("message", (msg) => {
       ]
     }})
   }
-  if (msg.content === "ping") {
-    msg.delete().catch();
-    msg.reply("pong");
-    console.log(msg.author.username);
-  }
   if (msg.content == "sms"){
     msg.delete().catch();
-    msg.reply(`Текущий баланс sms.ru: ${getInfoSMSRU('balance')}`);
+    getInfoSMSRU();
+    msg.reply(`Текущий баланс sms.ru: ${balance}`);
   }
   if (msg.content == "лимиты sms"){
     msg.delete().catch();
@@ -714,6 +711,7 @@ cron.schedule("0 0 9 * * *", () => {
   }, 10000);
 });
 cron.schedule( '*/30 * * * *', ()=> {
+  getInfoSMSRU();
       console.log('Баланс и лимиты - ' + getInfoSMSRU('balance') + ' ' + getInfoSMSRU('limit'))
   if (Number(Math.floor(getInfoSMSRU('balance'))) >= 15000){
     client.channels.cache
@@ -750,15 +748,16 @@ function normaldateToISO(normal_date) {
   return iso;
 }
 function getInfoSMSRU(type){
- if (type === 'balance'){
+ 
   sms.my_balance(function(e){
-    return e.balance;
+    
+    balance = e.balance;
   }) 
- } else if (type === 'limit'){
+  
   sms.my_limit(function(e){
     let res = e.current+'/'+e.total;
-    return res;
+    limit = res;
 })
- }
+ 
 }
 client.login(cfg.TOKEN);
