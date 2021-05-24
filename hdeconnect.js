@@ -21,7 +21,7 @@ async function getTickets() {
         
     }
     else {
-        console.log('ошибка: ' + response.statusText)
+        console.log('ошибка: ')
     }
 }
 getTickets();
