@@ -727,7 +727,7 @@ cron.schedule( '*/30 * * * *', ()=> {
     .get("844589763935207446")
     .send(`На sms.ru ${e.balance} руб. Все в порядке`);
     }
-    else if(Number(Math.floor(e.balance)) <= 15000 && Number(Math.floor(e.balance)) >= 10000) {
+    else if(Number(Math.floor(e.balance)) <= 15000 && Number(Math.floor(e.balance)) >= 5000) {
       client.channels.cache
     .get("844589763935207446")
     .send(`На sms.ru ${e.balance} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
