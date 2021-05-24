@@ -162,13 +162,16 @@ client.on("message", (msg) => {
   }
   if (msg.content == "sms"){
     msg.delete().catch();
-    getInfoSMSRU();
+    sms.my_balance(async function(e){
+      bal = await e.balance;
+      console.log('переменная bal: ' + bal)
+   }) 
     console.log('bal еще разок: ' + bal)
     msg.reply(`Текущий баланс sms.ru: ${bal}`);
   }
   if (msg.content == "лимиты sms"){
     msg.delete().catch();
-    msg.reply(`Текущий статус лимита по SMS.ru: ${getInfoSMSRU('limit')}`);
+    msg.reply(`Текущий статус лимита по SMS.ru: ${123}`);
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
     msg.channel.send("Монета подбрасывается...");
@@ -701,10 +704,10 @@ cron.schedule("0 0 9 * * *", () => {
             }
             client.channels.cache
             .get("844589763935207446")
-            .send(`На sms.ru ${getInfoSMSRU('balance')} руб.`);
+            .send(`На sms.ru ${123} руб.`);
             client.channels.cache
             .get("844589763935207446")
-            .send(`Лимиты по смс - ${getInfoSMSRU('limit')}`);
+            .send(`Лимиты по смс - ${123}`);
           }
         });
       }
@@ -712,22 +715,22 @@ cron.schedule("0 0 9 * * *", () => {
   }, 10000);
 });
 cron.schedule( '*/30 * * * *', ()=> {
-  getInfoSMSRU();
-      console.log('Баланс и лимиты - ' + getInfoSMSRU('balance') + ' ' + getInfoSMSRU('limit'))
-  if (Number(Math.floor(getInfoSMSRU('balance'))) >= 15000){
+
+      console.log('Баланс и лимиты - ' +  + ' ' )
+  if (Number(Math.floor(123)) >= 15000){
     client.channels.cache
   .get("844589763935207446")
-  .send(`На sms.ru ${getInfoSMSRU('balance')} руб. Все в порядке`);
+  .send(`На sms.ru ${123} руб. Все в порядке`);
   }
-  else if(Number(Math.floor(getInfoSMSRU('balance'))) <= 15000 && Number(Math.floor(getInfoSMSRU('balance'))) >= 10000) {
+  else if(Number(Math.floor(123)) <= 15000 && Number(Math.floor(123)) >= 10000) {
     client.channels.cache
   .get("844589763935207446")
-  .send(`На sms.ru ${getInfoSMSRU('balance')} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
-  } else if(Number(Math.floor(getInfoSMSRU('balance'))) <= 5000 && Number(Math.floor(getInfoSMSRU('balance'))) >= 2000) {
+  .send(`На sms.ru ${123} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
+  } else if(Number(Math.floor(123)) <= 5000 && Number(Math.floor(123)) >= 2000) {
     client.channels.cache
   .get("844589763935207446")
   .send(`@Rlathey, атеншен!!1
-  На sms.ru ${getInfoSMSRU('balance')} руб.
+  На sms.ru ${123} руб.
   Этого уже мало!`);
   } 
 })
@@ -748,18 +751,6 @@ function normaldateToISO(normal_date) {
   let iso = `${data[2]}-${data[1]}-${data[0]}`;
   return iso;
 }
- function getInfoSMSRU(){
  
-  sms.my_balance(async function(e){
-    
-     bal = await e.balance;
-    console.log('переменная bal: ' + bal)
-  }) 
-  
-  sms.my_limit(async function(e){
-    let res = await e.current+'/'+e.total;
-    limit = await res;
-})
  
-}
 client.login(cfg.TOKEN);
