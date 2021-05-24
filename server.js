@@ -162,12 +162,10 @@ client.on("message", (msg) => {
   }
   if (msg.content == "sms"){
     msg.delete().catch();
-    sms.my_balance(async function(e){
-      bal = await e.balance;
-      console.log('переменная bal: ' + bal)
+    sms.my_balance( function(e){
+      msg.reply(`Текущий баланс sms.ru: ${e.balance}`);
    }) 
-    console.log('bal еще разок: ' + bal)
-    msg.reply(`Текущий баланс sms.ru: ${bal}`);
+   
   }
   if (msg.content == "лимиты sms"){
     msg.delete().catch();
