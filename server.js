@@ -166,11 +166,15 @@ client.on("message", (msg) => {
   }
   if (msg.content == "sms"){
     msg.delete().catch();
-    msg.reply(`Текущий баланс sms.ru: ${sms.balance}`);
+    let balance;
+        getInfoSMSRU('balance', balance)
+    msg.reply(`Текущий баланс sms.ru: ${balance}`);
   }
   if (msg.content == "лимиты sms"){
     msg.delete().catch();
-    msg.reply(`Текущий статус лимита по SMS.ru: ${sms.limit}`);
+    let limit;
+        getInfoSMSRU('limit', limit)
+    msg.reply(`Текущий статус лимита по SMS.ru: ${limit}`);
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
     msg.channel.send("Монета подбрасывается...");
@@ -722,16 +726,17 @@ cron.schedule( '*/30 * * * *', ()=> {
       limit; 
       getInfoSMSRU('balance', balance);
       getInfoSMSRU('limit', limit);
+      console.log('Баланс и лимиты - ' + balance + ' ' + limit)
   if (Number(Math.floor(balance)) >= 15000){
     client.channels.cache
   .get("844589763935207446")
   .send(`На sms.ru ${balance} руб. Все в порядке`);
   }
-  else if(Number(Math.floor(balance)) <= 15000 && Number(Math.floor(sms.balance)) >= 10000) {
+  else if(Number(Math.floor(balance)) <= 15000 && Number(Math.floor(balance)) >= 10000) {
     client.channels.cache
   .get("844589763935207446")
   .send(`На sms.ru ${balance} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
-  } else if(Number(Math.floor(balance)) <= 5000 && Number(Math.floor(sms.balance)) >= 2000) {
+  } else if(Number(Math.floor(balance)) <= 5000 && Number(Math.floor(balance)) >= 2000) {
     client.channels.cache
   .get("844589763935207446")
   .send(`@Rlathey, атеншен!!1
