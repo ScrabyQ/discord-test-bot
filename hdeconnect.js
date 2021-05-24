@@ -15,7 +15,7 @@ async function getTickets() {
     })
     if (response.ok){
         let res = await response.json();
-        module.exports.open_ticketes_count = res.pagination.total;
+        module.exports.open_ticketes_count = res//.pagination.total
         console.log(res)
 
         
