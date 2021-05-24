@@ -121,7 +121,7 @@ client.on("message", (msg) => {
       color: 3447003, 
       author: {
         name: client.user.username,
-        icon_url: client.user.avatarURL
+        icon_url: 'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg'
       },
       title: "Список команд для бота",
       url: ``, 
