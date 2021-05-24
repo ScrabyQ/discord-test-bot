@@ -164,7 +164,7 @@ client.on("message", (msg) => {
     msg.delete().catch();
     getInfoSMSRU();
     console.log('bal еще разок: ' + bal)
-    msg.reply(`Текущий баланс sms.ru: ${balance}`);
+    msg.reply(`Текущий баланс sms.ru: ${bal}`);
   }
   if (msg.content == "лимиты sms"){
     msg.delete().catch();
