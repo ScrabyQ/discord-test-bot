@@ -169,7 +169,9 @@ client.on("message", (msg) => {
   }
   if (msg.content == "лимиты sms"){
     msg.delete().catch();
-    msg.reply(`Текущий статус лимита по SMS.ru: ${123}`);
+    sms.my_limit((e) => {
+      msg.reply(`Текущий статус лимита по SMS.ru: ${e.current}/${e.total}`);
+    })
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
     msg.channel.send("Монета подбрасывается...");
