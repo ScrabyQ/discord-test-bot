@@ -4,21 +4,20 @@ const express = require('express')();
 const bp = require('body-parser');
 const cfg = require("./config.json");
 const mysql = require("mysql2");
-const sms = require('./smsru.js');
 var cron = require("node-cron");
+let SMSru = require('sms_ru');
+let config = require('./config.json');
+let sms = new SMSru(config.SMSRU_TOKEN);
+    
+
+
+
 let jsonParser = bp.json();
 express.use(bp.json())
 express.post('/dishook/slacontrole', jsonParser, (req, res) => {
-  client.channels.cache.get('844987698594054165').send(`Не забыли про заявку? :eyes: 
-  Время последней активности превысило полчаса!
-  Информация:
-  Тема тикета: ${req.body.name}
-  Оставил заявку: ${req.body.author}
-  Время последнего ответа: ${req.body.message}
-  Ссылка на тикет: https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`)
-
+  
   client.channels.cache.get('844987698594054165').send({embed: {
-    color: 15105570, 
+    color: 15294560, 
     author: {
       name: client.user.username,
       icon_url: client.user.avatarURL
@@ -703,12 +702,16 @@ cron.schedule("0 0 9 * * *", () => {
                 .get("835159002403831879")
                 .send("у меня для тебя ничего нет :cold_sweat:");
             }
+            let balance, 
+                limit; 
+                getInfoSMSRU('balance', balance);
+                getInfoSMSRU('limit', limit);
             client.channels.cache
             .get("844589763935207446")
-            .send(`На sms.ru ${sms.balance} руб.`);
+            .send(`На sms.ru ${balance} руб.`);
             client.channels.cache
             .get("844589763935207446")
-            .send(`Лимиты по смс - ${sms.limit}`);
+            .send(`Лимиты по смс - ${limit}`);
           }
         });
       }
@@ -716,24 +719,24 @@ cron.schedule("0 0 9 * * *", () => {
   }, 10000);
 });
 cron.schedule( '*/30 * * * *', ()=> {
-  let limit,
-      balance;
-      sms.getInfo(balance, limit);
-      console.log(balance + ' ' + limit)
-  if (Number(Math.floor(sms.balance)) >= 15000){
+  let balance, 
+      limit; 
+      getInfoSMSRU('balance', balance);
+      getInfoSMSRU('limit', limit);
+  if (Number(Math.floor(balance)) >= 15000){
     client.channels.cache
   .get("844589763935207446")
-  .send(`На sms.ru ${sms.balance} руб. Все в порядке`);
+  .send(`На sms.ru ${balance} руб. Все в порядке`);
   }
-  else if(Number(Math.floor(sms.balance)) <= 15000 && Number(Math.floor(sms.balance)) >= 10000) {
+  else if(Number(Math.floor(balance)) <= 15000 && Number(Math.floor(sms.balance)) >= 10000) {
     client.channels.cache
   .get("844589763935207446")
-  .send(`На sms.ru ${sms.balance} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
-  } else if(Number(Math.floor(sms.balance)) <= 5000 && Number(Math.floor(sms.balance)) >= 2000) {
+  .send(`На sms.ru ${balance} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
+  } else if(Number(Math.floor(balance)) <= 5000 && Number(Math.floor(sms.balance)) >= 2000) {
     client.channels.cache
   .get("844589763935207446")
   .send(`@Rlathey, атеншен!!1
-  На sms.ru ${sms.balance} руб.
+  На sms.ru ${balance} руб.
   Этого уже мало!`);
   } 
 })
@@ -753,5 +756,19 @@ function normaldateToISO(normal_date) {
   let data = normal_date.split(".");
   let iso = `${data[2]}-${data[1]}-${data[0]}`;
   return iso;
+}
+function getInfoSMSRU(type, val){
+ if (type === 'balance'){
+  sms.my_balance(function(e){
+    let res;
+    res = e.balance;
+    return val = res;
+  }) 
+ } else if (type === 'limit'){
+  sms.my_limit(function(e){
+    let res = e.current+'/'+e.total;
+    return val = res;
+})
+ }
 }
 client.login(cfg.TOKEN);
