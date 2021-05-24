@@ -10,7 +10,7 @@ let config = require('./config.json');
 let sms = new SMSru(config.SMSRU_TOKEN);
     
 
-let balance, 
+let bal, 
     limit;
 
 let jsonParser = bp.json();
@@ -163,6 +163,7 @@ client.on("message", (msg) => {
   if (msg.content == "sms"){
     msg.delete().catch();
     getInfoSMSRU();
+    console.log('bal еще разок: ' + bal)
     msg.reply(`Текущий баланс sms.ru: ${balance}`);
   }
   if (msg.content == "лимиты sms"){
@@ -747,11 +748,12 @@ function normaldateToISO(normal_date) {
   let iso = `${data[2]}-${data[1]}-${data[0]}`;
   return iso;
 }
-function getInfoSMSRU(type){
+function getInfoSMSRU(){
  
   sms.my_balance(function(e){
     
-    balance = e.balance;
+    bal = e.balance;
+    console.log('переменная bal: ' + bal)
   }) 
   
   sms.my_limit(function(e){
