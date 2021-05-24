@@ -115,7 +115,6 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 client.on("message", (msg) => {
-  console.log(msg.content)
   if (msg.content === '/h'){
     msg.delete().catch();
     msg.reply({embed: {
