@@ -6,7 +6,7 @@ const cfg = require("./config.json");
 const mysql = require("mysql2");
 var cron = require("node-cron");
 let SMSru = require('sms_ru');
-let hde = require('./hdeconnect')
+let hde = require('./hdeconnect.js')
 let config = require('./config.json');
 let sms = new SMSru(config.SMSRU_TOKEN);
     
