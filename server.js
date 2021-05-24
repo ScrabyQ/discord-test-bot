@@ -744,7 +744,7 @@ cron.schedule( '*/30 * * * *', ()=> {
     }
     client.channels.cache
     .get("844589763935207446")
-    .send(`количество не закрытых тикетов - ${hde.open_ticketes_count.pagination.total}`);
+    .send(`количество не закрытых тикетов - ${hde.open_ticketes_count}`);
     
   })
   

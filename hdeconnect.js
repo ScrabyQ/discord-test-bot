@@ -15,13 +15,13 @@ async function getTickets() {
     })
     if (response.ok){
         let res = await response.json();
-        module.exports.open_ticketes_count = res//.pagination.total
+        module.exports.open_ticketes_count = res.pagination.total;
         console.log(res)
 
         
     }
     else {
-        console.log('ошибка: ')
+        console.log('ошибка: ' + response.statusText)
     }
 }
 getTickets();
