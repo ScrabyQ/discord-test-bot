@@ -748,17 +748,17 @@ function normaldateToISO(normal_date) {
   let iso = `${data[2]}-${data[1]}-${data[0]}`;
   return iso;
 }
-function getInfoSMSRU(){
+async function getInfoSMSRU(){
  
   sms.my_balance(function(e){
     
-    bal = e.balance;
+     bal = await e.balance;
     console.log('переменная bal: ' + bal)
   }) 
   
   sms.my_limit(function(e){
-    let res = e.current+'/'+e.total;
-    limit = res;
+    let res = await e.current+'/'+e.total;
+    limit = await res;
 })
  
 }
