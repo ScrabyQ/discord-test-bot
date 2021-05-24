@@ -16,26 +16,62 @@ express.post('/dishook/slacontrole', jsonParser, (req, res) => {
   Оставил заявку: ${req.body.author}
   Время последнего ответа: ${req.body.message}
   Ссылка на тикет: https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`)
+
+  client.channels.cache.get('844987698594054165').send({embed: {
+    color: 15105570, 
+    author: {
+      name: client.user.username,
+      icon_url: client.user.avatarURL
+    },
+    title: "Не забыли про заявку?",
+    url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`, 
+    description: 'Время последней активности превысило полчаса!', 
+    fields: [{
+      name: "Тема тикета",
+      value: req.body.name
+    }, 
+    {
+      name: "Оставил заявку",
+      value: req.body.author
+    },
+    {
+      name: "Время последнего ответа",
+      value: req.body.message
+    }
+    ]
+  }})
+
   res.send('send to Discord channel')
   res.status(200).end();
 });
 express.post('/dishook/mess', jsonParser, (req, res) => {
-  client.channels.cache.get('844987698594054165').send(`Новый ответ в заявке! :eyes: 
-  Информация:
-  Тема тикета: ${req.body.name}
-  Оставил заявку: ${req.body.author}
-  Последний ответ: ${req.body.message}
-  Ссылка на тикет: https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`)
+  client.channels.cache.get('844987698594054165').send({embed: {
+    color: 15105570, 
+    author: {
+      name: client.user.username,
+      icon_url: client.user.avatarURL
+    },
+    title: "Новый ответ в тикете!",
+    url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`, 
+    description: 'Информация по новому ответу в тикете', 
+    fields: [{
+      name: "Тема тикета",
+      value: req.body.name
+    }, 
+    {
+      name: "Оставил заявку",
+      value: req.body.author
+    },
+    {
+      name: "Новое сообщение",
+      value: req.body.message
+    }
+    ]
+  }})
   res.send('send to Discord channel')
   res.status(200).end();
 });
 express.post('/dishook', jsonParser, (req, res) => {
-  client.channels.cache.get('844987698594054165').send(`Новая заяка в ХДЕ! :face_with_monocle:
-  Информация:
-  Тема тикета: ${req.body.name}
-  Оставил заявку: ${req.body.author}
-  Комментарий: ${req.body.message}
-  Ссылка на тикет: https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`)
 
   client.channels.cache.get('844987698594054165').send({embed: {
     color: 3447003, 
@@ -60,7 +96,6 @@ express.post('/dishook', jsonParser, (req, res) => {
     }
     ]
   }})
-  
   res.send('send to Discord channel')
   res.status(200).end();
 });
