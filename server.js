@@ -702,12 +702,17 @@ cron.schedule("0 0 9 * * *", () => {
                 .get("835159002403831879")
                 .send("у меня для тебя ничего нет :cold_sweat:");
             }
+            sms.my_balance((e) => {
             client.channels.cache
             .get("844589763935207446")
-            .send(`На sms.ru ${123} руб.`);
+            .send(`На sms.ru ${e.balance} руб.`);
+            })
+            sms.my_limit((e) => {
             client.channels.cache
             .get("844589763935207446")
-            .send(`Лимиты по смс - ${123}`);
+            .send(`Лимиты по смс - ${e.current}/${e.total}`);
+            })
+            
           }
         });
       }
@@ -716,23 +721,25 @@ cron.schedule("0 0 9 * * *", () => {
 });
 cron.schedule( '*/30 * * * *', ()=> {
 
-      console.log('Баланс и лимиты - ' +  + ' ' )
-  if (Number(Math.floor(123)) >= 15000){
-    client.channels.cache
-  .get("844589763935207446")
-  .send(`На sms.ru ${123} руб. Все в порядке`);
-  }
-  else if(Number(Math.floor(123)) <= 15000 && Number(Math.floor(123)) >= 10000) {
-    client.channels.cache
-  .get("844589763935207446")
-  .send(`На sms.ru ${123} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
-  } else if(Number(Math.floor(123)) <= 5000 && Number(Math.floor(123)) >= 2000) {
-    client.channels.cache
-  .get("844589763935207446")
-  .send(`@Rlathey, атеншен!!1
-  На sms.ru ${123} руб.
-  Этого уже мало!`);
-  } 
+  sms.my_balance((e) => {
+    if (Number(Math.floor(e.balance)) >= 15000){
+      client.channels.cache
+    .get("844589763935207446")
+    .send(`На sms.ru ${e.balance} руб. Все в порядке`);
+    }
+    else if(Number(Math.floor(e.balance)) <= 15000 && Number(Math.floor(e.balance)) >= 10000) {
+      client.channels.cache
+    .get("844589763935207446")
+    .send(`На sms.ru ${e.balance} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
+    } else if(Number(Math.floor(e.balance)) <= 5000 && Number(Math.floor(e.balance)) >= 2000) {
+      client.channels.cache
+    .get("844589763935207446")
+    .send(`@Rlathey, атеншен!!1
+    На sms.ru ${e.balance} руб.
+    Этого уже мало!`);
+    } 
+  })
+  
 })
 function username(discriminator) {
   const discriminators = {
