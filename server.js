@@ -118,6 +118,7 @@ client.on("ready", () => {
 client.on("message", (msg) => {
   console.log(msg.content)
   if (msg.content === '/h'){
+    msg.delete().catch();
     msg.reply({embed: {
       color: 3447003, 
       author: {
@@ -161,13 +162,16 @@ client.on("message", (msg) => {
     }})
   }
   if (msg.content === "ping") {
+    msg.delete().catch();
     msg.reply("pong");
     console.log(msg.author.username);
   }
   if (msg.content == "sms"){
+    msg.delete().catch();
     msg.reply(`Текущий баланс sms.ru: ${sms.balance}`);
   }
   if (msg.content == "лимиты sms"){
+    msg.delete().catch();
     msg.reply(`Текущий статус лимита по SMS.ru: ${sms.limit}`);
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
@@ -190,6 +194,7 @@ client.on("message", (msg) => {
     msg.content.toLowerCase() === "задачи" ||
     msg.content.toLowerCase() === "что там по задачкам?"
   ) {
+    msg.delete().catch();
     connection.connect(function (err) {
       if (err) {
         msg.reply("Не могу подключиться к БД");
@@ -230,6 +235,7 @@ client.on("message", (msg) => {
     });
   }
   if (/^задачи с/.test(msg.content.toLowerCase())) {
+    msg.delete().catch();
     let firstDate = normaldateToISO(msg.content.split("с ")[1].slice(0, 10));
     let secondDate = normaldateToISO(msg.content.split("по ")[1].slice(0, 10));
     console.log(firstDate);
@@ -273,6 +279,7 @@ client.on("message", (msg) => {
     });
   }
   if (msg.content.toLowerCase() == "мои задачи") {
+    msg.delete().catch();
     connection.connect(function (err) {
       if (err) {
         msg.reply("Не могу подключиться к БД");
@@ -315,6 +322,7 @@ client.on("message", (msg) => {
     });
   }
   if (/^мои задачи с/.test(msg.content.toLowerCase())) {
+    msg.delete().catch();
     let firstDate = normaldateToISO(msg.content.split("с ")[1].slice(0, 10));
     let secondDate = normaldateToISO(msg.content.split("по ")[1].slice(0, 10));
     console.log(firstDate);
@@ -366,6 +374,7 @@ client.on("message", (msg) => {
     });
   }
   if (msg.content.toLowerCase() == "выполненные задачи") {
+    msg.delete().catch();
     connection.connect(function (err) {
       if (err) {
         msg.reply("Не могу подключиться к БД");
@@ -409,6 +418,7 @@ client.on("message", (msg) => {
     });
   }
   if (/^выполненные задачи с/.test(msg.content.toLowerCase())) {
+    msg.delete().catch();
     let firstDate = normaldateToISO(msg.content.split("с ")[1].slice(0, 10));
     let secondDate = normaldateToISO(msg.content.split("по ")[1].slice(0, 10));
     console.log(firstDate);
@@ -458,6 +468,7 @@ client.on("message", (msg) => {
     });
   }
   if (msg.content.toLowerCase() == "мои выполненные задачи") {
+    msg.delete().catch();
     connection.connect(function (err) {
       if (err) {
         msg.reply("Не могу подключиться к БД");
@@ -503,6 +514,7 @@ client.on("message", (msg) => {
     });
   }
   if (/^мои выполненые задачи с/.test(msg.content.toLowerCase())) {
+    msg.delete().catch();
     let firstDate = normaldateToISO(msg.content.split("с ")[1].slice(0, 10));
     let secondDate = normaldateToISO(msg.content.split("по ")[1].slice(0, 10));
     console.log(firstDate);
