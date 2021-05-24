@@ -166,15 +166,11 @@ client.on("message", (msg) => {
   }
   if (msg.content == "sms"){
     msg.delete().catch();
-    let balance;
-        getInfoSMSRU('balance', balance)
-    msg.reply(`Текущий баланс sms.ru: ${balance}`);
+    msg.reply(`Текущий баланс sms.ru: ${getInfoSMSRU('balance')}`);
   }
   if (msg.content == "лимиты sms"){
     msg.delete().catch();
-    let limit;
-        getInfoSMSRU('limit', limit)
-    msg.reply(`Текущий статус лимита по SMS.ru: ${limit}`);
+    msg.reply(`Текущий статус лимита по SMS.ru: ${getInfoSMSRU('limit')}`);
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
     msg.channel.send("Монета подбрасывается...");
@@ -705,16 +701,12 @@ cron.schedule("0 0 9 * * *", () => {
                 .get("835159002403831879")
                 .send("у меня для тебя ничего нет :cold_sweat:");
             }
-            let balance, 
-                limit; 
-                getInfoSMSRU('balance', balance);
-                getInfoSMSRU('limit', limit);
             client.channels.cache
             .get("844589763935207446")
-            .send(`На sms.ru ${balance} руб.`);
+            .send(`На sms.ru ${getInfoSMSRU('balance')} руб.`);
             client.channels.cache
             .get("844589763935207446")
-            .send(`Лимиты по смс - ${limit}`);
+            .send(`Лимиты по смс - ${getInfoSMSRU('limit')}`);
           }
         });
       }
@@ -722,25 +714,21 @@ cron.schedule("0 0 9 * * *", () => {
   }, 10000);
 });
 cron.schedule( '*/30 * * * *', ()=> {
-  let balance, 
-      limit; 
-      getInfoSMSRU('balance', balance);
-      getInfoSMSRU('limit', limit);
-      console.log('Баланс и лимиты - ' + balance + ' ' + limit)
-  if (Number(Math.floor(balance)) >= 15000){
+      console.log('Баланс и лимиты - ' + getInfoSMSRU('balance') + ' ' + getInfoSMSRU('limit'))
+  if (Number(Math.floor(getInfoSMSRU('balance'))) >= 15000){
     client.channels.cache
   .get("844589763935207446")
-  .send(`На sms.ru ${balance} руб. Все в порядке`);
+  .send(`На sms.ru ${getInfoSMSRU('balance')} руб. Все в порядке`);
   }
-  else if(Number(Math.floor(balance)) <= 15000 && Number(Math.floor(balance)) >= 10000) {
+  else if(Number(Math.floor(getInfoSMSRU('balance'))) <= 15000 && Number(Math.floor(getInfoSMSRU('balance'))) >= 10000) {
     client.channels.cache
   .get("844589763935207446")
-  .send(`На sms.ru ${balance} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
-  } else if(Number(Math.floor(balance)) <= 5000 && Number(Math.floor(balance)) >= 2000) {
+  .send(`На sms.ru ${getInfoSMSRU('balance')} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
+  } else if(Number(Math.floor(getInfoSMSRU('balance'))) <= 5000 && Number(Math.floor(getInfoSMSRU('balance'))) >= 2000) {
     client.channels.cache
   .get("844589763935207446")
   .send(`@Rlathey, атеншен!!1
-  На sms.ru ${balance} руб.
+  На sms.ru ${getInfoSMSRU('balance')} руб.
   Этого уже мало!`);
   } 
 })
@@ -761,17 +749,17 @@ function normaldateToISO(normal_date) {
   let iso = `${data[2]}-${data[1]}-${data[0]}`;
   return iso;
 }
-function getInfoSMSRU(type, val){
+function getInfoSMSRU(type){
  if (type === 'balance'){
   sms.my_balance(function(e){
     let res;
     res = e.balance;
-    return val = res;
+    return res;
   }) 
  } else if (type === 'limit'){
   sms.my_limit(function(e){
     let res = e.current+'/'+e.total;
-    return val = res;
+    return res;
 })
  }
 }
