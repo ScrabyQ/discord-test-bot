@@ -20,7 +20,7 @@ express.post('/dishook/slacontrole', jsonParser, (req, res) => {
     color: 15294560, 
     author: {
       name: client.user.username,
-      icon_url: client.user.avatarURL
+      icon_url: 'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg'
     },
     title: "Не забыли про заявку?",
     url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`, 
@@ -48,7 +48,7 @@ express.post('/dishook/mess', jsonParser, (req, res) => {
     color: 15105570, 
     author: {
       name: client.user.username,
-      icon_url: client.user.avatarURL
+      icon_url: 'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg'
     },
     title: "Новый ответ в тикете!",
     url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`, 
@@ -76,7 +76,7 @@ express.post('/dishook', jsonParser, (req, res) => {
     color: 3447003, 
     author: {
       name: client.user.username,
-      icon_url: client.user.avatarURL
+      icon_url: 'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg'
     },
     title: "Новый заявка в HDE!",
     url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`, 
