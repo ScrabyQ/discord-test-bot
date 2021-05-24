@@ -6,6 +6,7 @@ const cfg = require("./config.json");
 const mysql = require("mysql2");
 var cron = require("node-cron");
 let SMSru = require('sms_ru');
+let hde = require('./hdeconnect')
 let config = require('./config.json');
 let sms = new SMSru(config.SMSRU_TOKEN);
     
@@ -163,7 +164,7 @@ client.on("message", (msg) => {
   if (msg.content == "sms"){
     msg.delete().catch();
     sms.my_balance( function(e){
-      msg.reply(`Текущий баланс sms.ru: ${e.balance}`);
+      msg.reply(`Текущий баланс sms.ru: ${e.balance}`, {tts: true});
    }) 
    
   }
@@ -172,6 +173,9 @@ client.on("message", (msg) => {
     sms.my_limit((e) => {
       msg.reply(`Текущий статус лимита по SMS.ru: ${e.current}/${e.total}`);
     })
+  }
+  if (msg.content === "тикеты"){
+    msg.reply(`Количество не закрытых тикетов - ${hde.open_ticketes_count}`, {tts: true})
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
     msg.channel.send("Монета подбрасывается...");
@@ -737,7 +741,11 @@ cron.schedule( '*/30 * * * *', ()=> {
     .send(`@Rlathey, атеншен!!1
     На sms.ru ${e.balance} руб.
     Этого уже мало!`);
-    } 
+    }
+    client.channels.cache
+    .get("844589763935207446")
+    .send(`количество не закрытых тикетов - ${hde.open_ticketes_count}`);
+    
   })
   
 })
