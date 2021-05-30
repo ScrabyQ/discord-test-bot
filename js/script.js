@@ -5,7 +5,7 @@ let api = fetch('/get_tasks').then((response) => {
 }).then((data) => {
     tasks = data;
 }).then(() => {
-    for (element in tasks){
+    for (let element in tasks){
         console.log(element)
         let div = document.createElement('div');
         div.className = 'col-sm-6';
