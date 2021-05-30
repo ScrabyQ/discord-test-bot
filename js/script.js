@@ -12,7 +12,7 @@ let api = fetch('/get_tasks').then((response) => {
         div.innerHTML = `
     <div class="card-header">
     ${tasks[element].id}
-    <button name="delete" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">удалить</button>
+    <button class="btn btn-outline-dark btn-sm delete" style="float: right; margin-bottom: 10px;">удалить</button>
     <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">выполнить</a>
     </div>
     <div class="card-body">
