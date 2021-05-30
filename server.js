@@ -89,7 +89,10 @@ app.post('/delete_task', jsonParser, (req, res)=> {
 })
 app.post('/create_task', url_encode, (req, res) => {
 console.log(sitedateToISO(req.body.deadline))
-res.redirect('index.html')
+let queryData = `INSERT INTO inWorkTasks(head, description, deadline, responsible, created_at) VALUES('${
+  req.body.head
+}', '${req.body.description}', '${req.body.deadline}', '${req.body.responsible}', '${today}')`;
+res.redirect('index.html');
 res.status(200).end();
 })
 app.post('/dishook/slacontrole', jsonParser, (req, res) => {
