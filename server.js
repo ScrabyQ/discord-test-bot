@@ -88,13 +88,9 @@ app.post('/delete_task', jsonParser, (req, res)=> {
   }
 })
 app.post('/create_task', url_encode, (req, res) => {
-console.log(req.body.deadline)
+console.log(sitedateToISO(req.body.deadline))
 res.redirect('index.html')
-// res.sendFile('index.html', { root: __dirname })
 res.status(200).end();
-})
-app.use('/create_task', (req, res) => {
-  res.redirect('index.html')
 })
 app.post('/dishook/slacontrole', jsonParser, (req, res) => {
   
@@ -837,6 +833,11 @@ function username(discriminator) {
 function normaldateToISO(normal_date) {
   let data = normal_date.split(".");
   let iso = `${data[2]}-${data[1]}-${data[0]}`;
+  return iso;
+}
+function sitedateToISO(site_date){
+  let data = normal_date.split("/");
+  let iso = `${data[2]}-${data[0]}-${data[1]}`;
   return iso;
 }
  
