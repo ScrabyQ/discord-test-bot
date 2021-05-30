@@ -92,6 +92,9 @@ console.log(sitedateToISO(req.body.deadline))
 let queryData = `INSERT INTO inWorkTasks(head, description, deadline, responsible, created_at) VALUES('${
   req.body.head
 }', '${req.body.description}', '${req.body.deadline}', '${req.body.responsible}', '${today}')`;
+connection.query(queryData, (err, data) => {
+  err ? console.log(err) : console.log('task has been created');
+})
 res.redirect('index.html');
 res.status(200).end();
 })
