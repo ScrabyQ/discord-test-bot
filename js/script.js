@@ -12,7 +12,7 @@ let api = fetch('/get_tasks').then((response) => {
         div.innerHTML = `
     <div class="card-header">
     ${tasks[element].id}
-    <button class="btn btn-outline-dark btn-sm delete" style="float: right; margin-bottom: 10px;">удалить</button>
+    <button id="${tasks[element].id}" class="btn btn-outline-dark btn-sm delete" style="float: right; margin-bottom: 10px;">удалить</button>
     <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">выполнить</a>
     </div>
     <div class="card-body">
@@ -45,9 +45,15 @@ div.innerHTML = `
     document.getElementById('row').append(div)
 })
 
-// let delete_buttons = document.getElementsByClassName('.btn-outline-dark')
-// for (let key in delete_buttons){
-//     delete_buttons[key].addEventListener('click', ()=>{
-//         fetch('/delete_itw')
-//     })
-// }
+let delete_buttons = document.getElementsByClassName('delete')
+for (let key in delete_buttons){
+    delete_buttons[key].addEventListener('click', ()=>{
+        let body = {
+            id: delete_buttons[key].id
+        }
+        fetch('/delete_itw', {
+            method: 'POST',
+
+        })
+    })
+}
