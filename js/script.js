@@ -1,9 +1,11 @@
 'use strict';
 
 let api = fetch('/get_tasks').then((response) => {
-    return response.json() 
+    return response.json()
+}).then((data) => {
+    console.log(data);
 }); 
-console.log(api[0].id)
+console.log(api)
 
 document.getElementById('listen').addEventListener('click', () => {
     let div = document.createElement('div');
