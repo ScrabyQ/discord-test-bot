@@ -88,7 +88,7 @@ app.post('/delete_task', jsonParser, (req, res)=> {
   }
 })
 app.post('/create_task', url_encode, (req, res) => {
-console.log(req.body.responsible)
+console.log(req.body.datepicker)
 
 })
 app.post('/dishook/slacontrole', jsonParser, (req, res) => {
