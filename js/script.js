@@ -12,11 +12,11 @@ let api = fetch('/get_tasks').then((response) => {
         div.innerHTML = `
     <div class="card-header">
     ${tasks[element].id}
+    <a href="#" class="btn btn-primary">Редактировать</a>
     </div>
     <div class="card-body">
     <h5 class="card-title">${tasks[element].head}</h5>
     <p class="card-text">${tasks[element].description}</p>
-    <a href="#" class="btn btn-primary">Редактировать</a>
     </div>
     `
         document.getElementById('row').append(div)
