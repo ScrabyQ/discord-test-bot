@@ -13,7 +13,6 @@ let api = fetch('/get_done_tasks').then((response) => {
     <div class="card-header">
     ${tasks[element].id}
     <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">удалить</a>
-    <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">выполнить</a>
     </div>
     <div class="card-body">
     <h5 class="card-title">${tasks[element].head}</h5>
