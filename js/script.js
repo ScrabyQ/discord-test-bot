@@ -3,7 +3,7 @@
 let api = fetch('/get_tasks').then((response) => {
     return response.json() 
 }); 
-console.log(api)
+console.log(api[0].id)
 
 document.getElementById('listen').addEventListener('click', () => {
     let div = document.createElement('div');
