@@ -93,8 +93,8 @@ res.send('готово')
 res.sendFile('index.html', { root: __dirname })
 res.status(200).end();
 })
-app.get('/create_task', (req, res) => {
-  res.sendFile('index.html', { root: __dirname })
+app.use('/create_task', (req, res) => {
+  res.redirect('index.html')
 })
 app.post('/dishook/slacontrole', jsonParser, (req, res) => {
   
