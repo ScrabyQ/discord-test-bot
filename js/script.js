@@ -46,7 +46,9 @@ div.innerHTML = `
 })
 
 let delete_buttons = document.getElementsByClassName('delete')
-for (let key in delete_buttons){
+delete_buttons.forEach(key => {
+    
+
     delete_buttons[key].addEventListener('click', ()=>{
         let body = {
             id: delete_buttons[key].id
@@ -56,4 +58,4 @@ for (let key in delete_buttons){
 
         })
     })
-}
+});
