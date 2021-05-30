@@ -87,7 +87,10 @@ app.post('/delete_task', jsonParser, (req, res)=> {
   })
   }
 })
+app.post('/create_task', url_encode, (req, res) => {
+console.log(req.body.responsible)
 
+})
 app.post('/dishook/slacontrole', jsonParser, (req, res) => {
   
   client.channels.cache.get('844987698594054165').send({embed: {

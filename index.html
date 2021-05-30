@@ -41,7 +41,51 @@
 
       <div class="container" id="container">
        
-          <h1 id='listen'>Акутальные задачи</h1><br>
+          <h1 id='listen' style="display: inline-block;">Акутальные задачи</h1>
+<button style="float: right;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#ctask">Добавить задачу</button>
+  
+  <div class="modal fade" id="ctask" tabindex="-1" role="dialog" aria-labelledby="ctaskLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Добавление задачи</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <h1>Добавление задачи</h1>
+            <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Заголовок задачи:</label>
+                  <input name="head" type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Описание:</label>
+                  <textarea name="description" class="form-control" id="message-text"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="datepicker" class="col-form-label">Крайний срок:</label>
+                    <input name="deadline" type="text" class="form-control" id="datepicker">
+                  </div>
+                  <div class="form-group">
+                    <label for="responsible" class="col-form-label">Ответственный:</label>
+                    <input name="responsible" list="resp"type="text" class="form-control" id="responsible">
+                    <datalist id="resp">
+                        <option value="Власов Дмитрий"/>
+                        <option value="Садовников Сергей"/>
+                        <option value="Шишкин Валерий"/>
+                    </datalist>
+                  </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Передумал</button>
+          <button type="submit" class="btn btn-primary">Поставить задачу</button>
+        </div>
+      </div>
+    </div>
+  </div>
           <!-- <form action="iwt_filter" method="GET">
             <input name="date1" type="text" id="datepicker">
             <input type="date2" id="datepicker1">
@@ -50,13 +94,7 @@
           <div class="row" id="row">
 
           </div>
-
-        
-      </div>
-
-      
-      
-      
+    </div>
       <script src="js/script.js"></script>
 </body>
 </html>
