@@ -35,7 +35,7 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
  })
 //#endregion
 app.get('/get_tasks', (req, res) => {
-  connection.query('SELECT * FROM InWorkTasks', (err, data) => {
+  connection.query('SELECT * FROM inWorkTasks', (err, data) => {
     console.log(data); 
     console.log(typeof(data))
     res.json(data);
