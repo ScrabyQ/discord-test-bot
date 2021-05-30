@@ -32,11 +32,12 @@ console.log(typeof(delete_buttons))
 console.log(delete_buttons)
 
 delete_buttons.forEach(key => {
-    console.log(key)
+    console.log(key.id)
     key.addEventListener('click', ()=>{
         console.log('click')
         let data = {
-            id: key.id
+            id: key.id,
+            random_text: 'привет'
         }
         fetch('/delete_itw', {
             method: 'POST',
