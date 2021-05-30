@@ -836,7 +836,7 @@ function normaldateToISO(normal_date) {
   return iso;
 }
 function sitedateToISO(site_date){
-  let data = normal_date.split("/");
+  let data = site_date.split("/");
   let iso = `${data[2]}-${data[0]}-${data[1]}`;
   return iso;
 }
