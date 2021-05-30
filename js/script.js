@@ -12,7 +12,7 @@ let api = fetch('/get_tasks').then((response) => {
         div.innerHTML = `
     <div class="card-header">
     ${tasks[element].id}
-    <a href="#" class="btn btn-dark btn-sm" style="float: right; margin-bottom: 10px;">Редактировать</a>
+    <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">Редактировать</a>
     </div>
     <div class="card-body">
     <h5 class="card-title">${tasks[element].head}</h5>
