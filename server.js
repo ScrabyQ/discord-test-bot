@@ -46,6 +46,11 @@ app.get('/get_tasks', (req, res) => {
     res.json(data);
   })
 })
+app.get('/get_done_tasks', (req, res) => {
+  connection.query('SELECT * FROM doneTasks', (err, data) => {
+    res.json(data);
+  })
+})
 app.get('/iwt_filter', (err, data) => {
   let queryDate = `SELECT * 
   FROM inWorkTasks 
