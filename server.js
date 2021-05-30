@@ -88,7 +88,7 @@ app.post('/delete_task', jsonParser, (req, res)=> {
   }
 })
 app.post('/create_task', url_encode, (req, res) => {
-console.log(req.body.datepicker)
+console.log(req.body.deadline)
 res.status(200).end();
 })
 app.get('/create_task', (req, res) => {
