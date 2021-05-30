@@ -46,7 +46,7 @@ div.innerHTML = `
 })
 
 let delete_buttons = document.getElementsByClassName('delete')
-delete_buttons.array.forEach(key => {
+forEach.call(delete_buttons, key => {
     
 
     delete_buttons[key].addEventListener('click', ()=>{
