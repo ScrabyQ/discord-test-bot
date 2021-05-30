@@ -17,6 +17,8 @@ let api = fetch('/get_done_tasks').then((response) => {
     <div class="card-body">
     <h5 class="card-title">${tasks[element].head}</h5>
     <p class="card-text">${tasks[element].description}</p>
+    <p class="card-text">${tasks[element].deadline}</p>
+    <p class="card-text">${tasks[element].responsible_user}</p>
     </div>
     `
         document.getElementById('row').append(div)
