@@ -26,7 +26,7 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
 //#endregion
 app.get('/get_tasks', (req, res) => {
   connection.query('SELECT * FROM InWorkTasks', (err, data) => {
-    res.send(data);
+    res.send(JSON.stringify(data));
   })
 })
 app.post('/dishook/slacontrole', jsonParser, (req, res) => {
