@@ -12,7 +12,7 @@ let api = fetch('/get_tasks').then((response) => {
         div.innerHTML = `
     <div class="card-header">
     ${tasks[element].id}
-    <button id="${tasks[element].id}" class="btn btn-outline-dark btn-sm delete" style="float: right; margin-bottom: 10px;">удалить</button>
+    <button id="${tasks[element].id}" class="btn btn-outline-dark btn-sm delete" style="float: right; margin-bottom: 10px;">x</button>
     <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">выполнить</a>
     </div>
     <div class="card-body">
@@ -36,8 +36,7 @@ delete_buttons.forEach(key => {
     key.addEventListener('click', ()=>{
         console.log('click')
         let data = {
-            id: key.id,
-            random_text: 'привет'
+            id: key.id
         }
         fetch('/delete_itw', {
             method: 'POST',
