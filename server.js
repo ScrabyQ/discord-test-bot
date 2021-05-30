@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const express = require('express')();
 const bp = require('body-parser');
+const fs = require('fs');
 const cfg = require("./config.json");
 const mysql = require("mysql2");
 var cron = require("node-cron");
@@ -16,6 +17,25 @@ let bal,
 
 let jsonParser = bp.json();
 express.use(bp.json())
+//#region подгрузка страниц и компонентов
+express.get('/', (req, res) => {
+  let htmlpage = fs.readFile('index.html', (err, data) => {
+    err ? console.log(err) : console.log('data index.html has been writed');
+  });
+  res.send(htmlpage);
+})
+express.get('/js/script.js', (req, res) => {
+  let js_component = fs.readFile('js/script.js', (err, data) => {
+    err ? console.log(err) : console.log('data script.js has been writed')
+  });
+  res.send(js_component);
+})
+//#endregion
+express.get('/get_tasks', (req, res) => {
+  connection.query('SELECT * FROM InWorkTasks', (err, data) => {
+    res.send(data);
+  })
+})
 express.post('/dishook/slacontrole', jsonParser, (req, res) => {
   
   client.channels.cache.get('844987698594054165').send({embed: {
@@ -175,6 +195,7 @@ client.on("message", (msg) => {
     })
   }
   if (msg.content === "тикеты"){
+    msg.delete().catch();
     msg.reply(`Количество не закрытых тикетов - ${hde.open_ticketes_count}`, {tts: true})
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
