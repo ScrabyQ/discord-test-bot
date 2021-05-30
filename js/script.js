@@ -33,7 +33,7 @@ console.log(delete_buttons)
 
 delete_buttons.forEach(key => {
     console.log(key)
-    delete_buttons[key].addEventListener('click', ()=>{
+    key.addEventListener('click', ()=>{
         console.log('click')
         let body = {
             id: delete_buttons[key].id
