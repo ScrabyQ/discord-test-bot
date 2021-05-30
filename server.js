@@ -90,7 +90,8 @@ app.post('/delete_task', jsonParser, (req, res)=> {
 app.post('/create_task', url_encode, (req, res) => {
 console.log(req.body.deadline)
 res.send('готово')
-res.sendFile('index.html', { root: __dirname })
+res.redirect('index.html')
+// res.sendFile('index.html', { root: __dirname })
 res.status(200).end();
 })
 app.use('/create_task', (req, res) => {
