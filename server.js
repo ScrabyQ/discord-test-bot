@@ -75,7 +75,7 @@ app.post('/iwt_filter', url_encode, (req, res) => {
   res.status(200);
 })
 app.post('/delete_itw', jsonParser, (res, req)=> {
-  console.log(JSON.parse(res.body))
+  console.log(res.body.id)
   let queryData = `delete from inWorkTasks where id="${res.body.id}"`
   connection.query(queryData, (err, data) => {
     err ? console.log(err) : console.log('data has been deleted');

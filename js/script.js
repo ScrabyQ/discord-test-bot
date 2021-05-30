@@ -35,12 +35,12 @@ delete_buttons.forEach(key => {
     console.log(key)
     key.addEventListener('click', ()=>{
         console.log('click')
-        let body = {
+        let data = {
             id: key.id
         }
         fetch('/delete_itw', {
             method: 'POST',
-            body: JSON.stringify(body)
+            body: JSON.stringify(data)
         })
         window.location.reload();
     })
