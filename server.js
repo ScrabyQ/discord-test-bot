@@ -19,10 +19,10 @@ let jsonParser = bp.json();
 express.use(bp.json())
 //#region подгрузка страниц и компонентов
 express.get('/index.html', (req, res) => {
-  res.sendFile('index.html');
+  res.sendFile('index.html', { root: __dirname });
 })
 express.get('/js/script.js', (req, res) => {
-  res.send('js/script.js');
+  res.send('js/script.js', { root: __dirname });
 })
 //#endregion
 express.get('/get_tasks', (req, res) => {
