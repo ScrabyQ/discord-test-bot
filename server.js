@@ -19,7 +19,7 @@ app.use(bp.json())
 //#region подгрузка страниц и компонентов
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
-  res.status(200).end();
+  
 })
  app.get('/js/script.js', (req, res) => {
    res.sendFile('js/script.js', { root: __dirname });
