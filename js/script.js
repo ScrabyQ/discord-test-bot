@@ -6,6 +6,7 @@ let api = fetch('/get_tasks').then((response) => {
     tasks = data;
 }); 
 for (element in tasks){
+    console.log(element)
     let div = document.createElement('div');
     div.className = 'col-sm-6';
     div.innerHTML = `
