@@ -20,9 +20,9 @@ app.use(bp.json())
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 })
-// express.get('/js/script.js', (req, res) => {
-//   res.send('js/script.js', { root: __dirname });
-// })
+ app.get('/js/script.js', (req, res) => {
+   res.sendFile('js/script.js', { root: __dirname });
+ })
 //#endregion
 app.get('/get_tasks', (req, res) => {
   connection.query('SELECT * FROM InWorkTasks', (err, data) => {
