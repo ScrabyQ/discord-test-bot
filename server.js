@@ -32,7 +32,9 @@ app.use(url_encode)
 //#region подгрузка страниц и компонентов
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
-  
+})
+app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
+  res.sendFile('index.html', { root: __dirname });
 })
  app.get('/js/script.js', (req, res) => {
    res.sendFile('js/script.js', { root: __dirname });
@@ -46,7 +48,7 @@ app.get('/get_tasks', (req, res) => {
     res.json(data);
   })
 })
-app.get('/get_done_tasks', (req, res) => {
+app.get('/donetasks/done.html', (req, res) => {
   connection.query('SELECT * FROM doneTasks', (err, data) => {
     res.json(data);
   })
