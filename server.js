@@ -15,8 +15,11 @@ let sms = new SMSru(config.SMSRU_TOKEN);
     
 
 let jsonParser = bp.json();
+let url_encode = bp.urlencoded({extended: true});
 
 let today = new Date().toISOString().split("T")[0];
+
+let date1, date2;
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -25,6 +28,7 @@ const connection = mysql.createConnection({
 });
 
 app.use(bp.json())
+app.use(url_encode)
 //#region подгрузка страниц и компонентов
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
@@ -33,14 +37,34 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
  app.get('/js/script.js', (req, res) => {
    res.sendFile('js/script.js', { root: __dirname });
  })
+ app.get('/iwt/script.js', (req, res) => {
+  res.sendFile('iwt/script.js', { root: __dirname });
+})
 //#endregion
 app.get('/get_tasks', (req, res) => {
   connection.query('SELECT * FROM inWorkTasks', (err, data) => {
-    console.log(data); 
-    console.log(typeof(data))
     res.json(data);
   })
 })
+app.get('/iwt_filter', (err, data) => {
+  let queryDate = `SELECT * 
+  FROM inWorkTasks 
+  WHERE DATE(created_at) 
+  BETWEEN 
+  STR_TO_DATE("${date1}", "%Y-%m-%d") 
+  and
+  STR_TO_DATE("${date2}", "%Y-%m-%d")`;
+  connection.query(queryDate, (err, data) => {
+    res.json(data);
+  })
+})
+app.post('/iwt_filter', url_encode, (req, res) => {
+  date1 = req.body.date1;
+  date2 = req.body.date2;
+  res.sendFile('iwt/data.html', {root: __dirname})
+  res.status(200);
+})
+
 app.post('/dishook/slacontrole', jsonParser, (req, res) => {
   
   client.channels.cache.get('844987698594054165').send({embed: {
