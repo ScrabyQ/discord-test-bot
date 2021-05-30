@@ -15,7 +15,7 @@ let api = fetch('/get_tasks').then((response) => {
     <button id="${tasks[element].id}" class="btn btn-outline-danger btn-sm delete" style="float: right; margin-bottom: 10px;">X</button>
     <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">выполнить</a>
     </div>
-    <div class="card-body" style="border: 1px solid black">
+    <div class="card-body" style="border: 1px solid #d8d8d8">
     <h5 class="card-title">${tasks[element].head}</h5>
     <p class="card-text">${tasks[element].description}</p>
     <p class="card-text">${tasks[element].deadline}</p>
