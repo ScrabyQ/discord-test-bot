@@ -7,6 +7,7 @@ const bp = require('body-parser');
 const fs = require('fs');
 const cfg = require("./config.json");
 const mysql = require("mysql2");
+var cron = require("node-cron");
 let SMSru = require('sms_ru');
 let hde = require('./hdeconnect.js')
 let config = require('./config.json');
@@ -27,7 +28,7 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
 //#endregion
 app.get('/get_tasks', (req, res) => {
   connection.query('SELECT * FROM InWorkTasks', (err, data) => {
-    res.json(JSON.stringify(data));
+    res.json (JSON.stringify(data));
   })
 })
 app.post('/dishook/slacontrole', jsonParser, (req, res) => {
