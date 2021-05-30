@@ -49,7 +49,7 @@ let delete_buttons = document.querySelectorAll('.delete')
 console.log(typeof(delete_buttons))
 console.log(delete_buttons)
 
-for (let key in delete_buttons){
+delete_buttons.forEach(key => {
     console.log(key)
     delete_buttons[key].addEventListener('click', ()=>{
 
@@ -61,5 +61,5 @@ for (let key in delete_buttons){
             body: JSON.stringify(body)
         })
     })
-}
+});
    
