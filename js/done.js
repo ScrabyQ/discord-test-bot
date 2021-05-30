@@ -19,7 +19,7 @@ let api = fetch('/get_done_tasks').then((response) => {
     <p class="card-text">${tasks[element].description}</p>
     <p class="card-text">${tasks[element].deadline}</p>
     <p class="card-text">${tasks[element].responsible}</p>
-    <p class="card-text">выполнена: ${tasks[element].done_at}</p>
+    <p class="card-text">выполнена: ${tasks[element].done_at.split('T')[0]}</p>
     </div>
     `
         document.getElementById('row').append(div)

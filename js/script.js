@@ -12,7 +12,7 @@ let api = fetch('/get_tasks').then((response) => {
         div.innerHTML = `
     <div class="card-header">
     ${tasks[element].id}
-    <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">удалить</a>
+    <button name="delete" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">удалить</button>
     <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">выполнить</a>
     </div>
     <div class="card-body">
@@ -20,7 +20,7 @@ let api = fetch('/get_tasks').then((response) => {
     <p class="card-text">${tasks[element].description}</p>
     <p class="card-text">${tasks[element].deadline}</p>
     <p class="card-text">${tasks[element].responsible}</p>
-    <p class="card-text">поставлена: ${tasks[element].created_at}</p>
+    <p class="card-text">поставлена: ${tasks[element].created_at.split('T')[0]}</p>
 
     </div>
     `
@@ -44,3 +44,10 @@ div.innerHTML = `
 `
     document.getElementById('row').append(div)
 })
+
+// let delete_buttons = document.getElementsByClassName('.btn-outline-dark')
+// for (let key in delete_buttons){
+//     delete_buttons[key].addEventListener('click', ()=>{
+//         fetch('/delete_itw')
+//     })
+// }
