@@ -15,6 +15,15 @@ let sms = new SMSru(config.SMSRU_TOKEN);
     
 
 let jsonParser = bp.json();
+
+let today = new Date().toISOString().split("T")[0];
+const connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  database: "discordTasks",
+  password: "password",
+});
+
 app.use(bp.json())
 //#region подгрузка страниц и компонентов
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
@@ -120,14 +129,6 @@ app.listen('3030', () => {
   console.log("3030")
 });
 
-
-let today = new Date().toISOString().split("T")[0];
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "discordTasks",
-  password: "password",
-});
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
