@@ -18,6 +18,10 @@ let api = fetch('/get_tasks').then((response) => {
     <div class="card-body">
     <h5 class="card-title">${tasks[element].head}</h5>
     <p class="card-text">${tasks[element].description}</p>
+    <p class="card-text">${tasks[element].deadline}</p>
+    <p class="card-text">${tasks[element].responsible}</p>
+    <p class="card-text">поставлена: ${tasks[element].created_at}</p>
+
     </div>
     `
         document.getElementById('row').append(div)
