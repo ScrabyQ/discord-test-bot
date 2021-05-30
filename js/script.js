@@ -49,16 +49,17 @@ let delete_buttons = document.querySelectorAll('.delete')
 console.log(typeof(delete_buttons))
 console.log(delete_buttons)
 
-// forEach.call(delete_buttons, key => {
-    
+for (let key in delete_buttons){
+    console.log(key)
+    delete_buttons[key].addEventListener('click', ()=>{
 
-//     delete_buttons[key].addEventListener('click', ()=>{
-//         let body = {
-//             id: delete_buttons[key].id
-//         }
-//         fetch('/delete_itw', {
-//             method: 'POST',
-
-//         })
-//     })
-// });
+        let body = {
+            id: delete_buttons[key].id
+        }
+        fetch('/delete_itw', {
+            method: 'POST',
+            body: JSON.stringify(body)
+        })
+    })
+}
+   
