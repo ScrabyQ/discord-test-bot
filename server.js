@@ -18,7 +18,7 @@ let bal,
 let jsonParser = bp.json();
 express.use(bp.json())
 //#region подгрузка страниц и компонентов
-express.get('/', (req, res) => {
+express.get('/index.html', (req, res) => {
   let htmlpage = fs.readFile('index.html', (err, data) => {
     err ? console.log(err) : console.log('data index.html has been writed');
   });
