@@ -19,16 +19,10 @@ let jsonParser = bp.json();
 express.use(bp.json())
 //#region подгрузка страниц и компонентов
 express.get('/index.html', (req, res) => {
-  let htmlpage = fs.readFile('index.html', (err, data) => {
-    err ? console.log(err) : console.log('data index.html has been writed');
-  });
-  res.send(htmlpage);
+  res.sendFile('index.html');
 })
 express.get('/js/script.js', (req, res) => {
-  let js_component = fs.readFile('js/script.js', (err, data) => {
-    err ? console.log(err) : console.log('data script.js has been writed')
-  });
-  res.send(js_component);
+  res.send('js/script.js');
 })
 //#endregion
 express.get('/get_tasks', (req, res) => {
