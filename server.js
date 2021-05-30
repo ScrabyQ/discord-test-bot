@@ -74,11 +74,18 @@ app.post('/iwt_filter', url_encode, (req, res) => {
   res.sendFile('iwt/data.html', {root: __dirname})
   res.status(200);
 })
-app.post('/delete_itw', jsonParser, (req, res)=> {
-  let queryData = `delete from inWorkTasks where id="${req.body.id}"`
-  connection.query(queryData, (err, data) => {
+app.post('/delete_task', jsonParser, (req, res)=> {
+  if (req.body.type === 'itw'){
+    let queryData = `delete from inWorkTasks where id="${req.body.id}"`
+    connection.query(queryData, (err, data) => {
     err ? console.log(err) : console.log('data has been deleted');
   })
+  } else if (req.body.type === 'dt'){
+    let queryData = `delete from doneTasks where id="${req.body.id}"`
+    connection.query(queryData, (err, data) => {
+    err ? console.log(err) : console.log('data has been deleted');
+  })
+  }
 })
 
 app.post('/dishook/slacontrole', jsonParser, (req, res) => {

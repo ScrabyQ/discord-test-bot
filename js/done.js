@@ -12,7 +12,7 @@ let api = fetch('/get_done_tasks').then((response) => {
         div.innerHTML = `
     <div class="card-header">
     ${tasks[element].id}
-    <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">удалить</a>
+    <button id="${tasks[element].id}" class="btn btn-outline-danger btn-sm delete" style="float: right; margin-bottom: 10px;">X</button>
     </div>
     <div class="card-body">
     <h5 class="card-title">${tasks[element].head}</h5>
@@ -24,6 +24,29 @@ let api = fetch('/get_done_tasks').then((response) => {
     `
         document.getElementById('row').append(div)
     };
+}).then(() => {
+    let delete_buttons = document.querySelectorAll('.delete')
+    console.log(typeof(delete_buttons))
+    console.log(delete_buttons)
+    
+    delete_buttons.forEach(key => {
+        console.log(key.id)
+        key.addEventListener('click', ()=>{
+            console.log('click')
+            let data = {
+                id: key.id,
+                type: 'dt'
+            }
+            fetch('/delete_task', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            window.location.reload();
+        })
+    });
 }); 
 
 
