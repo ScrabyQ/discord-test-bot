@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const express = require('express')();
+const express = require('express')
+const app = require('express')();
 const bp = require('body-parser');
 const fs = require('fs');
 const cfg = require("./config.json");
@@ -12,25 +13,22 @@ let config = require('./config.json');
 let sms = new SMSru(config.SMSRU_TOKEN);
     
 
-let bal, 
-    limit;
-
 let jsonParser = bp.json();
-express.use(bp.json())
+app.use(bp.json())
 //#region подгрузка страниц и компонентов
-express.get('/index.html', express.static(__dirname + 'js'), (req, res) => {
+app.get('/index.html', express.static(__dirname + 'js'), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 })
 // express.get('/js/script.js', (req, res) => {
 //   res.send('js/script.js', { root: __dirname });
 // })
 //#endregion
-express.get('/get_tasks', (req, res) => {
+app.get('/get_tasks', (req, res) => {
   connection.query('SELECT * FROM InWorkTasks', (err, data) => {
     res.send(data);
   })
 })
-express.post('/dishook/slacontrole', jsonParser, (req, res) => {
+app.post('/dishook/slacontrole', jsonParser, (req, res) => {
   
   client.channels.cache.get('844987698594054165').send({embed: {
     color: 15294560, 
@@ -59,7 +57,7 @@ express.post('/dishook/slacontrole', jsonParser, (req, res) => {
   res.send('send to Discord channel')
   res.status(200).end();
 });
-express.post('/dishook/mess', jsonParser, (req, res) => {
+app.post('/dishook/mess', jsonParser, (req, res) => {
   client.channels.cache.get('844987698594054165').send({embed: {
     color: 15105570, 
     author: {
@@ -86,7 +84,7 @@ express.post('/dishook/mess', jsonParser, (req, res) => {
   res.send('send to Discord channel')
   res.status(200).end();
 });
-express.post('/dishook', jsonParser, (req, res) => {
+app.post('/dishook', jsonParser, (req, res) => {
 
   client.channels.cache.get('844987698594054165').send({embed: {
     color: 3447003, 
@@ -114,7 +112,7 @@ express.post('/dishook', jsonParser, (req, res) => {
   res.send('send to Discord channel')
   res.status(200).end();
 });
-express.listen('3030', () => {
+app.listen('3030', () => {
   console.log("3030")
 });
 
