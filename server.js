@@ -36,6 +36,9 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
 app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 })
+app.get('/donetasks/done.html', express.static(path.join(__dirname, '/js')), (req, res) => {
+  res.sendFile('donetasks/done.html', { root: __dirname });
+})
  app.get('/js/script.js', (req, res) => {
    res.sendFile('js/script.js', { root: __dirname });
  })
@@ -48,7 +51,7 @@ app.get('/get_tasks', (req, res) => {
     res.json(data);
   })
 })
-app.get('/donetasks/done.html', (req, res) => {
+app.get('/get_done_tasks', (req, res) => {
   connection.query('SELECT * FROM doneTasks', (err, data) => {
     res.json(data);
   })
