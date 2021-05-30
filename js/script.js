@@ -1,7 +1,7 @@
 'use strict';
 
 let api = fetch('/get_tasks').then((response) => {
-    console.log(response.json()) 
+    console.log(response.json()[0]) 
 }); 
 console.log(api)
 
