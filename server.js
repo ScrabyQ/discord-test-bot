@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const express = require('express')
 const app = require('express')();
+const path = require('path');
 const bp = require('body-parser');
 const fs = require('fs');
 const cfg = require("./config.json");
