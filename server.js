@@ -7,7 +7,6 @@ const bp = require('body-parser');
 const fs = require('fs');
 const cfg = require("./config.json");
 const mysql = require("mysql2");
-var cron = require("node-cron");
 let SMSru = require('sms_ru');
 let hde = require('./hdeconnect.js')
 let config = require('./config.json');
@@ -19,14 +18,16 @@ app.use(bp.json())
 //#region подгрузка страниц и компонентов
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
+  res.status(200).end();
 })
  app.get('/js/script.js', (req, res) => {
    res.sendFile('js/script.js', { root: __dirname });
+   res.status(200).end();
  })
 //#endregion
 app.get('/get_tasks', (req, res) => {
   connection.query('SELECT * FROM InWorkTasks', (err, data) => {
-    res.send(JSON.stringify(data));
+    res.json(JSON.stringify(data));
   })
 })
 app.post('/dishook/slacontrole', jsonParser, (req, res) => {
