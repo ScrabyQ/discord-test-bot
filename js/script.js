@@ -5,7 +5,7 @@ let api = fetch('/get_tasks').then((response) => {
 }).then((data) => {
     tasks = data;
 }); 
-tasks.forEach(element => {
+for (element in tasks){
     let div = document.createElement('div');
     div.className = 'col-sm-6';
     div.innerHTML = `
@@ -19,7 +19,7 @@ tasks.forEach(element => {
 </div>
 `
     document.getElementById('row').append(div)
-});
+};
 
 document.getElementById('listen').addEventListener('click', () => {
     let div = document.createElement('div');
