@@ -16,7 +16,7 @@ let sms = new SMSru(config.SMSRU_TOKEN);
 let jsonParser = bp.json();
 app.use(bp.json())
 //#region подгрузка страниц и компонентов
-app.get('/index.html', express.static(__dirname + 'js'), (req, res) => {
+app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 })
 // express.get('/js/script.js', (req, res) => {
