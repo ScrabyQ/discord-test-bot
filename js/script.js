@@ -45,17 +45,20 @@ div.innerHTML = `
     document.getElementById('row').append(div)
 })
 
-let delete_buttons = document.getElementsByClassName('delete')
-forEach.call(delete_buttons, key => {
+let delete_buttons = document.querySelectorAll('.delete')
+console.log(typeof(delete_buttons))
+console.log(delete_buttons)
+
+// forEach.call(delete_buttons, key => {
     
 
-    delete_buttons[key].addEventListener('click', ()=>{
-        let body = {
-            id: delete_buttons[key].id
-        }
-        fetch('/delete_itw', {
-            method: 'POST',
+//     delete_buttons[key].addEventListener('click', ()=>{
+//         let body = {
+//             id: delete_buttons[key].id
+//         }
+//         fetch('/delete_itw', {
+//             method: 'POST',
 
-        })
-    })
-});
+//         })
+//     })
+// });
