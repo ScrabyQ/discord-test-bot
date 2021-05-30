@@ -74,9 +74,9 @@ app.post('/iwt_filter', url_encode, (req, res) => {
   res.sendFile('iwt/data.html', {root: __dirname})
   res.status(200);
 })
-app.post('/delete_itw', jsonParser, (res, req)=> {
-  console.log(res.body.id)
-  let queryData = `delete from inWorkTasks where id="${res.body.id}"`
+app.post('/delete_itw', jsonParser, (req, res)=> {
+  console.log(req.body.id)
+  let queryData = `delete from inWorkTasks where id="${req.body.id}"`
   connection.query(queryData, (err, data) => {
     err ? console.log(err) : console.log('data has been deleted');
   })
