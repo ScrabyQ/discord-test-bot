@@ -26,6 +26,24 @@ let api = fetch('/get_tasks').then((response) => {
     `
         document.getElementById('row').append(div)
     };
+}).then(() => {
+    let delete_buttons = document.querySelectorAll('.delete')
+console.log(typeof(delete_buttons))
+console.log(delete_buttons)
+
+delete_buttons.forEach(key => {
+    console.log(key)
+    delete_buttons[key].addEventListener('click', ()=>{
+        console.log('click')
+        let body = {
+            id: delete_buttons[key].id
+        }
+        fetch('/delete_itw', {
+            method: 'POST',
+            body: JSON.stringify(body)
+        })
+    })
+});
 }); 
 
 
@@ -45,21 +63,5 @@ div.innerHTML = `
     document.getElementById('row').append(div)
 })
 
-let delete_buttons = document.querySelectorAll('.delete')
-console.log(typeof(delete_buttons))
-console.log(delete_buttons)
 
-delete_buttons.forEach(key => {
-    console.log(key)
-    delete_buttons[key].addEventListener('click', ()=>{
-        console.log('click')
-        let body = {
-            id: delete_buttons[key].id
-        }
-        fetch('/delete_itw', {
-            method: 'POST',
-            body: JSON.stringify(body)
-        })
-    })
-});
    
