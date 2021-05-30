@@ -42,8 +42,8 @@ app.get('/donetasks/done.html', express.static(path.join(__dirname, '/js')), (re
  app.get('/js/script.js', (req, res) => {
    res.sendFile('js/script.js', { root: __dirname });
  })
- app.get('/iwt/script.js', (req, res) => {
-  res.sendFile('iwt/script.js', { root: __dirname });
+ app.get('/js/done.js', (req, res) => {
+  res.sendFile('js/done.js', { root: __dirname });
 })
 //#endregion
 app.get('/get_tasks', (req, res) => {
