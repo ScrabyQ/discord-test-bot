@@ -18,12 +18,12 @@ let bal,
 let jsonParser = bp.json();
 express.use(bp.json())
 //#region подгрузка страниц и компонентов
-express.get('/index.html', (req, res) => {
+express.get('/index.html', express.static(__dirname + 'js'), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 })
-express.get('/js/script.js', (req, res) => {
-  res.send('js/script.js', { root: __dirname });
-})
+// express.get('/js/script.js', (req, res) => {
+//   res.send('js/script.js', { root: __dirname });
+// })
 //#endregion
 express.get('/get_tasks', (req, res) => {
   connection.query('SELECT * FROM InWorkTasks', (err, data) => {
