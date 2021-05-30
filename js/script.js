@@ -42,6 +42,7 @@ delete_buttons.forEach(key => {
             method: 'POST',
             body: JSON.stringify(body)
         })
+        window.location.reload();
     })
 });
 }); 
