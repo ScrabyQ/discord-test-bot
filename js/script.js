@@ -41,7 +41,10 @@ delete_buttons.forEach(key => {
         }
         fetch('/delete_itw', {
             method: 'POST',
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
         })
         window.location.reload();
     })
