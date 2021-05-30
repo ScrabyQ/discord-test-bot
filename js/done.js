@@ -11,7 +11,7 @@ let api = fetch('/get_done_tasks').then((response) => {
         div.className = 'col-sm-6';
         div.innerHTML = `
     <div class="card-header">
-    ${tasks[element].id}
+    id задачи: ${tasks[element].id}
     <button id="${tasks[element].id}" class="btn btn-outline-danger btn-sm delete" style="float: right; margin-bottom: 10px;">X</button>
     </div>
     <div class="card-body">
