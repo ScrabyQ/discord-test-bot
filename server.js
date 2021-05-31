@@ -54,6 +54,9 @@ app.get('/js/toggle.js', (req, res) => {
 app.get(`/img/back.png`, (req, res) => {
   res.sendFile(`img/back.png`, { root: __dirname });
 })
+app.get(`/img/backdark.png`, (req, res) => {
+  res.sendFile(`img/backdark.png`, { root: __dirname });
+})
 //#endregion
 app.get('/get_tasks', (req, res) => {
   connection.query('SELECT * FROM inWorkTasks', (err, data) => {
