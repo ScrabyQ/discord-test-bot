@@ -7,9 +7,9 @@ let api = fetch('/get_tasks').then((response) => {
 }).then(() => {
    let body = document.querySelector('.body');
    if (localStorage.getItem('theme') === 'light'){
-       getTheme('dark', tasks);
+       setTheme('dark', tasks);
    } else if (localStorage.getItem('theme') === 'dark'){
-        getTheme('light', tasks);
+        setTheme('light', tasks);
    }
    else {
     for (let element in tasks){
