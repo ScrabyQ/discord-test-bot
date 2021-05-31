@@ -48,6 +48,9 @@ app.get('/donetasks/done.html', express.static(path.join(__dirname, '/js')), (re
  app.get('/js/done.js', (req, res) => {
   res.sendFile('js/done.js', { root: __dirname });
 })
+app.get('/js/toggle.js', (req, res) => {
+  res.sendFile('js/toggle.js', { root: __dirname });
+})
 app.get(`/img/back.png`, (req, res) => {
   res.sendFile(`img/back.png`, { root: __dirname });
 })
