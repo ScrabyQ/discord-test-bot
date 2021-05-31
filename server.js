@@ -48,6 +48,9 @@ app.get('/donetasks/done.html', express.static(path.join(__dirname, '/js')), (re
  app.get('/js/done.js', (req, res) => {
   res.sendFile('js/done.js', { root: __dirname });
 })
+app.get('/img/tile_background\ \(1\).png)', (req, res) => {
+  res.sendFile('img/tile_background\ \(1\).png)', { root: __dirname });
+})
 //#endregion
 app.get('/get_tasks', (req, res) => {
   connection.query('SELECT * FROM inWorkTasks', (err, data) => {
