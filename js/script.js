@@ -9,7 +9,7 @@ let api = fetch('/get_tasks').then((response) => {
         console.log(element)
         let div = document.createElement('div');
         div.className = 'col-sm-5 bg-light';
-        div.setAttribute('style', 'box-shadow: 0 0 10px rgba(0,0,0,0.5); margin-right: 47px;margin-left: 47px; margin-top: 20px; margin-bottom: 30px');        div.className = 'col-sm-6 bg-light';
+        div.setAttribute('style', 'box-shadow: 0 0 10px rgba(0,0,0,0.5); margin-right: 47px;margin-left: 47px; margin-top: 20px; margin-bottom: 30px');
         div.innerHTML = `
     <div class="card-header">
     id задачи: ${tasks[element].id}
