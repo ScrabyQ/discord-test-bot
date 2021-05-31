@@ -40,7 +40,7 @@ app.get('/', express.static(path.join(__dirname, '/img')), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 })
 app.get('/done.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-  res.sendFile('donetasks/done.html', { root: __dirname });
+  res.sendFile('done.html', { root: __dirname });
 })
  app.get('/js/script.js', (req, res) => {
    res.sendFile('js/script.js', { root: __dirname });
