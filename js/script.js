@@ -8,7 +8,8 @@ let api = fetch('/get_tasks').then((response) => {
     for (let element in tasks){
         console.log(element)
         let div = document.createElement('div');
-        div.className = 'col-sm-6';
+        div.setAttribute('style', 'box-shadow: 0 0 10px rgba(0,0,0,0.5); margin: 10px');
+        div.className = 'col-sm-6 bg-light';
         div.innerHTML = `
     <div class="card-header">
     id задачи: ${tasks[element].id}
@@ -54,7 +55,8 @@ delete_buttons.forEach(key => {
 
 document.getElementById('listen').addEventListener('click', () => {
     let div = document.createElement('div');
-div.className = 'col-sm-6';
+div.className = 'col-sm-5 bg-light text-dark';
+div.setAttribute('style', 'box-shadow: 0 0 10px rgba(0,0,0,0.5); margin: 10px');
 div.innerHTML = `
 <div class="card-header">
 статус задачи

@@ -8,7 +8,8 @@ let api = fetch('/get_done_tasks').then((response) => {
     for (let element in tasks){
         console.log(element)
         let div = document.createElement('div');
-        div.className = 'col-sm-6';
+        div.className = 'col-sm-6 bg-light';
+        div.setAttribute('style', 'box-shadow: 0 0 10px rgba(0,0,0,0.5); margin: 10px');
         div.innerHTML = `
     <div class="card-header">
     id задачи: ${tasks[element].id}
