@@ -80,7 +80,7 @@ div.innerHTML = `
 
 
    function setTheme(theme, tasks){
-       if (theme == 'light'){
+       if (theme == 'dark'){
         for (let element in tasks){
             console.log(element)
             let div = document.createElement('div');
