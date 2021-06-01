@@ -690,7 +690,7 @@ client.on("message", (msg) => {
                             .toISOString()
                             .split("T")[0]
                             .slice(9, 10)
-                        ) + 1
+                        )
                       }`
                     }', 
                     '${today}')`;
