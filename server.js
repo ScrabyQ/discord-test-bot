@@ -266,7 +266,7 @@ client.on("message", (msg) => {
   }
   if (msg.content === "тикеты"){
     msg.delete().catch();
-    msg.reply(`Количество не закрытых тикетов - ${hde.tickets}`, {tts: true})
+   // msg.reply(`Количество не закрытых тикетов - ${hde.tickets}`, {tts: true})
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
     msg.channel.send("Монета подбрасывается...");
@@ -831,13 +831,13 @@ cron.schedule( '*/30 * * * *', ()=> {
     } else if(Number(Math.floor(e.balance)) <= 5000 && Number(Math.floor(e.balance)) >= 2000) {
       client.channels.cache
     .get("844589763935207446")
-    .send(`@Rlathey, атеншен!!1
+    .send(`@Rlathey атеншен!!1
     На sms.ru ${e.balance} руб.
     Этого уже мало!`);
     }
-    client.channels.cache
-    .get("844589763935207446")
-    .send(`количество не закрытых тикетов - ${hde.countTickets()}`);
+    // client.channels.cache
+    // .get("844589763935207446")
+    // .send(`количество не закрытых тикетов - ${hde.countTickets()}`);
     
   })
   
