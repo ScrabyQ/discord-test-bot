@@ -21,5 +21,7 @@ exports.getTickets = async function() {
     }).then((data1) => {
         return data1.pagination.total;
     })
+
+    return response.pagination.total
     
 }
