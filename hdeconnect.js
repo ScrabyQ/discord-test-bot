@@ -14,8 +14,8 @@ exports.getTickets = async function() {
         }
     }).then((resolve, reject) => {
         if (response.ok){
-            let res = await response.json();
-            let count = await res.pagination.total;
+            let res = response.json();
+            let count = res.pagination.total;
             console.log(count)
            res(count);
         }
