@@ -17,7 +17,7 @@ exports.getTickets = async function() {
             let res = response.json();
             let count = res.pagination.total;
             console.log(count)
-           res(count);
+           resolve(count);
         }
         else {
             console.log('ошибка: ' + response.statusText)
