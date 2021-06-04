@@ -12,14 +12,16 @@ exports.getTickets = async function() {
         headers: {
             'Authorization': 'Basic ' + api_key
         }
+    }).then((resolve, reject) => {
+        if (response.ok){
+            let res = await response.json();
+            let count = await res.pagination.total;
+            console.log(count)
+           res(count);
+        }
+        else {
+            console.log('ошибка: ' + response.statusText)
+        }
     })
-    if (response.ok){
-        let res = await response.json();
-        let count = await res.pagination.total;
-        console.log(count)
-       return count;
-    }
-    else {
-        console.log('ошибка: ' + response.statusText)
-    }
+    
 }
