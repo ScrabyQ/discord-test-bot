@@ -21,4 +21,3 @@ module.exports.countTickets = async function getTickets() {
         console.log('ошибка: ' + response.statusText)
     }
 }
-getTickets();
