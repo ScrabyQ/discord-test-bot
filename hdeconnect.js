@@ -12,11 +12,14 @@ exports.getTickets = async function() {
         headers: {
             'Authorization': 'Basic ' + api_key
         }
-    }).then((resolve, reject) => {
-            let res = response.json();
-            let count = res.pagination.total;
-            console.log(count)
-           resolve(count);
+    }).then((data) => {
+        return data.json();
+        //     let res = response.json();
+        //     let count = res.pagination.total;
+        //     console.log(count)
+        //    resolve(count);
+    }).then((data1) => {
+        return data1.pagination.total;
     })
     
 }
