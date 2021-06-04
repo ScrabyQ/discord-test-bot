@@ -22,4 +22,4 @@ let countTickets = async function() {
         console.log('ошибка: ' + response.statusText)
     }
 }
-module.exports.tickets = countTickets;
+module.exports = countTickets;
