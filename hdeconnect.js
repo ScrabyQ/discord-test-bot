@@ -3,25 +3,26 @@ global.fetch = require('node-fetch');
 const api_key = Buffer.from(config.HDE_TOKEN).toString('base64');
 console.log(api_key)
 const domain = 'https://itgt.helpdeskeddy.com/api/v2/'
-let responseData;
+module.exports.tickets = getTickets();
 
-exports.getTickets = async function() {
+async function getTickets() {
     let req_body = `${domain}tickets/?status_list=open`;
     let response = await fetch(req_body, {
         method: 'GET',
         headers: {
             'Authorization': 'Basic ' + api_key
         }
-    }).then((data) => {
-        return data.json();
-        //     let res = response.json();
-        //     let count = res.pagination.total;
-        //     console.log(count)
-        //    resolve(count);
-    }).then((data1) => {
-        return data1.pagination.total;
     })
+    if (response.ok){
+        let res = await response.json();
+      //  module.exports.open_ticketes_count = res.pagination.total;
+      return res.pagination.total
+        console.log(res)
 
-    return response.pagination.total
-    
+        
+    }
+    else {
+        console.log('ошибка: ' + response.statusText)
+    }
 }
+getTickets();
