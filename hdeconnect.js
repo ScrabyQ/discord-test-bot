@@ -5,7 +5,7 @@ console.log(api_key)
 const domain = 'https://itgt.helpdeskeddy.com/api/v2/'
 let responseData;
 
-module.exports.countTickets = async function getTickets() {
+let countTickets = async function() {
     let req_body = `${domain}tickets/?status_list=open`;
     let response = await fetch(req_body, {
         method: 'GET',
@@ -21,3 +21,4 @@ module.exports.countTickets = async function getTickets() {
         console.log('ошибка: ' + response.statusText)
     }
 }
+module.exports.tickets = countTickets;

@@ -266,7 +266,7 @@ client.on("message", (msg) => {
   }
   if (msg.content === "тикеты"){
     msg.delete().catch();
-    msg.reply(`Количество не закрытых тикетов - ${hde.countTickets.getTickets}`, {tts: true})
+    msg.reply(`Количество не закрытых тикетов - ${hde.tickets}`, {tts: true})
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
     msg.channel.send("Монета подбрасывается...");
