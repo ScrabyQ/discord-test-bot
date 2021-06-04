@@ -15,7 +15,8 @@ let countTickets = async function() {
     })
     if (response.ok){
         let res = await response.json();
-        let count = res.pagination.total;
+        let count = await res.pagination.total;
+        console.log(count)
        return count;
     }
     else {
