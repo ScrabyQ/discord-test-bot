@@ -116,7 +116,6 @@ app.post('/complete_task', jsonParser, (req, res) => {
     let dbData;
     connection.query(queryData, (err, res) => {
       if (!err){
-        console.log(data[0].created_at)
         let queryIntoDone = `insert into 
         doneTasks(head, description, deadline, responsible, created_at, done_at)
         values('${res[0].head}', 
