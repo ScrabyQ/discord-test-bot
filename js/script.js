@@ -21,7 +21,7 @@ let api = fetch('/get_tasks').then((response) => {
     <div class="card-header">
     id задачи: ${tasks[element].id}
     <button id="${tasks[element].id}" class="btn btn-outline-danger btn-sm delete" style="float: right; margin-bottom: 10px;">X</button>
-    <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">выполнить</a>
+    <a href="#" class="btn btn-outline-primary btn-sm" style="float: right; margin-bottom: 10px;">выполнить</a>
     </div>
     <div class="card-body">
     <h5 class="card-title">${tasks[element].head}</h5>
@@ -37,13 +37,9 @@ let api = fetch('/get_tasks').then((response) => {
    }
 }).then(() => {
     let delete_buttons = document.querySelectorAll('.delete')
-console.log(typeof(delete_buttons))
-console.log(delete_buttons)
-
-delete_buttons.forEach(key => {
+    delete_buttons.forEach(key => {
     console.log(key.id)
     key.addEventListener('click', ()=>{
-        console.log('click')
         let data = {
             id: key.id,
             type: 'itw'
@@ -58,6 +54,7 @@ delete_buttons.forEach(key => {
         window.location.reload();
     })
 });
+let execute = document.querySelector("#")
 }); 
 
 
@@ -90,7 +87,7 @@ div.innerHTML = `
         <div class="card-header">
         id задачи: ${tasks[element].id}
         <button id="${tasks[element].id}" class="btn btn-outline-danger btn-sm delete" style="float: right; margin-bottom: 10px;">X</button>
-        <a href="#" class="btn btn-outline-dark btn-sm" style="float: right; margin-bottom: 10px;">выполнить</a>
+        <a href="#" id="${tasks[element].id}" class="btn btn-outline-primary btn-sm execute" style="float: right; margin-bottom: 10px; margin-right: 10px">выполнить</a>
         </div>
         <div class="card-body">
         <h5 class="card-title">${tasks[element].head}</h5>
@@ -113,7 +110,7 @@ div.innerHTML = `
         <div class="card-header">
         id задачи: ${tasks[element].id}
         <button id="${tasks[element].id}" class="btn btn-outline-danger btn-sm delete" style="float: right; margin-bottom: 10px;">X</button>
-        <a href="#" class="btn btn-outline-light btn-sm" style="float: right; margin-bottom: 10px;">выполнить</a>
+        <a href="#" id="${tasks[element].id}" class="btn btn-outline-primary btn-sm execute" style="float: right; margin-bottom: 10px; margin-right: 10px">выполнить</a>
         </div>
         <div class="card-body">
         <h5 class="card-title">${tasks[element].head}</h5>
