@@ -54,7 +54,22 @@ let api = fetch('/get_tasks').then((response) => {
         window.location.reload();
     })
 });
-let execute = document.querySelector("#")
+let execute = document.querySelector(".execute");
+
+execute.forEach(key => {
+    let data = {
+        id: key.id,
+        type: 'itw'
+    }
+    fetch('/complete_task', {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    window.location.reload();
+})
 }); 
 
 
