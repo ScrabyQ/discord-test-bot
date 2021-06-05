@@ -232,7 +232,6 @@ app.post('/dishook', jsonParser, (req, res) => {
   res.status(200).end();
 });
 app.listen(0, () => {
-  console.log(app.address())
 });
 
 
