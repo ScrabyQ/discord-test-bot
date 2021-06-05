@@ -1,4 +1,25 @@
 let body = document.querySelector('.body');
+
+
+if (!localStorage.getItem('expand')){
+    localStorage.setItem('expand', 'true')
+} 
+if (localStorage.getItem('expand') == 'false'){
+    console.log(localStorage.getItem('expand'))
+    let toggle = document.querySelector('.toggle');
+    let nav = document.querySelector('.nav');
+    let cont = document.querySelector('.ncontainer');
+    cont.setAttribute('class', 'ncontainer active') 
+    toggle.setAttribute('class', 'toggle active') 
+    nav.setAttribute('class', 'nav active') 
+} else if (localStorage.getItem('menu-expand') == 'true') {
+    let toggle = document.querySelector('.toggle');
+    let nav = document.querySelector('.nav');
+    let cont = document.querySelector('.ncontainer');
+    cont.setAttribute('class', 'ncontainer') 
+    toggle.setAttribute('class', 'toggle') 
+    nav.setAttribute('class', 'nav') 
+}
 if (localStorage.getItem('theme') == 'undefined'){
     localStorage.setItem('theme', 'light')
 }
@@ -51,4 +72,25 @@ else if (body.getAttribute('class') ==  'body dark'){
     document.querySelector('#listen').setAttribute('class', 'text-dark');
     window.location.reload();
 }
+})
+
+document.querySelector('.toggle').addEventListener('click', () => {
+    if (localStorage.getItem('expand') == 'false'){
+        localStorage.setItem('expand', 'true')
+        let toggle = document.querySelector('.toggle');
+        let nav = document.querySelector('.nav');
+        let cont = document.querySelector('.ncontainer');
+        cont.setAttribute('class', 'ncontainer') 
+        toggle.setAttribute('class', 'toggle') 
+        nav.setAttribute('class', 'nav') 
+    }
+    else if (localStorage.getItem('expand') == 'true') {
+        localStorage.setItem('expand', 'false')
+        let toggle = document.querySelector('.toggle');
+        let nav = document.querySelector('.nav');
+        let cont = document.querySelector('.ncontainer');
+        cont.setAttribute('class', 'ncontainer active') 
+        toggle.setAttribute('class', 'toggle active') 
+        nav.setAttribute('class', 'nav active') 
+    }
 })
