@@ -22,11 +22,13 @@ body {
     padding: 0;
 }
 .nav ul li{ 
+    transition: 0.5s;
     position: relative;
     width: 100%;
     list-style: none;
 }
 .nav ul li:hover{
+    transition: 0.5s;
     background: #626b76;
 }
 .nav ul .opened{
@@ -60,6 +62,7 @@ body {
     white-space: nowrap;
 }
 .dd {
+    transition: 0.5s;
     position: relative;
     display: inline-block;
   }
@@ -75,14 +78,17 @@ body {
   
   .dd:hover .dd-content {
     display: block;
+    transition: 0.5s;
   }
   .dd-item {
     color: black;
     padding: 16px 18px;
     text-decoration: none;
     display: block;
+    transition: 0.5s;
   }
 .dd-item:hover{
+    transition: 0.5s;
       background-color: black;
   }
   .dd-item i{
