@@ -54,21 +54,23 @@ let api = fetch('/get_tasks').then((response) => {
         window.location.reload();
     })
 });
-let execute = document.querySelector(".execute");
+let execute = document.querySelectorAll(".execute");
 
 execute.forEach(key => {
-    let data = {
-        id: key.id,
-        type: 'itw'
-    }
-    fetch('/complete_task', {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json"
+    key.addEventListener('click', () => {
+        let data = {
+            id: key.id,
+            type: 'itw'
         }
+        fetch('/complete_task', {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        window.location.reload();   
     })
-    window.location.reload();
 })
 }); 
 
