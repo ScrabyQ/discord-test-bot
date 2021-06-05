@@ -231,8 +231,8 @@ app.post('/dishook', jsonParser, (req, res) => {
   res.send('send to Discord channel')
   res.status(200).end();
 });
-app.listen( () => {
-  console.log("3030")
+app.listen(0, () => {
+  console.log(app.address())
 });
 
 
