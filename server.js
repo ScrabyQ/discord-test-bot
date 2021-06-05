@@ -112,7 +112,7 @@ app.post('/complete_task', jsonParser, (req, res) => {
   console.log("вы в голосе")
   if (req.body.type === 'itw'){
     console.log('проверка на тип пройдена')
-    let queryData = `select from inWorkTasks where id="${req.body.id}"`
+    let queryData = `select from inWorkTasks where id=${req.body.id}`
     let dbData;
     connection.query(queryData, (err, data) => {
       if (!err){
