@@ -1,10 +1,13 @@
+//TODO: доделать модуль hde и вывод кол-во тикетов
+// тегирование Валеры в оповещении о балансе смс
+
+
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const express = require('express')
 const app = require('express')();
 const path = require('path');
 const bp = require('body-parser');
-const fs = require('fs');
 const cfg = require("./config.json");
 const mysql = require("mysql2");
 var cron = require("node-cron");

@@ -63,8 +63,8 @@ delete_buttons.forEach(key => {
 
 document.getElementById('listen').addEventListener('click', () => {
     let div = document.createElement('div');
-div.className = 'col-lg-5 bg-light text-dark';
-div.setAttribute('style', 'box-shadow: 0 0 10px rgba(0,0,0,0.5); margin-right: 47px;margin-left: 47px; margin-top: 20px; margin-bottom: 30px');
+div.className = 'col-sm-5 bg-light text-dark';
+div.setAttribute('style', 'box-shadow: 0 0 10px rgba(0,0,0,0.5); margin-right: 10px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px');
 div.innerHTML = `
 <div class="card-header">
 статус задачи
@@ -84,8 +84,8 @@ div.innerHTML = `
         for (let element in tasks){
             console.log(element)
             let div = document.createElement('div');
-            div.className = 'col-sm-5 bg-light text-dark';
-            div.setAttribute('style', 'box-shadow: 0 0 10px rgba(0,0,0,0.5); margin-right: 47px;margin-left: 47px; margin-top: 20px; margin-bottom: 30px');
+            div.className = 'col-sm- bg-light text-dark';
+            div.setAttribute('style', 'box-shadow: 0 0 10px rgba(0,0,0,0.5); margin-right: 10px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px');
             div.innerHTML = `
         <div class="card-header">
         id задачи: ${tasks[element].id}
@@ -108,7 +108,7 @@ div.innerHTML = `
             console.log(element)
             let div = document.createElement('div');
             div.className = 'col-sm-5 bg-dark text-light';
-            div.setAttribute('style', 'box-shadow: 0 0 10px rgba(0,0,0,0.5); margin-right: 47px;margin-left: 47px; margin-top: 20px; margin-bottom: 30px');
+            div.setAttribute('style', 'box-shadow: 0 0 10px rgba(0,0,0,0.5); margin-right: 10px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px');
             div.innerHTML = `
         <div class="card-header">
         id задачи: ${tasks[element].id}
