@@ -109,6 +109,7 @@ app.post('/delete_task', jsonParser, (req, res)=> {
   }
 })
 app.post('/complete_task', jsonParser, (req, res) => {
+  console.log("вы в голосе")
   if (req.body.type === 'itw'){
     let queryData = `select from inWorkTasks where id="${req.body.id}"`
     let dbData;
