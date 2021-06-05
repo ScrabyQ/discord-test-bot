@@ -111,6 +111,7 @@ app.post('/delete_task', jsonParser, (req, res)=> {
 app.post('/complete_task', jsonParser, (req, res) => {
   console.log("вы в голосе")
   if (req.body.type === 'itw'){
+    console.log('проверка на тип пройдена')
     let queryData = `select from inWorkTasks where id="${req.body.id}"`
     let dbData;
     connection.query(queryData, (err, data) => {
@@ -123,9 +124,9 @@ app.post('/complete_task', jsonParser, (req, res) => {
             connection.query(finishQuery, (err, fdata) => {
             err ? console.log(err) : console.log('task has been completed')
           })
-        }
+        } else console.log(err)
       })
-      }
+      } else console.log(err)
     }) 
   }
 })
