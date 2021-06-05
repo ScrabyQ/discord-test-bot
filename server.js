@@ -120,7 +120,7 @@ app.post('/complete_task', jsonParser, (req, res) => {
         values('${data[0].id}', '${data[0].head}', '${data[0].description}', '${data[0].deadline}', '${data[0].responsible}', '${data[0].created_at}', '${today}')`;
         connection.query(queryIntoDone, (err, doneData) => {
           if (!err){
-            let finishQuery = `delete from inWorkTasks where id="${req.body.id}"`;
+            let finishQuery = `delete from inWorkTasks where id=${req.body.id}`;
             connection.query(finishQuery, (err, fdata) => {
             err ? console.log(err) : console.log('task has been completed')
           })
