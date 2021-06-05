@@ -716,7 +716,7 @@ client.on("message", (msg) => {
                     '${res[0].description}', 
                     '${res[0].deadline}', 
                     '${res[0].responsible}', 
-                    '${res[0].created_at.toISOString().split("T")[0].slice(0, 9)`${Number(res[0].created_at.toISOString().split("T")[0].slice(9, 10))}`}', 
+                    '${res[0].created_at.toISOString().split("T")[0].slice(0, 9)+`${Number(res[0].created_at.toISOString().split("T")[0].slice(9, 10))}`}', 
                     '${today}')`;
             connection.query(pushToDoneTab, (err) => {
               if (err) {
