@@ -136,7 +136,7 @@ let queryData = `INSERT INTO inWorkTasks(head, description, deadline, responsibl
 connection.query(queryData, (err, data) => {
   err ? console.log(err) : console.log('task has been created');
 })
-res.redirect('index.html');
+res.redirect('tasks.html');
 res.status(200).end();
 })
 app.post('/dishook/slacontrole', jsonParser, (req, res) => {
