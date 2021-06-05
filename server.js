@@ -42,6 +42,9 @@ app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
 app.get('/', express.static(path.join(__dirname, '/img')), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 })
+app.get('/tasks.html', express.static(path.join(__dirname, '/js')), (req, res) => {
+  res.sendFile('tasks.html', { root: __dirname });
+})
 app.get('/done.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('done.html', { root: __dirname });
 })
@@ -53,6 +56,9 @@ app.get('/done.html', express.static(path.join(__dirname, '/js')), (req, res) =>
 })
 app.get('/js/toggle.js', (req, res) => {
   res.sendFile('js/toggle.js', { root: __dirname });
+})
+app.get(`/css/style.css`, (req, res) => {
+  res.sendFile(`css/style.css`, { root: __dirname });
 })
 app.get(`/img/back.png`, (req, res) => {
   res.sendFile(`img/back.png`, { root: __dirname });
