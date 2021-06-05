@@ -103,12 +103,12 @@ body {
     left: 60px
 }
 .tasks{
-    width: calc(100% - 300px);
+    width: calc(130% - 300px);
     left: 300px;
     margin-left: 60px
 }
 .tasks.active{
-    width: calc(100% - 60px);
+    width: calc(130% - 60px);
 }
 .topbar{
     position:relative;
