@@ -23,6 +23,8 @@ let url_encode = bp.urlencoded({extended: true});
 let today = new Date().toISOString().split("T")[0];
 
 let date1, date2;
+
+let userData = {};
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -33,15 +35,25 @@ const connection = mysql.createConnection({
 app.use(bp.json())
 app.use(url_encode)
 //#region подгрузка страниц и компонентов
+app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) => {
+  if (userData.log='123' && userData.pass == '123'){
+    res.sendFile('index.html', { root: __dirname });
+  } else {
+    res.sendFile('auth.html', { root: __dirname });
+  }
+})
+app.post('/auth', url_encode, (req, res) => {
+  console.log(res)
+})
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 })
 app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 })
-app.get('/', express.static(path.join(__dirname, '/img')), (req, res) => {
-  res.sendFile('index.html', { root: __dirname });
-})
+// app.get('/', express.static(path.join(__dirname, '/img')), (req, res) => {
+//   res.sendFile('index.html', { root: __dirname });
+// })
 app.get('/tasks.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('tasks.html', { root: __dirname });
 })
