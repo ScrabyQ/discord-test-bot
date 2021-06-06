@@ -58,11 +58,12 @@ app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) =>
   }
 })
 app.post('/auth', url_encode, (req, res) => {
-
+  
   try {
     connection.query('select * from users', (err, data) => {
       if (!err){
         for (let key in data){
+          console.log(data[key].log)
           if (req.body.log == data[key].log && req.body.pass == data[key].p){
             res.cookie('l', req.body.log, { expires: new Date(Date.now() + 18000000)})
             res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 18000000)})

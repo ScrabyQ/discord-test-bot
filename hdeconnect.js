@@ -1,7 +1,6 @@
 const config = require('./config.json');
 global.fetch = require('node-fetch');
 const api_key = Buffer.from(config.HDE_TOKEN).toString('base64');
-console.log(api_key)
 const domain = 'https://itgt.helpdeskeddy.com/api/v2/'
 let tickets;
 module.exports.tickets = tickets;
@@ -19,7 +18,6 @@ async function getTickets() {
         let res = await response.json();
       //  module.exports.open_ticketes_count = res.pagination.total;
       tickets = res.pagination.total
-        console.log(res)
 
         
     }
