@@ -74,7 +74,6 @@ app.post('/auth', url_encode, (req, res) => {
             res.redirect('auth.html', { root: __dirname })
           }
         }
-        res.status(200).end()
       } else console.log(err)
     })
   }catch(err) {
