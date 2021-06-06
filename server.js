@@ -41,13 +41,13 @@ app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) =>
     connection.query('select * from users', (err, data) => {
       if (!err){
         if (req.cookies.l && req.cookies.p){
-          let i;
+          let i=0;
           for (let key in data){
             i++;
             if (req.cookies.l == data[key].log && req.cookies.p == data[key].pas){
               res.sendFile('index.html', { root: __dirname });
             }
-            else if (i == data.length){
+            else if (i >= data.length){
               res.sendFile('auth.html', { root: __dirname });
             }
           }
