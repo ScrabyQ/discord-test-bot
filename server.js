@@ -68,7 +68,8 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
         }
       } else console.log(err)
     })
-  }catch {
+  }catch(err) {
+    console.log(err)
     res.sendFile('auth.html', { root: __dirname });
   }
 })
