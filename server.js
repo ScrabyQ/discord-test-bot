@@ -32,7 +32,7 @@ const connection = mysql.createConnection({
   database: "discordTasks",
   password: "password",
 });
-
+app.use(cookie())
 app.use(bp.json())
 app.use(url_encode)
 //#region подгрузка страниц и компонентов
