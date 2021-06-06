@@ -67,7 +67,10 @@ app.post('/auth', url_encode, (req, res) => {
           if (req.body.log == data[key].log && req.body.pass == data[key].p){
             res.cookie('l', req.body.log, { expires: new Date(Date.now() + 18000000)})
             res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 18000000)})
-            res.redirect('index.html')
+            setTimeout(() => {
+              res.redirect('index.html')
+            }, 1000)
+            
           }
           else {
             res.redirect('auth.html')
