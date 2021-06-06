@@ -49,8 +49,8 @@ app.post('/auth', url_encode, (req, res) => {
   userData.pass = req.body.pass;
 
   if (req.body.log == '123' && req.body.pass == '123'){
-    res.cookie('l', req.body.log, { expires: new Date(Date.now() + 1800000)})
-    res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 1800000)})
+    res.cookie('l', req.body.log, { expires: new Date(Date.now() + 18000000)})
+    res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 18000000)})
     res.redirect('index.html')
   }
 
