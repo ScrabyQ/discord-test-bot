@@ -45,14 +45,14 @@ app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) =>
 })
 app.post('/auth', url_encode, (req, res) => {
 
-  userData.log = req.body.log;
-  userData.pass = req.body.pass;
-
   if (req.body.log == '123' && req.body.pass == '123'){
     res.cookie('l', req.body.log, { expires: new Date(Date.now() + 18000000)})
     res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 18000000)})
     res.redirect('index.html')
+    res.status(200).end();
   }
+  res.sendFile('auth.html')
+  res.status(200).end();
 
 })
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
