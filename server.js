@@ -57,7 +57,7 @@ app.post('/auth', url_encode, (req, res) => {
 })
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   try {
-    if (res.cookies.l == '123' && res.cookies.p == '123'){
+    if (req.cookies.l == '123' && req.cookies.p == '123'){
       res.sendFile('index.html', { root: __dirname });
     }
     else {
@@ -69,7 +69,7 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
 })
 app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
   try {
-    if (res.cookies.l == '123' && res.cookies.p == '123'){
+    if (req.cookies.l == '123' && req.cookies.p == '123'){
       res.sendFile('index.html', { root: __dirname });
     }
     else {
