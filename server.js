@@ -66,8 +66,7 @@ app.post('/auth', url_encode, (req, res) => {
           if (req.body.log == data[key].log && req.body.pass == data[key].pas){
             res.cookie('l', req.body.log, { expires: new Date(Date.now() + 18000000)})
             res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 18000000)})
-            res.redirect('index.html')  
-            res.status(200).end()          
+            res.redirect('index.html')            
           } 
           else {
             console.log('not allowed: ')
