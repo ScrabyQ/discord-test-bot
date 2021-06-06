@@ -68,6 +68,9 @@ app.post('/auth', url_encode, (req, res) => {
             res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 18000000)})
             res.redirect('index.html')  
             res.status(200).end()          
+          } 
+          else {
+            console.log('not allowed')
           }
         }
       } else console.log(err)
