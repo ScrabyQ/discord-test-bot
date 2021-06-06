@@ -44,7 +44,7 @@ app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) =>
         if (req.cookies.l && req.cookies.p){
           let i=0;
           for (let key in data){
-            ++i;
+            
             if (req.cookies.l == data[key].log && req.cookies.p == data[key].pas){
               res.sendFile('index.html', { root: __dirname });
             }
@@ -52,6 +52,7 @@ app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) =>
               console.log('пошел нахуй')
               res.sendFile('auth.html', { root: __dirname })
             }
+            i++;
             console.log(i)
           }
            
