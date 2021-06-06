@@ -64,12 +64,17 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
   }
 })
 app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
-  if (res.cookies.l == '123' && res.cookies.p == '123'){
-    res.sendFile('index.html', { root: __dirname });
-  }
-  else {
+  try {
+    if (res.cookies.l == '123' && res.cookies.p == '123'){
+      res.sendFile('index.html', { root: __dirname });
+    }
+    else {
+      res.sendFile('auth.html', { root: __dirname });
+    }
+  }catch {
     res.sendFile('auth.html', { root: __dirname });
   }
+  
 })
 // app.get('/', express.static(path.join(__dirname, '/img')), (req, res) => {
 //   res.sendFile('index.html', { root: __dirname });
