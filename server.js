@@ -49,14 +49,14 @@ app.post('/auth', url_encode, (req, res) => {
   userData.pass = req.body.pass;
 
   if (req.body.log == '123' && req.body.pass == '123'){
-    res.cookie('l', req.body.log, { expires: new Date(Date.now() + 900000)})
-    res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 900000)})
+    res.cookie('l', req.body.log, { expires: new Date(Date.now() + 1800000)})
+    res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 1800000)})
     res.redirect('index.html')
   }
 
 })
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-   console.log(req.cookies)
+   console.log(req.cookies.l)
   res.sendFile('index.html', { root: __dirname });
 })
 app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
