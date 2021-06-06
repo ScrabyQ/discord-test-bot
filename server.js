@@ -74,6 +74,7 @@ app.post('/auth', url_encode, (req, res) => {
             console.log('pass req: ' + req.body.pass + ' != ' + 'pass db: ' + data[key].pas)
           }
         }
+        res.status(200).end()
       } else console.log(err)
     })
   }catch(err) {
