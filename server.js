@@ -71,7 +71,7 @@ app.post('/auth', url_encode, (req, res) => {
             res.redirect('index.html')            
           } 
           else if (i == data.length){
-            res.redirect('auth.html', { root: __dirname })
+            res.redirect('auth.html')
           }
         }
       } else console.log(err)
