@@ -102,7 +102,7 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
             }
           } 
         } else {
-          res.sendFile('auth.html', { root: __dirname });
+          res.redirect('auth.html')
         }
       } else console.log(err)
     })
@@ -122,7 +122,7 @@ app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
             }
           } 
         } else {
-          res.sendFile('auth.html', { root: __dirname });
+          res.redirect('auth.html')
         }
       } else console.log(err)
     })
