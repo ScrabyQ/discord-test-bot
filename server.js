@@ -66,6 +66,9 @@ app.get(`/img/back.png`, (req, res) => {
 app.get(`/img/backdark.png`, (req, res) => {
   res.sendFile(`img/backdark.png`, { root: __dirname });
 })
+app.get(`/img/empty.gif`, (req, res) => {
+  res.sendFile(`img/empty.gif`, { root: __dirname });
+})
 //#endregion
 app.get('/get_tasks', (req, res) => {
   connection.query('SELECT * FROM inWorkTasks', (err, data) => {
