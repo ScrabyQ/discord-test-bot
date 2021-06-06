@@ -56,7 +56,7 @@ app.post('/auth', url_encode, (req, res) => {
 
 })
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-   console.log(req.cookies.p)
+   console.log(req.cookies)
   res.sendFile('index.html', { root: __dirname });
 })
 app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
