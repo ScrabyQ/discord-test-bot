@@ -72,9 +72,6 @@ app.post('/auth', url_encode, (req, res) => {
             }, 1000)
             
           }
-          else {
-            res.redirect('auth.html')
-          }
         }
       } else console.log(err)
     })
