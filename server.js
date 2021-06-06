@@ -44,6 +44,9 @@ app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) =>
           if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
             res.sendFile('index.html', { root: __dirname });
           }
+          else {
+            res.sendFile('index.html', { root: __dirname });
+          }
         }
       } else console.log(err)
     })
