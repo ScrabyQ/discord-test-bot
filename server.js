@@ -48,6 +48,15 @@ app.get('/tasks.html', express.static(path.join(__dirname, '/js')), (req, res) =
 app.get('/done.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   res.sendFile('done.html', { root: __dirname });
 })
+app.get('/balances.html', express.static(path.join(__dirname, '/js')), (req, res) => {
+  res.sendFile('balances.html', { root: __dirname });
+})
+app.get('/tickets.html', express.static(path.join(__dirname, '/js')), (req, res) => {
+  res.sendFile('tickets.html', { root: __dirname });
+})
+app.get('/monitoring.html', express.static(path.join(__dirname, '/js')), (req, res) => {
+  res.sendFile('monitoring.html', { root: __dirname });
+})
  app.get('/js/script.js', (req, res) => {
    res.sendFile('js/script.js', { root: __dirname });
  })
