@@ -42,20 +42,11 @@ app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) =>
       if (!err){
         console.log(data.length)
         if (req.cookies.l && req.cookies.p){
-          let i=0;
           for (let key in data){
-            
             if (req.cookies.l == data[key].log && req.cookies.p == data[key].pas){
               res.sendFile('index.html', { root: __dirname });
             }
-            else if (i >= data.length){
-              console.log('пошел нахуй')
-              res.sendFile('auth.html', { root: __dirname })
-            }
-            i++;
-            console.log(i)
           }
-           
         } else {
           res.sendFile('auth.html', { root: __dirname });
         }
@@ -71,6 +62,7 @@ app.post('/auth', url_encode, (req, res) => {
   try {
     connection.query('select * from users', (err, data) => {
       if (!err){
+        let i=0;
         for (let key in data){
           console.log(data[key].log)
           if (req.body.log == data[key].log && req.body.pass == data[key].pas){
@@ -78,10 +70,8 @@ app.post('/auth', url_encode, (req, res) => {
             res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 18000000)})
             res.redirect('index.html')            
           } 
-          else {
-            console.log('not allowed: ')
-            console.log('log req: ' + req.body.log + ' != ' + 'log db: ' + data[key].log)
-            console.log('pass req: ' + req.body.pass + ' != ' + 'pass db: ' + data[key].pas)
+          else if (i >= data.length){
+            res.sendFile('auth.html', { root: __dirname })
           }
         }
         res.status(200).end()
