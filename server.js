@@ -37,6 +37,8 @@ app.use(bp.json())
 app.use(url_encode)
 //#region подгрузка страниц и компонентов
 app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) => {
+  console.log('in auth log ' + req.cookies.l)
+  console.log('in auth pass ' + req.cookies.p)
   try {
     connection.query('select * from users', (err, data) => {
       if (!err){
@@ -61,7 +63,7 @@ app.post('/auth', url_encode, (req, res) => {
     connection.query('select * from users', (err, data) => {
       if (!err){
         for (let key in data){
-          if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
+          if (req.body.log == data[key].log && req.body.pass == data[key].p){
             res.cookie('l', req.body.log, { expires: new Date(Date.now() + 18000000)})
             res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 18000000)})
             res.redirect('index.html')
