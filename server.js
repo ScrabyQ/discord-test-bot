@@ -52,15 +52,22 @@ app.post('/auth', url_encode, (req, res) => {
   }
   res.redirect('auth.html')
 
+
 })
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   try {
-    if (req.cookies.l == '123' && req.cookies.p == '123'){
-      res.sendFile('index.html', { root: __dirname });
-    }
-    else {
-      res.sendFile('auth.html', { root: __dirname });
-    }
+    connection.query('select * from users', (err, data) => {
+      if (!err){
+        for (let key in data){
+          if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
+            res.sendFile('index.html', { root: __dirname });
+          }
+          else {
+            res.sendFile('auth.html', { root: __dirname });
+          }
+        }
+      } else console.log(err)
+    })
   }catch {
     res.sendFile('auth.html', { root: __dirname });
   }
