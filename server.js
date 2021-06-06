@@ -37,22 +37,45 @@ app.use(bp.json())
 app.use(url_encode)
 //#region подгрузка страниц и компонентов
 app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-  if (userData.log='123' && userData.pass == '123'){
-    res.sendFile('index.html', { root: __dirname });
-  } else {
+  try {
+    connection.query('select * from users', (err, data) => {
+      if (!err){
+        for (let key in data){
+          if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
+            res.sendFile('index.html', { root: __dirname });
+          }
+          else {
+            res.sendFile('auth.html', { root: __dirname });
+          }
+        }
+      } else console.log(err)
+    })
+  }catch(err) {
+    console.log(err)
     res.sendFile('auth.html', { root: __dirname });
   }
 })
 app.post('/auth', url_encode, (req, res) => {
 
-  if (req.body.log == '123' && req.body.pass == '123'){
-    res.cookie('l', req.body.log, { expires: new Date(Date.now() + 18000000)})
-    res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 18000000)})
-    res.redirect('index.html')
+  try {
+    connection.query('select * from users', (err, data) => {
+      if (!err){
+        for (let key in data){
+          if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
+            res.cookie('l', req.body.log, { expires: new Date(Date.now() + 18000000)})
+            res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 18000000)})
+            res.redirect('index.html')
+          }
+          else {
+            res.redirect('auth.html')
+          }
+        }
+      } else console.log(err)
+    })
+  }catch(err) {
+    console.log(err)
+    res.sendFile('auth.html', { root: __dirname });
   }
-  res.redirect('auth.html')
-
-
 })
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
   try {
