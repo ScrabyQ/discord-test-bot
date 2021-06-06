@@ -56,11 +56,20 @@ app.post('/auth', url_encode, (req, res) => {
 
 })
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-   console.log(req.cookies.l)
-  res.sendFile('index.html', { root: __dirname });
+  if (res.cookies.l == '123' && res.cookies.p == '123'){
+    res.sendFile('index.html', { root: __dirname });
+  }
+  else {
+    res.sendFile('auth.html', { root: __dirname });
+  }
 })
 app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
-  res.sendFile('index.html', { root: __dirname });
+  if (res.cookies.l == '123' && res.cookies.p == '123'){
+    res.sendFile('index.html', { root: __dirname });
+  }
+  else {
+    res.sendFile('auth.html', { root: __dirname });
+  }
 })
 // app.get('/', express.static(path.join(__dirname, '/img')), (req, res) => {
 //   res.sendFile('index.html', { root: __dirname });
