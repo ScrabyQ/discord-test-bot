@@ -51,7 +51,7 @@ app.post('/auth', url_encode, (req, res) => {
     res.redirect('index.html')
     res.status(200).end();
   }
-  res.sendFile('auth.html', { root: __dirname })
+  res.redirect('auth.html')
   res.status(200).end();
 
 })
