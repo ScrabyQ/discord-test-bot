@@ -48,7 +48,7 @@ app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) =>
               res.sendFile('index.html', { root: __dirname });
             }
             else if (i >= data.length){
-              res.sendFile('auth.html', { root: __dirname });
+              res.redirect('auth.html')
             }
           }
            
