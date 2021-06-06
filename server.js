@@ -108,7 +108,7 @@ app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
       if (!err){
         if (req.cookies.l && req.cookies.p){
           for (let key in data){
-            if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
+            if (req.cookies.l == data[key].log && req.cookies.p == data[key].pas){
               res.sendFile('index.html', { root: __dirname });
             }
           } 
