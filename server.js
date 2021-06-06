@@ -37,17 +37,12 @@ app.use(bp.json())
 app.use(url_encode)
 //#region подгрузка страниц и компонентов
 app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-  console.log('in auth log ' + req.cookies.l)
-  console.log('in auth pass ' + req.cookies.p)
   try {
     connection.query('select * from users', (err, data) => {
       if (!err){
         for (let key in data){
           if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
             res.sendFile('index.html', { root: __dirname });
-          }
-          else {
-            res.sendFile('auth.html', { root: __dirname });
           }
         }
       } else console.log(err)
@@ -87,9 +82,6 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
         for (let key in data){
           if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
             res.sendFile('index.html', { root: __dirname });
-          }
-          else {
-            res.sendFile('auth.html', { root: __dirname });
           }
         }
       } else console.log(err)
