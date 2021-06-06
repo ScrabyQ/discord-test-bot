@@ -5,6 +5,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const express = require('express')
+const cookie = require('cookie-parser')
 const app = require('express')();
 const path = require('path');
 const bp = require('body-parser');
@@ -43,9 +44,19 @@ app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) =>
   }
 })
 app.post('/auth', url_encode, (req, res) => {
-  console.log(res)
+
+  userData.log = req.body.log;
+  userData.pass = req.body.pass;
+
+  if (req.body.log == '123' && req.body.pass == '123'){
+    res.cookie('l', req.body.log, { expires: new Date(Date.now() + 900000)})
+    res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 900000)})
+    res.redirect('index.html')
+  }
+
 })
 app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
+  console.log(req.cookies.p)
   res.sendFile('index.html', { root: __dirname });
 })
 app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
