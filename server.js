@@ -69,6 +69,11 @@ app.post('/auth', url_encode, (req, res) => {
             res.redirect('index.html')  
             res.status(200).end()          
           } 
+          else {
+            console.log('not allowed: ')
+            console.log('log req: ' + req.body.log + ' != ' + 'log db: ' + data[key].log)
+            console.log('pass req: ' + req.body.pass + ' != ' + 'pass db: ' + data[key].pas)
+          }
         }
       } else console.log(err)
     })
