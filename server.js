@@ -40,13 +40,14 @@ app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) =>
   try {
     connection.query('select * from users', (err, data) => {
       if (!err){
-        for (let key in data){
-          if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
-            res.sendFile('index.html', { root: __dirname });
-          }
-          else {
-            res.sendFile('index.html', { root: __dirname });
-          }
+        if (req.cookies.l && req.cookies.p){
+          for (let key in data){
+            if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
+              res.sendFile('index.html', { root: __dirname });
+            }
+          } 
+        } else {
+          res.sendFile('auth.html', { root: __dirname });
         }
       } else console.log(err)
     })
@@ -80,10 +81,14 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
   try {
     connection.query('select * from users', (err, data) => {
       if (!err){
-        for (let key in data){
-          if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
-            res.sendFile('index.html', { root: __dirname });
-          }
+        if (req.cookies.l && req.cookies.p){
+          for (let key in data){
+            if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
+              res.sendFile('index.html', { root: __dirname });
+            }
+          } 
+        } else {
+          res.sendFile('auth.html', { root: __dirname });
         }
       } else console.log(err)
     })
@@ -94,13 +99,21 @@ app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) =
 })
 app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
   try {
-    if (req.cookies.l == '123' && req.cookies.p == '123'){
-      res.sendFile('index.html', { root: __dirname });
-    }
-    else {
-      res.sendFile('auth.html', { root: __dirname });
-    }
-  }catch {
+    connection.query('select * from users', (err, data) => {
+      if (!err){
+        if (req.cookies.l && req.cookies.p){
+          for (let key in data){
+            if (req.cookies.l == data[key].log && req.cookies.p == data[key].p){
+              res.sendFile('index.html', { root: __dirname });
+            }
+          } 
+        } else {
+          res.sendFile('auth.html', { root: __dirname });
+        }
+      } else console.log(err)
+    })
+  }catch(err) {
+    console.log(err)
     res.sendFile('auth.html', { root: __dirname });
   }
   
