@@ -44,7 +44,7 @@ app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) =>
         if (req.cookies.l && req.cookies.p){
           for (let key in data){
             if (req.cookies.l == data[key].log && req.cookies.p == data[key].pas){
-              res.sendFile('index.html', { root: __dirname });
+              res.redirect('index.html');
             }
           }
         } else {
@@ -952,7 +952,15 @@ cron.schedule( '*/30 * * * *', ()=> {
     .send(`@Rlathey атеншен!!1
     На sms.ru ${e.balance} руб.
     Этого уже мало!`);
+    } else if(Number(Math.floor(e.balance)) <= 2000) {
+      client.channels.cache
+    .get("844589763935207446")
+    .send(`@everyone сегодня погоду будет определять теплая, неустойчивая воздушная масса.
+    Воздух днем прогреется до температуры горения жопы Власа во время тупняка менеджеров. Местами ожидается сильный поток тикетных осадков в районе helpdeskeddy.
+    Обусловлено это тем, что на SMS.ru осталось всего ${e.balance} руб.
+    На этот час у нас все с пронозом погоды, срочно пополняйте SMS.ru`);
     }
+    
     // client.channels.cache
     // .get("844589763935207446")
     // .send(`количество не закрытых тикетов - ${hde.countTickets()}`);
