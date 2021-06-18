@@ -4,6 +4,7 @@
 
 const Discord = require("discord.js");
 const client = new Discord.Client();
+let guild = new Discord.GuildChannelManager();
 const express = require('express')
 const cookie = require('cookie-parser')
 const app = require('express')();
@@ -332,9 +333,7 @@ app.listen(80, () => {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
- itgt_server = client.guilds.get('766772576105922590');
- itgt_server.createChannel('test', {type: text})
-
+  console.log(guild)
 });
 client.on("message", (msg) => {
   if (msg.content === '/h'){
