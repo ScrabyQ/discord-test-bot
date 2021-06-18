@@ -333,9 +333,7 @@ app.listen(80, () => {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  guild.channels.create('test', { reason: 'Needed a cool new channel' })
-  .then(console.log)
-  .catch(console.error);
+  console.log(guild);
 });
 client.on("message", (msg) => {
   if (msg.content === '/h'){
