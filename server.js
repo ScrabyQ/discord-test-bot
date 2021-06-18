@@ -4,7 +4,7 @@
 
 const Discord = require("discord.js");
 const client = new Discord.Client();
-let guild = new Discord.GuildChannelManager(client);
+let guild = new Discord.GuildChannel(client, {type: 'text'});
 const express = require('express')
 const cookie = require('cookie-parser')
 const app = require('express')();
@@ -333,8 +333,8 @@ app.listen(80, () => {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  console.log(guild)
-  guild.create('test', {type: 'text'})
+  console.log(guild.channels)
+  guild.channels.create('test', {type: 'text'})
 });
 client.on("message", (msg) => {
   if (msg.content === '/h'){
