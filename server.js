@@ -4,7 +4,7 @@
 
 const Discord = require("discord.js");
 const client = new Discord.Client();
-const guild = new Discord.GuildChannel();
+const guild = new Discord.GuildChannel(client);
 const express = require('express')
 const cookie = require('cookie-parser')
 const app = require('express')();
