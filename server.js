@@ -333,7 +333,6 @@ app.listen(80, () => {
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  console.log(guild)
   // guild.channels.create('test', {type: 'text'})
 });
 client.on("message", (msg) => {
