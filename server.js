@@ -330,10 +330,10 @@ app.post('/dishook', jsonParser, (req, res) => {
 app.listen(80, () => {
 });
 
-let client_id = '552f42a5-00c8-4aa4-b9dd-c19a565f3269';
+let client_id = '714463f5-634d-4e0d-bde9-4a1ad20a3f7e';
 let redirect_uri = 'http://itgt.site/oauth/mtt';
 let redirect_uri_token = 'http://itgt.site/oauth/tokens';
-let client_secret = 'SJhe2Pi5bnzz3rRwhBqVRe';
+let client_secret = 'y7KRgaNafPdqY83WCPxCvF';
 
 app.get('/mtt', (req, res) => {
   res.redirect(`https://oauth.mtt.ru/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=https://mtt.ru/auth.tokens.readwrite&response_type=code`)
