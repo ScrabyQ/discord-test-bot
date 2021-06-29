@@ -104,7 +104,7 @@
             <form action="/create_task" method="POST">
                 <div class="form-group">
                   <label for="recipient-name" class="col-form-label">Заголовок задачи:</label>
-                  <input name="head" type="text" class="form-control bg-light text-dark" id="recipient-name">
+                  <input name="head" type="text" class="form-control bg-light text-dark" id="recipient-name" autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label for="message-text" class="col-form-label">Описание:</label>
@@ -112,11 +112,11 @@
                 </div>
                 <div class="form-group">
                     <label for="datepicker" class="col-form-label">Крайний срок:</label>
-                    <input name="deadline" type="text" class="form-control" id="datepicker">
+                    <input name="deadline" type="text" class="form-control" id="datepicker" autocomplete="off">
                   </div>
                   <div class="form-group">
                     <label for="responsible" class="col-form-label">Ответственный:</label>
-                    <input name="responsible" list="resp"type="text" class="form-control" id="responsible">
+                    <input name="responsible" list="resp"type="text" class="form-control" id="responsible" autocomplete="off">
                     <datalist id="resp">
                         <option value="Власов Дмитрий"/>
                         <option value="Садовников Сергей"/>

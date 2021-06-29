@@ -330,50 +330,6 @@ app.post('/dishook', jsonParser, (req, res) => {
 app.listen(80, () => {
 });
 
-let client_id = '714463f5-634d-4e0d-bde9-4a1ad20a3f7e';
-let redirect_uri = 'http://itgt.site/oauth/mtt';
-let redirect_uri_token = 'http://itgt.site/oauth/tokens';
-let client_secret = 'y7KRgaNafPdqY83WCPxCvF';
-
-app.get('/mtt', (req, res) => {
-  res.redirect(`https://oauth.mtt.ru/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=https://mtt.ru/auth.tokens.readwrite&response_type=code`)
-})
-
-app.get('/oauth/mtt', jsonParser, (req, res) => {
-  console.log(req.query.code);
-  let promise = new Promise((resolve, reject) => {
-      let data = {
-          'code': `${req.query.code}`,
-          'state': `${req.query.state}`
-      }
-      fs.writeFile('data.json', JSON.stringify(data), (err, d) => {
-          err ? console.log(err) : console.log('code has been writed')
-      } )
-      let fbody = {
-          "client_id": `${client_id}`, 
-          "client_secret": `${client_secret}`,
-          "code": `${data.code}`, 
-          "redirect_uri": `${redirect_uri_token}`,
-          "scope": `https://mtt.ru/auth.tokens.readwrite`,
-          "grant_type": `authorization_code`,
-      }
-      console.log(JSON.stringify(fbody))
-      fetch('https://oauth.mtt.ru/oauth/token', {
-          method: 'POST', 
-          body: JSON.stringify(fbody),
-          headers: {
-              'Content-Type': 'application/json'
-          }
-      }).then(fdata => {
-          console.log(fdata.headers);
-          console.log(fdata)
-          if (fdata.status === 500){
-              res.send('ошибка')
-          }
-      })
-  })
-})
-
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
   // guild.channels.create('test', {type: 'text'})
