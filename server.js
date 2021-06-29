@@ -1,7 +1,7 @@
 //TODO: доделать модуль hde и вывод кол-во тикетов
 // тегирование Валеры в оповещении о балансе смс
 
-
+const fs = require('fs');
 const Discord = require("discord.js");
 const client = new Discord.Client();
 // let guild = new Discord.GuildChannel(client, {type: 'text'});
