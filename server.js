@@ -1,179 +1,216 @@
 //TODO: доделать модуль hde и вывод кол-во тикетов
 // тегирование Валеры в оповещении о балансе смс
 
-const fs = require('fs');
+const fs      = require("fs");
 const Discord = require("discord.js");
-const client = new Discord.Client();
+const client  = new Discord.Client();
 // let guild = new Discord.GuildChannel(client, {type: 'text'});
-const express = require('express')
-const cookie = require('cookie-parser')
-const app = require('express')();
-const path = require('path');
-const bp = require('body-parser');
-const cfg = require("./config.json");
-const mysql = require("mysql2");
-var cron = require("node-cron");
-let SMSru = require('sms_ru');
-let hde = require('./hdeconnect.js')
-let config = require('./config.json');
-let sms = new SMSru(config.SMSRU_TOKEN);
-    
+const express = require("express");
+const cookie  = require("cookie-parser");
+const app     = require("express")();
+const path    = require("path");
+const bp      = require("body-parser");
+const cfg     = require("./config.json");
+const mysql   = require("mysql2");
+var   cron    = require("node-cron");
+let   SMSru   = require("sms_ru");
+let   hde     = require("./hdeconnect.js");
+let   config  = require("./config.json");
+let   sms     = new SMSru(config.SMSRU_TOKEN);
 
 let jsonParser = bp.json();
-let url_encode = bp.urlencoded({extended: true});
+let url_encode = bp.urlencoded({ extended: true });
 
 let today = new Date().toISOString().split("T")[0];
 
 let date1, date2;
 
-let userData = {};
+let   userData   = {};
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
+  host    : "localhost",
+  user    : "root",
   database: "discordTasks",
   password: "password",
 });
-app.use(cookie())
-app.use(bp.json())
-app.use(url_encode)
+app.use(cookie());
+app.use(bp.json());
+app.use(url_encode);
 //#region подгрузка страниц и компонентов
-app.get('/auth.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-  try {
-    connection.query('select * from users', (err, data) => {
-      if (!err){
-        console.log(data.length)
-        if (req.cookies.l && req.cookies.p){
-          for (let key in data){
-            if (req.cookies.l == data[key].log && req.cookies.p == data[key].pas){
-              res.redirect('index.html');
+app.get(
+  "/auth.html",
+  express.static(path.join(__dirname, "/js")),
+  (req, res) => {
+    try {
+      connection.query("select * from users", (err, data) => {
+        if (!err) {
+          console.log(data.length);
+          if (req.cookies.l && req.cookies.p) {
+            for (let key in data) {
+              if (
+                req.cookies.l == data[key].log &&
+                req.cookies.p == data[key].pas
+              ) {
+                res.redirect("index.html");
+              }
             }
+          } else {
+            res.sendFile("auth.html", { root: __dirname });
           }
-        } else {
-          res.sendFile('auth.html', { root: __dirname });
-        }
-      } else console.log(err)
-    })
-  }catch(err) {
-    console.log(err)
-    res.sendFile('auth.html', { root: __dirname });
+        } else console.log(err);
+      });
+    } catch (err) {
+      console.log(err);
+      res.sendFile("auth.html", { root: __dirname });
+    }
   }
-})
-app.post('/auth', url_encode, (req, res) => {
-  
+);
+app.post("/auth", url_encode, (req, res) => {
   try {
-    connection.query('select * from users', (err, data) => {
-      if (!err){
-        let i=0;
-        for (let key in data){
+    connection.query("select * from users", (err, data) => {
+      if (!err) {
+        let i = 0;
+        for (let key in data) {
           i++;
-          if (req.body.log == data[key].log && req.body.pass == data[key].pas){
-            res.cookie('l', req.body.log, { expires: new Date(Date.now() + 18000000)})
-            res.cookie('p', req.body.pass, {expires: new Date(Date.now() + 18000000)})
-            res.redirect('index.html')            
-          } 
-          else if (i == data.length){
-            res.redirect('auth.html')
+          if (req.body.log == data[key].log && req.body.pass == data[key].pas) {
+            res.cookie("l", req.body.log, {
+              expires: new Date(Date.now() + 18000000),
+            });
+            res.cookie("p", req.body.pass, {
+              expires: new Date(Date.now() + 18000000),
+            });
+            res.redirect("index.html");
+          } else if (i == data.length) {
+            res.redirect("auth.html");
           }
         }
-      } else console.log(err)
-    })
-  }catch(err) {
-    console.log(err)
-    res.sendFile('auth.html', { root: __dirname });
+      } else console.log(err);
+    });
+  } catch (err) {
+    console.log(err);
+    res.sendFile("auth.html", { root: __dirname });
   }
-})
-app.get('/index.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-  try {
-    connection.query('select * from users', (err, data) => {
-      if (!err){
-        if (req.cookies.l && req.cookies.p){
-          for (let key in data){
-            if (req.cookies.l == data[key].log && req.cookies.p == data[key].pas){
-              res.sendFile('index.html', { root: __dirname });
+});
+app.get(
+  "/index.html",
+  express.static(path.join(__dirname, "/js")),
+  (req, res) => {
+    try {
+      connection.query("select * from users", (err, data) => {
+        if (!err) {
+          if (req.cookies.l && req.cookies.p) {
+            for (let key in data) {
+              if (
+                req.cookies.l == data[key].log &&
+                req.cookies.p == data[key].pas
+              ) {
+                res.sendFile("index.html", { root: __dirname });
+              }
             }
-          } 
-        } else {
-          res.redirect('auth.html')
-        }
-      } else console.log(err)
-    })
-  }catch(err) {
-    console.log(err)
-    res.sendFile('auth.html', { root: __dirname });
+          } else {
+            res.redirect("auth.html");
+          }
+        } else console.log(err);
+      });
+    } catch (err) {
+      console.log(err);
+      res.sendFile("auth.html", { root: __dirname });
+    }
   }
-})
-app.get('/', express.static(path.join(__dirname, '/js')), (req, res) => {
+);
+app.get("/", express.static(path.join(__dirname, "/js")), (req, res) => {
   try {
-    connection.query('select * from users', (err, data) => {
-      if (!err){
-        if (req.cookies.l && req.cookies.p){
-          for (let key in data){
-            if (req.cookies.l == data[key].log && req.cookies.p == data[key].pas){
-              res.sendFile('index.html', { root: __dirname });
+    connection.query("select * from users", (err, data) => {
+      if (!err) {
+        if (req.cookies.l && req.cookies.p) {
+          for (let key in data) {
+            if (
+              req.cookies.l == data[key].log &&
+              req.cookies.p == data[key].pas
+            ) {
+              res.sendFile("index.html", { root: __dirname });
             }
-          } 
+          }
         } else {
-          res.redirect('auth.html')
+          res.redirect("auth.html");
         }
-      } else console.log(err)
-    })
-  }catch(err) {
-    console.log(err)
-    res.sendFile('auth.html', { root: __dirname });
+      } else console.log(err);
+    });
+  } catch (err) {
+    console.log(err);
+    res.sendFile("auth.html", { root: __dirname });
   }
-  
-})
+});
 // app.get('/', express.static(path.join(__dirname, '/img')), (req, res) => {
 //   res.sendFile('index.html', { root: __dirname });
 // })
-app.get('/tasks.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-  res.sendFile('tasks.html', { root: __dirname });
-})
-app.get('/done.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-  res.sendFile('done.html', { root: __dirname });
-})
-app.get('/balances.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-  res.sendFile('balances.html', { root: __dirname });
-})
-app.get('/tickets.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-  res.sendFile('tickets.html', { root: __dirname });
-})
-app.get('/monitoring.html', express.static(path.join(__dirname, '/js')), (req, res) => {
-  res.sendFile('monitoring.html', { root: __dirname });
-})
- app.get('/js/script.js', (req, res) => {
-   res.sendFile('js/script.js', { root: __dirname });
- })
- app.get('/js/done.js', (req, res) => {
-  res.sendFile('js/done.js', { root: __dirname });
-})
-app.get('/js/toggle.js', (req, res) => {
-  res.sendFile('js/toggle.js', { root: __dirname });
-})
+app.get(
+  "/tasks.html",
+  express.static(path.join(__dirname, "/js")),
+  (req, res) => {
+    res.sendFile("tasks.html", { root: __dirname });
+  }
+);
+app.get(
+  "/done.html",
+  express.static(path.join(__dirname, "/js")),
+  (req, res) => {
+    res.sendFile("done.html", { root: __dirname });
+  }
+);
+app.get(
+  "/balances.html",
+  express.static(path.join(__dirname, "/js")),
+  (req, res) => {
+    res.sendFile("balances.html", { root: __dirname });
+  }
+);
+app.get(
+  "/tickets.html",
+  express.static(path.join(__dirname, "/js")),
+  (req, res) => {
+    res.sendFile("tickets.html", { root: __dirname });
+  }
+);
+app.get(
+  "/monitoring.html",
+  express.static(path.join(__dirname, "/js")),
+  (req, res) => {
+    res.sendFile("monitoring.html", { root: __dirname });
+  }
+);
+app.get("/js/script.js", (req, res) => {
+  res.sendFile("js/script.js", { root: __dirname });
+});
+app.get("/js/done.js", (req, res) => {
+  res.sendFile("js/done.js", { root: __dirname });
+});
+app.get("/js/toggle.js", (req, res) => {
+  res.sendFile("js/toggle.js", { root: __dirname });
+});
 app.get(`/css/style.css`, (req, res) => {
   res.sendFile(`css/style.css`, { root: __dirname });
-})
+});
 app.get(`/img/back.png`, (req, res) => {
   res.sendFile(`img/back.png`, { root: __dirname });
-})
+});
 app.get(`/img/backdark.png`, (req, res) => {
   res.sendFile(`img/backdark.png`, { root: __dirname });
-})
+});
 app.get(`/img/empty.gif`, (req, res) => {
   res.sendFile(`img/empty.gif`, { root: __dirname });
-})
+});
 //#endregion
-app.get('/get_tasks', (req, res) => {
-  connection.query('SELECT * FROM inWorkTasks', (err, data) => {
+app.get("/get_tasks", (req, res) => {
+  connection.query("SELECT * FROM inWorkTasks", (err, data) => {
     res.json(data);
-  })
-})
-app.get('/get_done_tasks', (req, res) => {
-  connection.query('SELECT * FROM doneTasks', (err, data) => {
+  });
+});
+app.get("/get_done_tasks", (req, res) => {
+  connection.query("SELECT * FROM doneTasks", (err, data) => {
     res.json(data);
-  })
-})
-app.get('/iwt_filter', (err, data) => {
+  });
+});
+app.get("/iwt_filter", (err, data) => {
   let queryDate = `SELECT * 
   FROM inWorkTasks 
   WHERE DATE(created_at) 
@@ -183,172 +220,199 @@ app.get('/iwt_filter', (err, data) => {
   STR_TO_DATE("${date2}", "%Y-%m-%d")`;
   connection.query(queryDate, (err, data) => {
     res.json(data);
-  })
-})
-app.post('/iwt_filter', url_encode, (req, res) => {
+  });
+});
+app.post("/iwt_filter", url_encode, (req, res) => {
   date1 = req.body.date1;
   date2 = req.body.date2;
-  res.sendFile('iwt/data.html', {root: __dirname})
+  res.sendFile("iwt/data.html", { root: __dirname });
   res.status(200);
-})
-app.post('/delete_task', jsonParser, (req, res)=> {
-  if (req.body.type === 'itw'){
-    let queryData = `delete from inWorkTasks where id="${req.body.id}"`
+});
+app.post("/delete_task", jsonParser, (req, res) => {
+  if (req.body.type === "itw") {
+    let queryData = `delete from inWorkTasks where id="${req.body.id}"`;
     connection.query(queryData, (err, data) => {
-    err ? console.log(err) : console.log('data has been deleted');
-  })
-  } else if (req.body.type === 'dt'){
-    let queryData = `delete from doneTasks where id="${req.body.id}"`
+      err ? console.log(err) : console.log("data has been deleted");
+    });
+  } else if (req.body.type === "dt") {
+    let queryData = `delete from doneTasks where id="${req.body.id}"`;
     connection.query(queryData, (err, data) => {
-    err ? console.log(err) : console.log('data has been deleted');
-  })
+      err ? console.log(err) : console.log("data has been deleted");
+    });
   }
-})
-app.post('/complete_task', jsonParser, (req, res) => {
-  console.log("вы в голосе")
-  if (req.body.type === 'itw'){
-    console.log('проверка на тип пройдена')
-    let queryData = `select * from inWorkTasks where id="${req.body.id}"`
+});
+app.post("/complete_task", jsonParser, (req, res) => {
+  console.log("вы в голосе");
+  if (req.body.type === "itw") {
+    console.log("проверка на тип пройдена");
+    let queryData = `select * from inWorkTasks where id="${req.body.id}"`;
     let dbData;
     connection.query(queryData, (err, res) => {
-      if (!err){
+      if (!err) {
         let queryIntoDone = `insert into 
         doneTasks(head, description, deadline, responsible, created_at, done_at)
         values('${res[0].head}', 
         '${res[0].description}', 
         '${res[0].deadline}', 
         '${res[0].responsible}', 
-        '${res[0].created_at.toISOString().split("T")[0].slice(0, 9) + `${Number(res[0].created_at.toISOString().split("T")[0].slice(9, 10))}`}', 
-        '${today}')`
+        '${
+          res[0].created_at.toISOString().split("T")[0].slice(0, 9) +
+          `${Number(
+            res[0].created_at.toISOString().split("T")[0].slice(9, 10)
+          )}`
+        }', 
+        '${today}')`;
         connection.query(queryIntoDone, (err, doneData) => {
-          if (!err){
+          if (!err) {
             let finishQuery = `delete from inWorkTasks where id="${req.body.id}"`;
             connection.query(finishQuery, (err, fdata) => {
-            err ? console.log(err) : console.log('task has been completed')
-          })
-        } else console.log(err)
-      })
-      } else console.log(err)
-    }) 
+              err ? console.log(err) : console.log("task has been completed");
+            });
+          } else console.log(err);
+        });
+      } else console.log(err);
+    });
   }
-})
-app.post('/create_task', url_encode, (req, res) => {
-console.log(sitedateToISO(req.body.deadline))
-let queryData = `INSERT INTO inWorkTasks(head, description, deadline, responsible, created_at) VALUES('${
-  req.body.head
-}', '${req.body.description}', '${req.body.deadline}', '${req.body.responsible}', '${today}')`;
-connection.query(queryData, (err, data) => {
-  err ? console.log(err) : console.log('task has been created');
-})
-res.redirect('tasks.html');
-res.status(200).end();
-})
-app.post('/dishook/slacontrole', jsonParser, (req, res) => {
-  
-  client.channels.cache.get('844987698594054165').send({embed: {
-    color: 15294560, 
-    author: {
-      name: client.user.username,
-      icon_url: 'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg'
+});
+app.post("/create_task", url_encode, (req, res) => {
+  console.log(sitedateToISO(req.body.deadline));
+  let queryData = `INSERT INTO inWorkTasks(head, description, deadline, responsible, created_at) VALUES('${req.body.head}', '${req.body.description}', '${req.body.deadline}', '${req.body.responsible}', '${today}')`;
+  connection.query(queryData, (err, data) => {
+    err ? console.log(err) : console.log("task has been created");
+  });
+  res.redirect("tasks.html");
+  res.status(200).end();
+});
+app.post("/dishook/slacontrole", jsonParser, (req, res) => {
+  client.channels.cache.get("844987698594054165").send({
+    embed: {
+      color: 15294560,
+      author: {
+        name: client.user.username,
+        icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+      },
+      title: "Не забыли про заявку?",
+      url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`,
+      description: "Время последней активности превысило полчаса!",
+      fields: [
+        {
+          name: "Тема тикета",
+          value: req.body.name,
+        },
+        {
+          name: "Оставил заявку",
+          value: req.body.author,
+        },
+        {
+          name: "Время последнего ответа",
+          value: req.body.message,
+        },
+      ],
     },
-    title: "Не забыли про заявку?",
-    url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`, 
-    description: 'Время последней активности превысило полчаса!', 
-    fields: [{
-      name: "Тема тикета",
-      value: req.body.name
-    }, 
-    {
-      name: "Оставил заявку",
-      value: req.body.author
-    },
-    {
-      name: "Время последнего ответа",
-      value: req.body.message
-    }
-    ]
-  }})
+  });
 
-  res.send('send to Discord channel')
+  res.send("send to Discord channel");
   res.status(200).end();
 });
-app.post('/dishook/mess', jsonParser, (req, res) => {
-  client.channels.cache.get('844987698594054165').send({embed: {
-    color: 15105570, 
-    author: {
-      name: client.user.username,
-      icon_url: 'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg'
+app.post("/dishook/mess", jsonParser, (req, res) => {
+  client.channels.cache.get("844987698594054165").send({
+    embed: {
+      color: 15105570,
+      author: {
+        name: client.user.username,
+        icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+      },
+      title: "Новый ответ в тикете!",
+      url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`,
+      description: "Информация по новому ответу в тикете",
+      fields: [
+        {
+          name: "Тема тикета",
+          value: req.body.name,
+        },
+        {
+          name: "Оставил заявку",
+          value: req.body.author,
+        },
+        {
+          name: "Новое сообщение",
+          value: req.body.message,
+        },
+      ],
     },
-    title: "Новый ответ в тикете!",
-    url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`, 
-    description: 'Информация по новому ответу в тикете', 
-    fields: [{
-      name: "Тема тикета",
-      value: req.body.name
-    }, 
-    {
-      name: "Оставил заявку",
-      value: req.body.author
-    },
-    {
-      name: "Новое сообщение",
-      value: req.body.message
-    }
-    ]
-  }})
-  res.send('send to Discord channel')
+  });
+  res.send("send to Discord channel");
   res.status(200).end();
 });
-app.post('/dishook', jsonParser, (req, res) => {
-
-  client.channels.cache.get('844987698594054165').send({embed: {
-    color: 3447003, 
-    author: {
-      name: client.user.username,
-      icon_url: 'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg'
+app.post("/dishook", jsonParser, (req, res) => {
+  client.channels.cache.get("844987698594054165").send({
+    embed: {
+      color: 3447003,
+      author: {
+        name: client.user.username,
+        icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+      },
+      title: "Новый заявка в HDE!",
+      url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`,
+      description: "Информация по новому тикету",
+      fields: [
+        {
+          name: "Тема тикета",
+          value: req.body.name,
+        },
+        {
+          name: "Оставил заявку",
+          value: req.body.author,
+        },
+        {
+          name: "Комментарий",
+          value: req.body.message,
+        },
+      ],
     },
-    title: "Новый заявка в HDE!",
-    url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`, 
-    description: 'Информация по новому тикету', 
-    fields: [{
-      name: "Тема тикета",
-      value: req.body.name
-    }, 
-    {
-      name: "Оставил заявку",
-      value: req.body.author
-    },
-    {
-      name: "Комментарий",
-      value: req.body.message
-    }
-    ]
-  }})
-  res.send('send to Discord channel')
+  });
+  res.send("send to Discord channel");
   res.status(200).end();
 });
-app.listen(80, () => {
+app.post('/amo_monitor/sensei/source_not_included', url_encode, () => {
+  client.channels.cache.get("844987698594054165").send({
+    embed: {
+      color: 3447003,
+      author: {
+        name: client.user.username,
+        icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+      },
+      title: "По коням! Не проставился источник",
+      url: `https://yristmsk.amocrm.ru/leads/detail/${req.body.sensei.id}`,
+      description: 'Процесс "Источники заявок улучшеные" завершился с нулевым результатом',
+    },
+  });
+  res.send("send to Discord channel");
+  res.status(200).end();
 });
+app.listen(80, () => {});
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
   // guild.channels.create('test', {type: 'text'})
 });
 client.on("message", (msg) => {
-  if (msg.content === '/h'){
+  if (msg.content === "/h") {
     msg.delete().catch();
-    msg.reply({embed: {
-      color: 3447003, 
-      author: {
-        name: client.user.username,
-        icon_url: 'https://klike.net/uploads/posts/2019-03/1551511801_1.jpg'
-      },
-      title: "Список команд для бота",
-      url: ``, 
-      description: 'Список всех доступных команд для бота и их настройки', 
-      fields: [{
-        name: "Задачи",
-        value: `**__/nt__** - для постановки новой задачи. Принимает в себя 4 аргумента,
+    msg.reply({
+      embed: {
+        color: 3447003,
+        author: {
+          name: client.user.username,
+          icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+        },
+        title: "Список команд для бота",
+        url: ``,
+        description: "Список всех доступных команд для бота и их настройки",
+        fields: [
+          {
+            name: "Задачи",
+            value: `**__/nt__** - для постановки новой задачи. Принимает в себя 4 аргумента,
         записанные через точку с запятой (;). 
         Пример: **__/nt заголовок задачи; описание задачи; срок исполнения; ответственный__** (указываются 4 цифры пользователя дискорд без решетки (#)).
 
@@ -362,43 +426,44 @@ client.on("message", (msg) => {
 
         **__мои выполненные задачи__** - список выполненных задач с фильтрацией по пользователяю, 
         сделавшему запрос. Аргументы не принимает.
-        `
-      }, 
-      {
-        name: "Выполнение задачи",
-        value: `**__готово {id задачи}__** - переносит задачу из списка поставленных в список выполненных задач.
+        `,
+          },
+          {
+            name: "Выполнение задачи",
+            value: `**__готово {id задачи}__** - переносит задачу из списка поставленных в список выполненных задач.
         В качестве аргумента принимает id задачи без фигурных скобок.
-        Пример: **__готово 228__**`
-      },
-      {
-        name: "Фильтрация по спискам задач",
-        value: `Ко всем командам, формирующим списки задач, можно применить фильтр по диапазону дат.
+        Пример: **__готово 228__**`,
+          },
+          {
+            name: "Фильтрация по спискам задач",
+            value: `Ко всем командам, формирующим списки задач, можно применить фильтр по диапазону дат.
         Для такой фильтрации необходимо после написания команды поставить пробел и написать следующую конструкцию:
-        задачи **__c 20.12.2020 по 21.12.2020__**`
+        задачи **__c 20.12.2020 по 21.12.2020__**`,
+          },
+          {
+            name: "Доступен графческий интерфейс",
+            value:
+              "В падлу прописывать задачи текстом через ;? Теперь доступен [графический интерфейс](http://134.0.113.190:3030/index.html)",
+          },
+        ],
       },
-      {
-        name: "Доступен графческий интерфейс",
-        value: "В падлу прописывать задачи текстом через ;? Теперь доступен [графический интерфейс](http://134.0.113.190:3030/index.html)"
-      }
-      ]
-    }})
+    });
   }
-  if (msg.content == "sms"){
+  if (msg.content == "sms") {
     msg.delete().catch();
-    sms.my_balance( function(e){
-      msg.reply(`Текущий баланс sms.ru: ${e.balance}`, {tts: true});
-   }) 
-   
+    sms.my_balance(function (e) {
+      msg.reply(`Текущий баланс sms.ru: ${e.balance}`, { tts: true });
+    });
   }
-  if (msg.content == "лимиты sms"){
+  if (msg.content == "лимиты sms") {
     msg.delete().catch();
     sms.my_limit((e) => {
       msg.reply(`Текущий статус лимита по SMS.ru: ${e.current}/${e.total}`);
-    })
+    });
   }
-  if (msg.content === "тикеты"){
+  if (msg.content === "тикеты") {
     msg.delete().catch();
-   // msg.reply(`Количество не закрытых тикетов - ${hde.tickets}`, {tts: true})
+    // msg.reply(`Количество не закрытых тикетов - ${hde.tickets}`, {tts: true})
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
     msg.channel.send("Монета подбрасывается...");
@@ -811,7 +876,18 @@ client.on("message", (msg) => {
                     '${res[0].description}', 
                     '${res[0].deadline}', 
                     '${res[0].responsible}', 
-                    '${res[0].created_at.toISOString().split("T")[0].slice(0, 9)+`${Number(res[0].created_at.toISOString().split("T")[0].slice(9, 10))}`}', 
+                    '${
+                      res[0].created_at
+                        .toISOString()
+                        .split("T")[0]
+                        .slice(0, 9) +
+                      `${Number(
+                        res[0].created_at
+                          .toISOString()
+                          .split("T")[0]
+                          .slice(9, 10)
+                      )}`
+                    }', 
                     '${today}')`;
             connection.query(pushToDoneTab, (err) => {
               if (err) {
@@ -917,15 +993,15 @@ cron.schedule("0 0 9 * * *", () => {
                 .send("у меня для тебя ничего нет :cold_sweat:");
             }
             sms.my_balance((e) => {
-            client.channels.cache
-            .get("844589763935207446")
-            .send(`На sms.ru ${e.balance} руб.`);
-            })
+              client.channels.cache
+                .get("844589763935207446")
+                .send(`На sms.ru ${e.balance} руб.`);
+            });
             sms.my_limit((e) => {
-            client.channels.cache
-            .get("844589763935207446")
-            .send(`Лимиты по смс - ${e.current}/${e.total}`);
-            })
+              client.channels.cache
+                .get("844589763935207446")
+                .send(`Лимиты по смс - ${e.current}/${e.total}`);
+            });
           }
           client.channels.cache
             .get("844589763935207446")
@@ -935,40 +1011,41 @@ cron.schedule("0 0 9 * * *", () => {
     });
   }, 10000);
 });
-cron.schedule( '*/30 * * * *', ()=> {
-
+cron.schedule("*/30 * * * *", () => {
   sms.my_balance((e) => {
-    if (Number(Math.floor(e.balance)) >= 15000){
+    if (Number(Math.floor(e.balance)) >= 15000) {
       client.channels.cache
-    .get("844589763935207446")
-    .send(`На sms.ru ${e.balance} руб. Все в порядке`);
-    }
-    else if(Number(Math.floor(e.balance)) <= 15000 && Number(Math.floor(e.balance)) >= 5000) {
+        .get("844589763935207446")
+        .send(`На sms.ru ${e.balance} руб. Все в порядке`);
+    } else if (
+      Number(Math.floor(e.balance)) <= 15000 &&
+      Number(Math.floor(e.balance)) >= 5000
+    ) {
       client.channels.cache
-    .get("844589763935207446")
-    .send(`На sms.ru ${e.balance} руб. Все вроде хорошо, но неплохо было бы запросить деньги`);
-    } else if(Number(Math.floor(e.balance)) <= 5000 && Number(Math.floor(e.balance)) >= 2000) {
-      client.channels.cache
-    .get("844589763935207446")
-    .send(`@Rlathey атеншен!!1
+        .get("844589763935207446")
+        .send(
+          `На sms.ru ${e.balance} руб. Все вроде хорошо, но неплохо было бы запросить деньги`
+        );
+    } else if (
+      Number(Math.floor(e.balance)) <= 5000 &&
+      Number(Math.floor(e.balance)) >= 2000
+    ) {
+      client.channels.cache.get("844589763935207446").send(`@Rlathey атеншен!!1
     На sms.ru ${e.balance} руб.
     Этого уже мало!`);
-    } else if(Number(Math.floor(e.balance)) <= 2000) {
-      client.channels.cache
-    .get("844589763935207446")
-    .send(`@everyone сегодня погоду будет определять теплая, неустойчивая воздушная масса.
+    } else if (Number(Math.floor(e.balance)) <= 2000) {
+      client.channels.cache.get("844589763935207446")
+        .send(`@everyone сегодня погоду будет определять теплая, неустойчивая воздушная масса.
     Воздух днем прогреется до температуры горения жопы Власа во время тупняка менеджеров. Местами ожидается сильный поток тикетных осадков в районе helpdeskeddy.
     Обусловлено это тем, что на SMS.ru осталось всего ${e.balance} руб.
     На этот час у нас все с пронозом погоды, срочно пополняйте SMS.ru`);
     }
-    
+
     // client.channels.cache
     // .get("844589763935207446")
     // .send(`количество не закрытых тикетов - ${hde.countTickets()}`);
-    
-  })
-  
-})
+  });
+});
 function username(discriminator) {
   const discriminators = {
     user_1: ["4261", "Садовников Сергей"],
@@ -986,11 +1063,10 @@ function normaldateToISO(normal_date) {
   let iso = `${data[2]}-${data[1]}-${data[0]}`;
   return iso;
 }
-function sitedateToISO(site_date){
+function sitedateToISO(site_date) {
   let data = site_date.split("/");
   let iso = `${data[2]}-${data[0]}-${data[1]}`;
   return iso;
 }
- 
- 
+
 client.login(cfg.TOKEN);
