@@ -375,7 +375,7 @@ app.post("/dishook", jsonParser, (req, res) => {
   res.status(200).end();
 });
 app.post('/amo_monitor/sensei/source_not_included', url_encode, (req, res) => {
- console.log(req.body.leads.sensei[0])
+ //console.log(req.body.leads.sensei[0])
   client.channels.cache.get("861914368669122570").send({
     embed: {
       color: 3447003,
@@ -384,7 +384,7 @@ app.post('/amo_monitor/sensei/source_not_included', url_encode, (req, res) => {
         icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
       },
       title: "По коням! Не проставился источник",
-      url: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei.id}`,
+      url: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`,
       description: 'Процесс "Источники заявок улучшеные" завершился с нулевым результатом',
     },
   });
