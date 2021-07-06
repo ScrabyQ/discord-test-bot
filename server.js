@@ -374,7 +374,7 @@ app.post("/dishook", jsonParser, (req, res) => {
   res.send("send to Discord channel");
   res.status(200).end();
 });
-app.post('/amo_monitor/sensei/source_not_included', url_encode, () => {
+app.post('/amo_monitor/sensei/source_not_included', url_encode, (req, res) => {
   client.channels.cache.get("861914368669122570").send({
     embed: {
       color: 3447003,
