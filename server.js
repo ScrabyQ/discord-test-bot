@@ -402,6 +402,33 @@ app.post('/amo_monitor/sensei/source_not_included', url_encode, (req, res) => {
   res.send("send to Discord channel");
   res.status(200).end();
 });
+app.post('/amo_monitor/sensei/city_not_included', url_encode, (req, res) => {
+  //console.log(req.body.leads.sensei[0])
+   client.channels.cache.get("861914368669122570").send({
+     embed: {
+       color: 15294560,
+       author: {
+         name: client.user.username,
+         icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+       },
+       title: "По коням! Не проставился город",
+       url: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`,
+       description: 'Процесс "Источники заявок улучшеные" завершился с нулевым результатом',
+       fields: [
+         {
+           name: 'Название сделки',
+           value: req.body.leads.sensei[0].name
+         },
+         {
+           name: 'Ссылка на сделку',
+           value: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`
+         }
+       ]
+     },
+   });
+   res.send("send to Discord channel");
+   res.status(200).end();
+  });
 app.listen(80, () => {});
 
 client.on("ready", () => {
