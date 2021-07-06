@@ -413,7 +413,7 @@ app.post('/amo_monitor/sensei/city_not_included', url_encode, (req, res) => {
        },
        title: "По коням! Не проставился город",
        url: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`,
-       description: 'Процесс "Источники заявок улучшеные" завершился с нулевым результатом',
+       description: 'Процесс "Город интернеты" завершился с нулевым результатом',
        fields: [
          {
            name: 'Название сделки',
