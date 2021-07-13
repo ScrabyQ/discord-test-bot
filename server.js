@@ -1,22 +1,22 @@
 //TODO: доделать модуль hde и вывод кол-во тикетов
 // тегирование Валеры в оповещении о балансе смс
 
-const fs      = require("fs");
+const fs = require("fs");
 const Discord = require("discord.js");
-const client  = new Discord.Client();
+const client = new Discord.Client();
 // let guild = new Discord.GuildChannel(client, {type: 'text'});
 const express = require("express");
-const cookie  = require("cookie-parser");
-const app     = require("express")();
-const path    = require("path");
-const bp      = require("body-parser");
-const cfg     = require("./config.json");
-const mysql   = require("mysql2");
-var   cron    = require("node-cron");
-let   SMSru   = require("sms_ru");
-let   hde     = require("./hdeconnect.js");
-let   config  = require("./config.json");
-let   sms     = new SMSru(config.SMSRU_TOKEN);
+const cookie = require("cookie-parser");
+const app = require("express")();
+const path = require("path");
+const bp = require("body-parser");
+const cfg = require("./config.json");
+const mysql = require("mysql2");
+var cron = require("node-cron");
+let SMSru = require("sms_ru");
+let hde = require("./hdeconnect.js");
+let config = require("./config.json");
+let sms = new SMSru(config.SMSRU_TOKEN);
 
 let jsonParser = bp.json();
 let url_encode = bp.urlencoded({ extended: true });
@@ -25,10 +25,10 @@ let today = new Date().toISOString().split("T")[0];
 
 let date1, date2;
 
-let   userData   = {};
+let userData = {};
 const connection = mysql.createConnection({
-  host    : "localhost",
-  user    : "root",
+  host: "localhost",
+  user: "root",
   database: "discordTasks",
   password: "password",
 });
@@ -314,6 +314,34 @@ app.post("/dishook/slacontrole", jsonParser, (req, res) => {
   res.send("send to Discord channel");
   res.status(200).end();
 });
+app.post('/dishook/one_day', jsonParser, (req, res)=> {
+  client.channels.cache.get('844987698594054165').send({
+    embed: {
+      color: 15105570, 
+      author: {
+        name: client.user.username,
+        icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+      },
+      title: "Прошли сутки с последнего стука клиента",
+      url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`,
+      description: "Информация тикету",
+      fields: [
+        {
+          name: "Тема тикета",
+          value: req.body.name,
+        },
+        {
+          name: "Оставил заявку",
+          value: req.body.author,
+        },
+        {
+          name: "Последнее сообщение",
+          value: req.body.message,
+        },
+      ]
+    }
+  })
+})
 app.post("/dishook/mess", jsonParser, (req, res) => {
   client.channels.cache.get("844987698594054165").send({
     embed: {
@@ -375,8 +403,8 @@ app.post("/dishook", jsonParser, (req, res) => {
   res.status(200).end();
 });
 //амо монитор
-app.post('/amo_monitor/sensei/source_not_included', url_encode, (req, res) => {
- //console.log(req.body.leads.sensei[0])
+app.post("/amo_monitor/sensei/source_not_included", url_encode, (req, res) => {
+  //console.log(req.body.leads.sensei[0])
   client.channels.cache.get("861914368669122570").send({
     embed: {
       color: 15294560,
@@ -386,54 +414,54 @@ app.post('/amo_monitor/sensei/source_not_included', url_encode, (req, res) => {
       },
       title: "По коням! Не проставился источник",
       url: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`,
-      description: 'Процесс "Источники заявок улучшеные" завершился с нулевым результатом',
+      description:
+        'Процесс "Источники заявок улучшеные" завершился с нулевым результатом',
       fields: [
         {
-          name: 'Название сделки',
-          value: req.body.leads.sensei[0].name
+          name: "Название сделки",
+          value: req.body.leads.sensei[0].name,
         },
         {
-          name: 'Ссылка на сделку',
-          value: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`
-        }
-      ]
+          name: "Ссылка на сделку",
+          value: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`,
+        },
+      ],
     },
   });
   res.send("send to Discord channel");
   res.status(200).end();
 });
-app.post('/amo_monitor/sensei/city_not_included', url_encode, (req, res) => {
+app.post("/amo_monitor/sensei/city_not_included", url_encode, (req, res) => {
   //console.log(req.body.leads.sensei[0])
-   client.channels.cache.get("861914368669122570").send({
-     embed: {
-       color: 15294560,
-       author: {
-         name: client.user.username,
-         icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
-       },
-       title: "По коням! Не проставился город",
-       url: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`,
-       description: 'Процесс "Город интернеты" завершился с нулевым результатом',
-       fields: [
-         {
-           name: 'Название сделки',
-           value: req.body.leads.sensei[0].name
-         },
-         {
-           name: 'Ссылка на сделку',
-           value: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`
-         }
-       ]
-     },
-   });
-   res.send("send to Discord channel");
-   res.status(200).end();
+  client.channels.cache.get("861914368669122570").send({
+    embed: {
+      color: 15294560,
+      author: {
+        name: client.user.username,
+        icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+      },
+      title: "По коням! Не проставился город",
+      url: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`,
+      description: 'Процесс "Город интернеты" завершился с нулевым результатом',
+      fields: [
+        {
+          name: "Название сделки",
+          value: req.body.leads.sensei[0].name,
+        },
+        {
+          name: "Ссылка на сделку",
+          value: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`,
+        },
+      ],
+    },
   });
+  res.send("send to Discord channel");
+  res.status(200).end();
+});
 app.listen(80, () => {});
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  // guild.channels.create('test', {type: 'text'})
 });
 client.on("message", (msg) => {
   if (msg.content === "/h") {
