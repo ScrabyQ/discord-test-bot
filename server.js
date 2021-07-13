@@ -352,7 +352,7 @@ app.post("/dishook", jsonParser, (req, res) => {
         name: client.user.username,
         icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
       },
-      title: "Новый заявка в HDE!",
+      title: "Новая заявка в HDE!",
       url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`,
       description: "Информация по новому тикету",
       fields: [
