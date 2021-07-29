@@ -412,6 +412,7 @@ app.post("/infobot", jsonParser, (req, res) => {
           Ссылка на запись: ${req.body.link}
           Ответ клиента: ${req.body.answer}` 
         );
+        res.status('200').end();
   }
   if (req.body.status === 'recall'){ 
     client.channels.cache
@@ -419,6 +420,7 @@ app.post("/infobot", jsonParser, (req, res) => {
         .send(
           `Клиенту не удобно говорить. Ссылка на запись: ${req.body.link}` 
         );
+        res.status('200').end();
   }
   if (req.body.status === 'd_want'){ 
     client.channels.cache
@@ -426,6 +428,7 @@ app.post("/infobot", jsonParser, (req, res) => {
         .send(
           `Клиент не хочет говорить. Ссылка на запись: ${req.body.link}` 
         );
+        res.status('200').end();
   }
   if (req.body.status === 'bad_call'){ 
     client.channels.cache
@@ -433,6 +436,7 @@ app.post("/infobot", jsonParser, (req, res) => {
         .send(
           `Клиент не хочет говорить. Ссылка на запись: ${req.body.link}` 
         );
+        res.status('200').end();
   }
   if (req.body.status === 'no_problem'){ 
     client.channels.cache
@@ -440,6 +444,7 @@ app.post("/infobot", jsonParser, (req, res) => {
         .send(
           `У клиента нет проблем. Завидую ему. Однако ссылка на запись: ${req.body.link}` 
         );
+        res.status('200').end();
   }
 })
 //амо монитор
