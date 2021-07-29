@@ -314,34 +314,34 @@ app.post("/dishook/slacontrole", jsonParser, (req, res) => {
   res.send("send to Discord channel");
   res.status(200).end();
 });
-app.post('/dishook/one_day', jsonParser, (req, res)=> {
-  client.channels.cache.get('844987698594054165').send({
-    embed: {
-      color: 15105570, 
-      author: {
-        name: client.user.username,
-        icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
-      },
-      title: "Прошли сутки с последнего стука клиента",
-      url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`,
-      description: "Информация тикету",
-      fields: [
-        {
-          name: "Тема тикета",
-          value: req.body.name,
-        },
-        {
-          name: "Оставил заявку",
-          value: req.body.author,
-        },
-        {
-          name: "Последнее сообщение",
-          value: req.body.message,
-        },
-      ]
-    }
-  })
-})
+// app.post('/dishook/one_day', jsonParser, (req, res)=> {
+//   client.channels.cache.get('844987698594054165').send({
+//     embed: {
+//       color: 15105570, 
+//       author: {
+//         name: client.user.username,
+//         icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+//       },
+//       title: "Прошли сутки с последнего стука клиента",
+//       url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`,
+//       description: "Информация тикету",
+//       fields: [
+//         {
+//           name: "Тема тикета",
+//           value: req.body.name,
+//         },
+//         {
+//           name: "Оставил заявку",
+//           value: req.body.author,
+//         },
+//         {
+//           name: "Последнее сообщение",
+//           value: req.body.message,
+//         },
+//       ]
+//     }
+//   })
+// })
 app.post("/dishook/mess", jsonParser, (req, res) => {
   client.channels.cache.get("844987698594054165").send({
     embed: {
@@ -402,6 +402,46 @@ app.post("/dishook", jsonParser, (req, res) => {
   res.send("send to Discord channel");
   res.status(200).end();
 });
+//infobot
+app.post("/infobot", jsonParser, (req, res) => {
+  if (req.body.status === 'ok'){ 
+    client.channels.cache
+        .get("870318593412309042")
+        .send(
+          `Успешный звонок клиенту. 
+          Ссылка на запись: ${req.body.link}
+          Ответ клиента: ${req.body.answer}` 
+        );
+  }
+  if (req.body.status === 'recall'){ 
+    client.channels.cache
+        .get("870318593412309042")
+        .send(
+          `Клиенту не удобно говорить. Ссылка на запись: ${req.body.link}` 
+        );
+  }
+  if (req.body.status === 'd_want'){ 
+    client.channels.cache
+        .get("870318593412309042")
+        .send(
+          `Клиент не хочет говорить. Ссылка на запись: ${req.body.link}` 
+        );
+  }
+  if (req.body.status === 'bad_call'){ 
+    client.channels.cache
+        .get("870318593412309042")
+        .send(
+          `Клиент не хочет говорить. Ссылка на запись: ${req.body.link}` 
+        );
+  }
+  if (req.body.status === 'no_problem'){ 
+    client.channels.cache
+        .get("870318593412309042")
+        .send(
+          `У клиента нет проблем. Завидую ему. Однако ссылка на запись: ${req.body.link}` 
+        );
+  }
+})
 //амо монитор
 app.post("/amo_monitor/sensei/source_not_included", url_encode, (req, res) => {
   //console.log(req.body.leads.sensei[0])
