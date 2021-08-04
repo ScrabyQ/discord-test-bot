@@ -486,7 +486,7 @@ app.post("/amo_monitor/sensei/city_not_included", url_encode, (req, res) => {
           name: client.user.username,
           icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
         },
-        title: "Внимание! Пролюбился город в сделке",
+        title: "Внимание! Пролюбился регион в сделке",
         url: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`,
         description: 'По новому процессу Власа мы вылетели в ошибку, надо бы проверить',
         fields: [
