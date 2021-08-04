@@ -477,8 +477,8 @@ app.post("/amo_monitor/sensei/source_not_included", url_encode, (req, res) => {
   res.status(200).end();
 });
 app.post("/amo_monitor/sensei/city_not_included", url_encode, (req, res) => {
-  console.log(req.body.leads)
-  if (req.body.leads.event === 'REG'){
+  console.log(req.body.event)
+  if (req.body.event === 'REG'){
     client.channels.cache.get("861914368669122570").send({
       embed: {
         color: 15294560,
