@@ -344,6 +344,7 @@ app.post("/dishook/slacontrole", jsonParser, (req, res) => {
 //   })
 // })
 app.post("/dishook/mess", jsonParser, (req, res) => {
+  console.log(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/.test(req.body.message))
   if (!/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/.test(req.body.message)){
   client.channels.cache.get("844987698594054165").send({
     embed: {
@@ -374,7 +375,7 @@ app.post("/dishook/mess", jsonParser, (req, res) => {
   res.send("send to Discord channel");
   res.status(200).end();
 }
-else {
+else if (/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/.test(req.body.message)){
   let first_part_url = req.body.message.slice('</img>')
   let url = first_part_url[0].slice('<img>')
   client.channels.cache.get("844987698594054165").send({
