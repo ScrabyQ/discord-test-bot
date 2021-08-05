@@ -345,9 +345,9 @@ app.post("/dishook/slacontrole", jsonParser, (req, res) => {
 // })
 app.post("/dishook/mess", jsonParser, (req, res) => {
   console.log(req.body.message)
-  if (req.body.embed){
+  
     console.log(req.body.embed)
-  }
+    
   client.channels.cache.get("844987698594054165").send({
     embed: {
       color: 15105570,
