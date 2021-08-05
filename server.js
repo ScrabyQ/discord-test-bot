@@ -543,7 +543,14 @@ app.post('/tests', jsonParser, (req, res) => {
   console.log(req.body); 
   res.status(200).end();
 })
-app.listen(443, 80, () => {});
+let privateKey = fs.readFileSync( 'privatekey.pem' );
+let certificate = fs.readFileSync( 'certificate.pem' );
+
+https.createServer({
+    key: privateKey,
+    cert: certificate
+}, app).listen(443);
+
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
