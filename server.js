@@ -346,7 +346,7 @@ app.post("/dishook/slacontrole", jsonParser, (req, res) => {
 app.post("/dishook/mess", jsonParser, (req, res) => {
   let result = req.body.message.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/g)
   console.log(result)
-  if (!/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/.test(req.body.message)){
+  
   client.channels.cache.get("844987698594054165").send({
     embed: {
       color: 15105570,
@@ -375,40 +375,8 @@ app.post("/dishook/mess", jsonParser, (req, res) => {
   });
   res.send("send to Discord channel");
   res.status(200).end();
-}
-else if (/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/.test(req.body.message)){
-  let first_part_url = req.body.message.slice('</img>')
-  let url = first_part_url[0].slice('<img>')
-  client.channels.cache.get("844987698594054165").send({
-    embed: {
-      color: 15105570,
-      author: {
-        name: client.user.username,
-        icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
-      },
-      title: "Новый ответ в тикете!",
-      url: `https://itgt.helpdeskeddy.com/ru/ticket/list/filter/id/1/ticket/${req.body.id}/#/`,
-      description: "Информация по новому ответу в тикете",
-      image: `${url[1]}`,
-      fields: [
-        {
-          name: "Тема тикета",
-          value: req.body.name,
-        },
-        {
-          name: "Оставил заявку",
-          value: req.body.author,
-        },
-        {
-          name: "Новое сообщение",
-          value: req.body.message,
-        },
-      ],
-    },
-  });
-  res.send("send to Discord channel");
-  res.status(200).end();
-}
+
+
 });
 app.post("/dishook", jsonParser, (req, res) => {
   client.channels.cache.get("844987698594054165").send({
