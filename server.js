@@ -535,7 +535,7 @@ app.post('/amo_monitor/online', jsonParser, (req, res) => {
   console.log(req.body); 
   let query = `insert into online(usercount, dt) values(${req.body.usercount}, NOW())`
   connection.query(query, (err) => {
-    сlient.channels.cache.get("861914368669122570").send('Записал данные об онлайне амо в БД.')
+    client.channels.cache.get("861914368669122570").send('Записал данные об онлайне амо в БД.')
     res.status(200).end();
   })
   
