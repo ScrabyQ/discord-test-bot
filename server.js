@@ -1200,9 +1200,10 @@ cron.schedule("*/30 * * * *", () => {
     Обусловлено это тем, что на SMS.ru осталось всего ${e.balance} руб.
     На этот час у нас все с пронозом погоды, срочно пополняйте SMS.ru`);
     }
-    connection.query('select * from online order by id desc limit 1', (err, data) => {
+    connection.query('select * from online order by id desc limit 1', (err, resp) => {
       if (!err) {
-        client.channels.cache.get("844589763935207446").send(`на ${data.dt} количество пользователей онлайн: ${data.usercount}`)
+        console.log(resp)
+        client.channels.cache.get("844589763935207446").send(`на ${resp.dt} количество пользователей онлайн: ${resp.usercount}`)
       }
       else client.channels.cache.get("844589763935207446").send('я пытался прочитать данные из базы данных по онлайну, но у меня ничего не вышло.\n Прикладываю лог ошибки: \n'
        + err)
