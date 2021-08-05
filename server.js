@@ -16,7 +16,6 @@ var cron = require("node-cron");
 let SMSru = require("sms_ru");
 let hde = require("./hdeconnect.js");
 let config = require("./config.json");
-const Query = require("mysql2/typings/mysql/lib/protocol/sequences/Query");
 let sms = new SMSru(config.SMSRU_TOKEN);
 
 let jsonParser = bp.json();
