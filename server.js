@@ -1200,7 +1200,7 @@ cron.schedule("*/30 * * * *", () => {
     Обусловлено это тем, что на SMS.ru осталось всего ${e.balance} руб.
     На этот час у нас все с пронозом погоды, срочно пополняйте SMS.ru`);
     }
-    connection.query('select MAX(id) from online', (err, data) => {
+    connection.query('select * from online order by id desc limit 1', (err, data) => {
       if (!err) {
         client.channels.cache.get("844589763935207446").send(`на ${data.dt} количество пользователей онлайн: ${data.usercount}`)
       }
