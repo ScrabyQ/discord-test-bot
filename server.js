@@ -16,6 +16,7 @@ var cron = require("node-cron");
 let SMSru = require("sms_ru");
 let hde = require("./hdeconnect.js");
 let config = require("./config.json");
+const Query = require("mysql2/typings/mysql/lib/protocol/sequences/Query");
 let sms = new SMSru(config.SMSRU_TOKEN);
 
 let jsonParser = bp.json();
@@ -530,6 +531,19 @@ app.post("/amo_monitor/sensei/city_not_included", url_encode, (req, res) => {
     res.status(200).end();
   }
 });
+app.post('/amo_monitor/online', jsonParser, (req, res) => {
+  console.log(req.body); 
+  let query = `insert into online(usercount, dt) values(${req.body.usercount}, NOW())`
+  connection.query(query, (err) => {
+    сlient.channels.cache.get("861914368669122570").send('Записал данные об онлайне амо в БД.')
+    res.status(200).end();
+  })
+  
+})
+app.post('/tests', jsonParser, (req, res) => {
+  console.log(req.body); 
+  res.status(200).end();
+})
 app.listen(80, () => {});
 
 client.on("ready", () => {
@@ -1179,7 +1193,13 @@ cron.schedule("*/30 * * * *", () => {
     Обусловлено это тем, что на SMS.ru осталось всего ${e.balance} руб.
     На этот час у нас все с пронозом погоды, срочно пополняйте SMS.ru`);
     }
-
+    connection.query('select MAX(id) from online', (err, data) => {
+      if (!err) {
+        client.channels.cache.get("844589763935207446").send(`на ${data.dt} количество пользователей онлайн: ${data.usercount}`)
+      }
+      else client.channels.cache.get("844589763935207446").send('я пытался прочитать данные из базы данных по онлайну, но у меня ничего не вышло.\n Прикладываю лог ошибки: \n'
+       + err)
+    });
     // client.channels.cache
     // .get("844589763935207446")
     // .send(`количество не закрытых тикетов - ${hde.countTickets()}`);
