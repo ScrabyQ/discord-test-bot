@@ -2,6 +2,7 @@
 // тегирование Валеры в оповещении о балансе смс
 
 const fs = require("fs");
+const https = require("https")
 const Discord = require("discord.js");
 const client = new Discord.Client();
 // let guild = new Discord.GuildChannel(client, {type: 'text'});
