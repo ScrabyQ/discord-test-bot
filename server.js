@@ -344,9 +344,10 @@ app.post("/dishook/slacontrole", jsonParser, (req, res) => {
 //   })
 // })
 app.post("/dishook/mess", jsonParser, (req, res) => {
-  let result = req.body.message.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/g)
-  console.log(result)
   
+  if (req.body.embed){
+    console.log(req.body.embed)
+  }
   client.channels.cache.get("844987698594054165").send({
     embed: {
       color: 15105570,
@@ -375,8 +376,6 @@ app.post("/dishook/mess", jsonParser, (req, res) => {
   });
   res.send("send to Discord channel");
   res.status(200).end();
-
-
 });
 app.post("/dishook", jsonParser, (req, res) => {
   client.channels.cache.get("844987698594054165").send({
