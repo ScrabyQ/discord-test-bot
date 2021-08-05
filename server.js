@@ -543,7 +543,7 @@ app.post('/tests', jsonParser, (req, res) => {
   console.log(req.body); 
   res.status(200).end();
 })
-app.listen(80, () => {});
+app.listen(443, 80, () => {});
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
