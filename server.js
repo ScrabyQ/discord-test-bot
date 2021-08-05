@@ -344,7 +344,7 @@ app.post("/dishook/slacontrole", jsonParser, (req, res) => {
 //   })
 // })
 app.post("/dishook/mess", jsonParser, (req, res) => {
-  let result = req.body.message(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/)
+  let result = req.body.message.match(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/)
   console.log(result)
   if (!/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/.test(req.body.message)){
   client.channels.cache.get("844987698594054165").send({
