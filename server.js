@@ -347,7 +347,7 @@ app.post("/dishook/mess", jsonParser, (req, res) => {
   console.log(req.body.message)
   
     console.log(req.body.embed)
-    
+
   client.channels.cache.get("844987698594054165").send({
     embed: {
       color: 15105570,
@@ -408,7 +408,7 @@ app.post("/dishook", jsonParser, (req, res) => {
   res.status(200).end();
 });
 //infobot
-app.post("/infobot", jsonParser, (req, res) => {
+app.post("/info_monitor", jsonParser, (req, res) => {
   if (req.body.status === 'ok'){ 
     client.channels.cache
         .get("870318593412309042")
