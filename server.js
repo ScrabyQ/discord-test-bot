@@ -409,6 +409,7 @@ app.post("/dishook", jsonParser, (req, res) => {
 });
 //infobot
 app.post("/info_monitor", jsonParser, (req, res) => {
+  console.log('infobot')
   if (req.body.status === 'ok'){ 
     client.channels.cache
         .get("870318593412309042")
