@@ -1203,9 +1203,7 @@ client.on("message", (msg) => {
     Данные по источникам взяты с:
     https://docs.google.com/spreadsheets/d/1igqu5WiTejkb-7nueGv737F11LJU4M1wvEdDJNMvd5k/edit#gid=0
     После этого сообщения статистика не будет сброшена.`)
-    setTimeout(() => {
-      msg.reply('понял блять?') 
-    }, 3000);
+    
     
   }
 });
