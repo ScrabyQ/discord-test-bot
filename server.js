@@ -1310,7 +1310,7 @@ client.on("message", (msg) => {
       googleSheetsInstance.spreadsheets.values.append({
         auth, 
         spreadsheetId, 
-        range: "Лист1!A:R", //sheet name and range of cells
+        range: "Логи!A:R", //sheet name and range of cells
         valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
         resource: {
             values: [[`${new Date()}`, `${TV_counter}`, `${internet_counter}`, `${recomend_counter}`,`${paper_counter}`,`${adv_in_transport_counter}`,`${adv_in_stand_counter}`,`${pos_counter}`,`${lead_generators_counter}`,`${smm_counter}`,`${context_counter}`,`${target_counter}`,`${geo_service_counter}`,`${avito_counter}`,`${combo_counter}`,`${others_counter}`, `${error1_counter}`, `${error2_counter}`]],
@@ -1525,8 +1525,17 @@ cron.schedule("*/30 * * * *", () => {
         }
         console.log(data)
       } else client.channels.cache.get('844589763935207446').send('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
-    })
 
+    })
+    googleSheetsInstance.spreadsheets.values.append({
+      auth, 
+      spreadsheetId, 
+      range: "Лист1!A:R", //sheet name and range of cells
+      valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
+      resource: {
+          values: [[`${new Date()}`, `${TV_counter}`, `${internet_counter}`, `${recomend_counter}`,`${paper_counter}`,`${adv_in_transport_counter}`,`${adv_in_stand_counter}`,`${pos_counter}`,`${lead_generators_counter}`,`${smm_counter}`,`${context_counter}`,`${target_counter}`,`${geo_service_counter}`,`${avito_counter}`,`${combo_counter}`,`${others_counter}`, `${error1_counter}`, `${error2_counter}`]],
+      },
+    });
     setTimeout(() => {
       TV_counter = 0;
       internet_counter = 0;
