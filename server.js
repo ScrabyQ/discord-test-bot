@@ -4,6 +4,7 @@
 const fs = require("fs");
 const https = require("https")
 const Discord = require("discord.js");
+const { google } = require("googleapis");
 const client = new Discord.Client();
 // let guild = new Discord.GuildChannel(client, {type: 'text'});
 const express = require("express");
@@ -26,7 +27,27 @@ let today = new Date().toISOString().split("T")[0];
 
 let date1, date2;
 
+
 let userData = {};
+const auth = new google.auth.GoogleAuth({
+  keyFile: "google.json", //the key file
+  //url to spreadsheets API
+  scopes: "https://www.googleapis.com/auth/spreadsheets", 
+});
+ //Auth client Object
+ const authClientObject = await auth.getClient();
+ //Google sheets instance
+ const googleSheetsInstance = google.sheets({ version: "v4", auth: authClientObject });
+ const spreadsheetId = "1Ir1quSrGEMz-qKorgnGy4fz5HlFepNgDA8c8x21uLWk";
+ await googleSheetsInstance.spreadsheets.values.append({
+  auth, //auth object
+  spreadsheetId, //spreadsheet id
+  range: "Sheet1!A:B", //sheet name and range of cells
+  valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
+  resource: {
+      values: [["Git followers tutorial", "Mia Roberts"]],
+  },
+});
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -1246,7 +1267,7 @@ client.on("message", (msg) => {
                 name: client.user.username,
                 icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
               },
-              title: `Сделка ${key + 1}`,
+              title: `Сделка ${key}`,
               url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
               description: "Информация по сделке",
               fields: [
@@ -1276,7 +1297,7 @@ client.on("message", (msg) => {
                 name: client.user.username,
                 icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
               },
-              title: `Сделка ${key + 1}`,
+              title: `Сделка ${key}`,
               url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
               description: "Информация по сделке",
               fields: [
@@ -1454,7 +1475,7 @@ cron.schedule("*/30 * * * *", () => {
                 name: client.user.username,
                 icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
               },
-              title: `Сделка ${key + 1}`,
+              title: `Сделка ${key}`,
               url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
               description: "Информация по сделке",
               fields: [
@@ -1485,7 +1506,7 @@ cron.schedule("*/30 * * * *", () => {
                 name: client.user.username,
                 icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
               },
-              title: `Сделка ${key + 1}`,
+              title: `Сделка ${key}`,
               url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
               description: "Информация по сделке",
               fields: [
