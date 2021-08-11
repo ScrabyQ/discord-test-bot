@@ -1418,6 +1418,13 @@ cron.schedule("*/30 * * * *", () => {
       avito_counter = 0;
       combo_counter = 0;
       others_counter = 0;
+
+      connection.query('truncate table statistic', (err) => {
+        err ? console.log(err) : console.log('Таблица statistic очищена')
+      })
+      connection.query('truncate table statistic2', (err) => {
+        err ? console.log(err) : console.log('Таблица statistic2 очищена')
+      })
     }, 5000);
   });
 
