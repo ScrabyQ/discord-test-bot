@@ -621,11 +621,11 @@ app.post('/amo_monitor/table_check', jsonParser, (req, res) => {
   } else if (req.body.event === error1){
     error1_counter++;
     let query = `insert into statistic(lead_id, lead_name) values('${req.body.leads.sensei[0].id}', ${req.body.leads.sensei[0].name})`
-    connection.query(query, (err, data => {
+    connection.query(query, (err, data) => {
       if (err){
         client.channels.cache.get('861914368669122570').send('Попытался записать информацию по новому процессу Власа в бд, но безуспешно')
       }
-    }))
+    })
   } else if (req.body.event === error2){
     error2_counter++
     let query = `insert into statistic2(lead_id, lead_name) values('${req.body.lesds.sensei[0].id}', ${req.body.leads.sensei[0].name})`
