@@ -590,40 +590,58 @@ let error2_counter = 0;
 app.post('/amo_monitor/table_check', jsonParser, (req, res) => {
   if (req.body.event === TV){
     TV_counter++;
+    res.status(200).end();
   } else if (req.body.event === internet){
     internet_counter++
+    res.status(200).end();
   } else if (req.body.event === recomend){
     recomend_counter++
+    res.status(200).end();
   } else if (req.body.event === paper){
     paper_counter++
+    res.status(200).end();
   } else if (req.body.event === adv_in_transport){
     adv_in_transport_counter++
+    res.status(200).end();
   } else if (req.body.event === adv_in_stand){
     adv_in_stand_counter++
+    res.status(200).end();
   } else if (req.body.event === pos){
     pos_counter++
+    res.status(200).end();
   } else if (req.body.event === lead_generators){
     lead_generators_counter++
+    res.status(200).end();
   } else if (req.body.event === smm){
     smm_counter++
+    res.status(200).end();
   } else if (req.body.event === context){
     context_counter++
+    res.status(200).end();
   } else if (req.body.event === target){
     target_counter++
+    res.status(200).end();
   } else if (req.body.event === geo_service){
     geo_service_counter++
+    res.status(200).end();
   } else if (req.body.event === avito){
     avito_counter++
+    res.status(200).end();
   } else if (req.body.event === combo){
     combo_counter++
+    res.status(200).end();
   } else if (req.body.event === others){
     others_counter++
+    res.status(200).end();
   } else if (req.body.event === error1){
     error1_counter++;
     let query = `insert into statistic(lead_id, lead_name) values('${req.body.leads.sensei[0].id}', ${req.body.leads.sensei[0].name})`
     connection.query(query, (err, data) => {
       if (err){
         client.channels.cache.get('861914368669122570').send('Попытался записать информацию по новому процессу Власа в бд, но безуспешно')
+        res.status(200).end();
+      } else {
+        res.status(200).end();
       }
     })
   } else if (req.body.event === error2){
@@ -632,6 +650,9 @@ app.post('/amo_monitor/table_check', jsonParser, (req, res) => {
     connection.query(query, (err, data => {
       if (err){
         client.channels.cache.get('861914368669122570').send('Попытался записать информацию по новому процессу Власа в бд, но безуспешно')
+        res.status(200).end();
+      } else {
+        res.status(200).end();
       }
     }))
   } else {
