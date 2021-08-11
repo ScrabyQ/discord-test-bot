@@ -1239,10 +1239,29 @@ client.on("message", (msg) => {
         msg.reply(`Детали event - ${error1}:`)
         for (key in data){
           
-          msg.reply(`Сделка ${key}. ${data[key].lead_name}. Ссылка на сделку: 
-          https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`)
+          msg.reply({
+            embed: {
+              color: 15105570,
+              author: {
+                name: client.user.username,
+                icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+              },
+              title: `Сделка ${key}`,
+              url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
+              description: "Информация по новому ответу в тикете",
+              fields: [
+                {
+                  name: "Название сделки",
+                  value: data[key].lead_name,
+                },
+                {
+                  name: "id сделки",
+                  value: data[key].lead_id,
+                },
+              ],
+            },
+          });
         }
-        console.log(data)
       } else msg.reply('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
     })
     connection.query('select * from statistic2', (err, data) => {
@@ -1250,8 +1269,28 @@ client.on("message", (msg) => {
         msg.reply(`Детали event - ${error2}:`)
         for (key in data){
           
-          msg.reply(`Сделка ${key}. ${data[key].lead_name}. Ссылка на сделку: 
-          https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`)
+          msg.reply({
+            embed: {
+              color: 15105570,
+              author: {
+                name: client.user.username,
+                icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+              },
+              title: `Сделка ${key}`,
+              url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
+              description: "Информация по новому ответу в тикете",
+              fields: [
+                {
+                  name: "Название сделки",
+                  value: data[key].lead_name,
+                },
+                {
+                  name: "id сделки",
+                  value: data[key].lead_id,
+                },
+              ],
+            },
+          });
         }
         console.log(data)
       } else msg.reply('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
