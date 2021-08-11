@@ -551,6 +551,80 @@ app.post('/amo_monitor/online', jsonParser, (req, res) => {
     
   })
   
+}); 
+let TV = 'ТВ';
+let TV_counter = 0;
+let internet = 'Интернет';
+let internet_counter = 0;
+let recomend = 'Рекомендации';
+let recomend_counter = 0;
+let paper = 'Газеты';
+let paper_counter = 0;
+let adv_in_transport = 'Реклама в транспорте';
+let adv_in_transport_counter = 0;
+let adv_in_stand = 'Наружка';
+let adv_in_stand_counter = 0;
+let pos = 'POS-материалы';
+let pos_counter = 0;
+let lead_generators = 'Лидогенераторы';
+let lead_generators_counter = 0;
+let smm = 'СММ';
+let smm_counter = 0;
+let context = 'Контекст';
+let context_counter = 0;
+let target = 'Таргет';
+let target_counter = 0;
+let geo_service = 'Гео Сервис';
+let geo_service_counter = 0;
+let avito = 'Авито';
+let avito_counter = 0;
+let combo = 'Сайт/Вывеск/Офис';
+let combo_counter = 0;
+let others = 'Прочее'
+let others_counter = 0;
+let error1 = 'Обращение нуль'
+let error1_counter = 0;
+let error2 = 'Звонок нуль'
+let error2_counter = 0;
+
+app.post('/amo_monitor/table_check', jsonParser, (req, res) => {
+  if (req.body.event === TV){
+    TV_counter++;
+  } else if (req.body.event === internet){
+    internet_counter++
+  } else if (req.body.event === recomend){
+    recomend_counter++
+  } else if (req.body.event === paper){
+    paper_counter++
+  } else if (req.body.event === adv_in_transport){
+    adv_in_transport_counter++
+  } else if (req.body.event === adv_in_stand){
+    adv_in_stand_counter++
+  } else if (req.body.event === pos){
+    pos_counter++
+  } else if (req.body.event === lead_generators){
+    lead_generators_counter++
+  } else if (req.body.event === smm){
+    smm_counter++
+  } else if (req.body.event === context){
+    context_counter++
+  } else if (req.body.event === target){
+    target_counter++
+  } else if (req.body.event === geo_service){
+    geo_service_counter++
+  } else if (req.body.event === avito){
+    avito_counter++
+  } else if (req.body.event === combo){
+    combo_counter++
+  } else if (req.body.event === others){
+    others_counter++
+  } else if (req.body.event === error1){
+    error1_counter++
+  } else if (req.body.event === error2){
+    error2_counter++
+  } else {
+    client.channels.cache.get('861914368669122570').send('Там это, новый эвент пришел, но я не смог его обработать. Детали: ' + req.body.event)
+  }
 })
 app.post('/tests', jsonParser, (req, res) => {
   console.log(req.body); 
@@ -1104,6 +1178,32 @@ client.on("message", (msg) => {
       }
     });
   }
+  if (msg.content === 'статистика по источникам') {
+    msg.reply(`Статистика на сегодняшний день по процессу Власа: 
+    ${TV}: ${TV_counter},
+    ${internet}: ${internet_counter},
+    ${recomend}: ${recomend_counter},
+    ${paper}: ${paper_counter},
+    ${adv_in_transport}: ${adv_in_transport_counter},
+    ${adv_in_stand}: ${adv_in_stand_counter},
+    ${pos}: ${pos_counter},
+    ${lead_generators}: ${lead_generators_counter},
+    ${smm}: ${smm_counter},
+    ${context}: ${context_counter}, 
+    ${target}: ${target_counter},
+    ${geo_service}: ${geo_service_counter},
+    ${avito}: ${avito_counter},
+    ${combo}: ${combo_counter},
+    ${other}: ${others_counter},
+    
+    Улетевшие в ошибку:
+    ${error1}: ${error1_counter},
+    ${error2}: ${error2_counter}.
+    
+    Данные по источникам взяты с:
+    https://docs.google.com/spreadsheets/d/1igqu5WiTejkb-7nueGv737F11LJU4M1wvEdDJNMvd5k/edit#gid=0
+    После этого сообщения статистика не будет сброшена.`)
+  }
 });
 cron.schedule("0 0 9 * * *", () => {
   client.channels.cache.get("835159002403831879").send(
@@ -1224,6 +1324,50 @@ cron.schedule("*/30 * * * *", () => {
     // .get("844589763935207446")
     // .send(`количество не закрытых тикетов - ${hde.countTickets()}`);
   });
+  cron.schedule('0 0 18 * * *', () => {
+    client.channels.cache.get('844589763935207446').send(`Статистика на сегодняшний день по процессу Власа: 
+    ${TV}: ${TV_counter},
+    ${internet}: ${internet_counter},
+    ${recomend}: ${recomend_counter},
+    ${paper}: ${paper_counter},
+    ${adv_in_transport}: ${adv_in_transport_counter},
+    ${adv_in_stand}: ${adv_in_stand_counter},
+    ${pos}: ${pos_counter},
+    ${lead_generators}: ${lead_generators_counter},
+    ${smm}: ${smm_counter},
+    ${context}: ${context_counter}, 
+    ${target}: ${target_counter},
+    ${geo_service}: ${geo_service_counter},
+    ${avito}: ${avito_counter},
+    ${combo}: ${combo_counter},
+    ${other}: ${others_counter}.
+    
+    Улетевшие в ошибку:
+    ${error1}: ${error1_counter},
+    ${error2}: ${error2_counter}.
+    
+    Данные по источникам взяты с:
+    https://docs.google.com/spreadsheets/d/1igqu5WiTejkb-7nueGv737F11LJU4M1wvEdDJNMvd5k/edit#gid=0`);
+
+    setTimeout(() => {
+      TV_counter = 0;
+      internet_counter = 0;
+      recomend_counter = 0;
+      paper_counter = 0;
+      adv_in_transport_counter = 0;
+      adv_in_stand_counter = 0;
+      pos_counter = 0;
+      lead_generators_counter = 0;
+      smm_counter = 0;
+      context_counter = 0; 
+      target_counter = 0;
+      geo_service_counter = 0;
+      avito_counter = 0;
+      combo_counter = 0;
+      others_counter = 0;
+    }, 5000);
+  });
+
 });
 function username(discriminator) {
   const discriminators = {
