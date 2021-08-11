@@ -39,7 +39,7 @@ const auth = new google.auth.GoogleAuth({
  //Google sheets instance
  const googleSheetsInstance = google.sheets({ version: "v4", auth: authClientObject });
  const spreadsheetId = "1Ir1quSrGEMz-qKorgnGy4fz5HlFepNgDA8c8x21uLWk";
- await googleSheetsInstance.spreadsheets.values.append({
+googleSheetsInstance.spreadsheets.values.append({
   auth, //auth object
   spreadsheetId, //spreadsheet id
   range: "Sheet1!A:B", //sheet name and range of cells
