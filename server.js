@@ -1399,8 +1399,32 @@ cron.schedule("*/30 * * * *", () => {
     ${error1}: ${error1_counter},
     ${error2}: ${error2_counter}.
     
+    
     Данные по источникам взяты с:
     https://docs.google.com/spreadsheets/d/1igqu5WiTejkb-7nueGv737F11LJU4M1wvEdDJNMvd5k/edit#gid=0`);
+
+    connection.query('select * from statistic', (err, data) => {
+      if (!err){
+        client.channels.cache.get('844589763935207446').send(`Детали event - ${error1}:`)
+        for (key in data){
+          
+          client.channels.cache.get('844589763935207446').send(`Сделка ${key}. ${data[key].lead_name}. Ссылка на сделку: 
+          https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`)
+        }
+        console.log(data)
+      } else client.channels.cache.get('844589763935207446').send('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
+    })
+    connection.query('select * from statistic2', (err, data) => {
+      if (!err){
+        client.channels.cache.get('844589763935207446').send(`Детали event - ${error2}:`)
+        for (key in data){
+          
+          client.channels.cache.get('844589763935207446').send(`Сделка ${key}. ${data[key].lead_name}. Ссылка на сделку: 
+          https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`)
+        }
+        console.log(data)
+      } else client.channels.cache.get('844589763935207446').send('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
+    })
 
     setTimeout(() => {
       TV_counter = 0;
