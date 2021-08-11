@@ -39,15 +39,6 @@ const auth = new google.auth.GoogleAuth({
  //Google sheets instance
  const googleSheetsInstance = google.sheets({ version: "v4", auth: authClientObject });
  const spreadsheetId = "1Ir1quSrGEMz-qKorgnGy4fz5HlFepNgDA8c8x21uLWk";
-googleSheetsInstance.spreadsheets.values.append({
-  auth, //auth object
-  spreadsheetId, //spreadsheet id
-  range: "Лист1!A:B", //sheet name and range of cells
-  valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
-  resource: {
-      values: [["Git followers tutorial", "Mia Roberts"]],
-  },
-});
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -1315,6 +1306,16 @@ client.on("message", (msg) => {
         }
         console.log(data)
       } else msg.reply('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
+
+      googleSheetsInstance.spreadsheets.values.append({
+        auth, 
+        spreadsheetId, 
+        range: "Лист1!A:R", //sheet name and range of cells
+        valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
+        resource: {
+            values: [[`${new Date()}`, `${TV_counter}`, `${internet_counter}`, `${recomend_counter}`,`${paper_counter}`,`${adv_in_transport_counter}`,`${adv_in_stand_counter}`,`${pos_counter}`,`${lead_generators_counter}`,`${smm_counter}`,`${context_counter}`,`${target_counter}`,`${geo_service_counter}`,`${avito_counter}`,`${combo_counter}`,`${others_counter}`, `${error1_counter}`, `${error2_counter}`]],
+        },
+      });
     })
   }
 });
