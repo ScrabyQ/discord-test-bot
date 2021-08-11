@@ -1179,7 +1179,7 @@ client.on("message", (msg) => {
     });
   }
   if (msg.content === 'статистика по источникам') {
-    msg.reply(`Статистика на сегодняшний день по процессу Власа: 
+    msg.reply(`Статистика на текущий момент по процессу Власа: 
     ${TV}: ${TV_counter},
     ${internet}: ${internet_counter},
     ${recomend}: ${recomend_counter},
@@ -1203,6 +1203,10 @@ client.on("message", (msg) => {
     Данные по источникам взяты с:
     https://docs.google.com/spreadsheets/d/1igqu5WiTejkb-7nueGv737F11LJU4M1wvEdDJNMvd5k/edit#gid=0
     После этого сообщения статистика не будет сброшена.`)
+    setTimeout(() => {
+      msg.reply('понял блять?') 
+    }, 3000);
+    
   }
 });
 cron.schedule("0 0 9 * * *", () => {
