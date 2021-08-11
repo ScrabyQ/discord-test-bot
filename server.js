@@ -1194,7 +1194,7 @@ client.on("message", (msg) => {
     ${geo_service}: ${geo_service_counter},
     ${avito}: ${avito_counter},
     ${combo}: ${combo_counter},
-    ${other}: ${others_counter},
+    ${others}: ${others_counter},
     
     Улетевшие в ошибку:
     ${error1}: ${error1_counter},
@@ -1340,8 +1340,8 @@ cron.schedule("*/30 * * * *", () => {
     ${geo_service}: ${geo_service_counter},
     ${avito}: ${avito_counter},
     ${combo}: ${combo_counter},
-    ${other}: ${others_counter}.
-    
+    ${others}: ${others_counter}.
+
     Улетевшие в ошибку:
     ${error1}: ${error1_counter},
     ${error2}: ${error2_counter}.
