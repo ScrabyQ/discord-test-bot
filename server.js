@@ -1209,7 +1209,23 @@ client.on("message", (msg) => {
     
     connection.query('select * from statistic', (err, data) => {
       if (!err){
-        msg.reply(data)
+        msg.reply(`Детали event - ${error1}:`)
+        for (key in data){
+          
+          msg.reply(`Сделка ${key}. ${data[key].lead_name}. Ссылка на сделку: 
+          https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`)
+        }
+        console.log(data)
+      } else msg.reply('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
+    })
+    connection.query('select * from statistic2', (err, data) => {
+      if (!err){
+        msg.reply(`Детали event - ${error2}:`)
+        for (key in data){
+          
+          msg.reply(`Сделка ${key}. ${data[key].lead_name}. Ссылка на сделку: 
+          https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`)
+        }
         console.log(data)
       } else msg.reply('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
     })
