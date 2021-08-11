@@ -619,7 +619,13 @@ app.post('/amo_monitor/table_check', jsonParser, (req, res) => {
   } else if (req.body.event === others){
     others_counter++
   } else if (req.body.event === error1){
-    error1_counter++
+    error1_counter++;
+    let query = `insert into statistic(lead_id, lead_name) values('${req.body.sensei[0].id}', ${req.body.sensei[0].name})`
+    connection.query(query, (err, data => {
+      if (err){
+        client.channels.cache.get('861914368669122570').send('Попытался записать информацию по новому процессу Власа в бд, но безуспешно')
+      }
+    }))
   } else if (req.body.event === error2){
     error2_counter++
   } else {
@@ -1199,12 +1205,14 @@ client.on("message", (msg) => {
     Улетевшие в ошибку:
     ${error1}: ${error1_counter},
     ${error2}: ${error2_counter}.
+    `)
     
-    Данные по источникам взяты с:
-    https://docs.google.com/spreadsheets/d/1igqu5WiTejkb-7nueGv737F11LJU4M1wvEdDJNMvd5k/edit#gid=0
-    После этого сообщения статистика не будет сброшена.`)
-    
-    
+    connection.query('select * from statistic', (err, data) => {
+      if (!err){
+        msg.reply(data)
+        console.log(data)
+      } else msg.reply('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
+    })
   }
 });
 cron.schedule("0 0 9 * * *", () => {
