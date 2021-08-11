@@ -1248,7 +1248,7 @@ client.on("message", (msg) => {
               },
               title: `Сделка ${key}`,
               url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
-              description: "Информация по новому ответу в тикете",
+              description: "Информация по сделке",
               fields: [
                 {
                   name: "Название сделки",
@@ -1278,7 +1278,7 @@ client.on("message", (msg) => {
               },
               title: `Сделка ${key}`,
               url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
-              description: "Информация по новому ответу в тикете",
+              description: "Информация по сделке",
               fields: [
                 {
                   name: "Название сделки",
