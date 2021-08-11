@@ -35,7 +35,7 @@ const auth = new google.auth.GoogleAuth({
   scopes: "https://www.googleapis.com/auth/spreadsheets", 
 });
  //Auth client Object
- const authClientObject = await auth.getClient();
+ const authClientObject =  auth.getClient();
  //Google sheets instance
  const googleSheetsInstance = google.sheets({ version: "v4", auth: authClientObject });
  const spreadsheetId = "1Ir1quSrGEMz-qKorgnGy4fz5HlFepNgDA8c8x21uLWk";
