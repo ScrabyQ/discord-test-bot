@@ -779,9 +779,14 @@ client.on("message", (msg) => {
     googleSheetsInstance.spreadsheets.values.batchUpdate({
       auth,
       spreadsheetId: rocketSpreadsheetId,
-      find: '01.08.2021', 
-      replacement: '01.09.2021', 
-      includeFormulas: true,
+      requestBody: {
+        "find": "01.08.2021",
+        "replacement": "01.09.2021",
+        "matchCase": false,
+        "matchEntireCell": false,
+        "searchByRegex": false,
+        "includeFormulas": true,
+      },
       range: 'Псков!A5:A695'
     })
     googleSheetsInstance.spreadsheets.values.clear({
