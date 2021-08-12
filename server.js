@@ -40,7 +40,7 @@ const auth = new google.auth.GoogleAuth({
  
  const googleSheetsInstance = google.sheets({ version: "v4", auth: authClientObject });
  const statisticSpreadsheetId = "1Ir1quSrGEMz-qKorgnGy4fz5HlFepNgDA8c8x21uLWk";
- const rocketSpreadsheetId = "1IKAV8CgL7clO86VTgDikvPKY34it6f9pcpjZg8EOUEQ";
+ const rocketSpreadsheetId = "1WxgadLGRQinXQiotH3Qg9_QbikjGiwd8ekulKqZJSCk";
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -807,11 +807,11 @@ client.on("message", (msg) => {
          "responseRanges": []
       }
     })
-    googleSheetsInstance.spreadsheets.values.clear({
-      auth,
-      spreadsheetId: rocketSpreadsheetId,
-      range: 'Псков!J5:AN21'
-    })
+    // googleSheetsInstance.spreadsheets.values.clear({
+    //   auth,
+    //   spreadsheetId: rocketSpreadsheetId,
+    //   range: 'Псков!J5:AN21'
+    // })
   }
   if (
     msg.content.toLowerCase() === "задачи" ||
