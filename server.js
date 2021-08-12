@@ -774,8 +774,10 @@ client.on("message", (msg) => {
       msg.channel.send(":last_quarter_moon: Монета упала ребром!");
     }
   }
-  if (msg.content === 'почисти таблицу'){
+  if (/^почисти лист/.test(msg.content)){
     msg.reply('ок');
+    let list_id = msg.content.slice(0, 12);
+    console.log(list_id)
     googleSheetsInstance.spreadsheets.batchUpdate({
       auth,
       spreadsheetId: rocketSpreadsheetId,
