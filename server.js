@@ -1319,21 +1319,6 @@ client.on("message", (msg) => {
       });
     })
   }
-  if (msg.content === 'очистить таблицу') {
-    googleSheetsInstance.spreadsheets.values.append({
-      auth, 
-      spreadsheetId: rocketSpreadsheetId, 
-      range: "Псков!J5:AN21", //sheet name and range of cells
-      valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
-      resource: {
-          values: [[' ']],
-      },
-    }, (err) => {
-      if (err){
-        console.log(err)
-      }
-    });
-  }
 });
 cron.schedule("0 0 9 * * *", () => {
   client.channels.cache.get("835159002403831879").send(
