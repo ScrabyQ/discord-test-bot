@@ -38,7 +38,8 @@ const auth = new google.auth.GoogleAuth({
  const authClientObject =  auth.getClient();
  //Google sheets instance
  const googleSheetsInstance = google.sheets({ version: "v4", auth: authClientObject });
- const spreadsheetId = "1Ir1quSrGEMz-qKorgnGy4fz5HlFepNgDA8c8x21uLWk";
+ const statisticSpreadsheetId = "1Ir1quSrGEMz-qKorgnGy4fz5HlFepNgDA8c8x21uLWk";
+ const rocketSpreadsheetId = "1IKAV8CgL7clO86VTgDikvPKY34it6f9pcpjZg8EOUEQ";
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -1309,7 +1310,7 @@ client.on("message", (msg) => {
 
       googleSheetsInstance.spreadsheets.values.append({
         auth, 
-        spreadsheetId, 
+        spreadsheetId: statisticSpreadsheetId, 
         range: "Логи!A:R", //sheet name and range of cells
         valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
         resource: {
@@ -1317,6 +1318,17 @@ client.on("message", (msg) => {
         },
       });
     })
+  }
+  if (msg.content === 'очистить таблицу') {
+    googleSheetsInstance.spreadsheets.values.append({
+      auth, 
+      spreadsheetId: rocketSpreadsheetId, 
+      range: "Псков!J5:AN21", //sheet name and range of cells
+      valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
+      resource: {
+          values: [[' ']],
+      },
+    });
   }
 });
 cron.schedule("0 0 9 * * *", () => {
@@ -1529,7 +1541,7 @@ cron.schedule("*/30 * * * *", () => {
     })
     googleSheetsInstance.spreadsheets.values.append({
       auth, 
-      spreadsheetId, 
+      spreadsheetId: statisticSpreadsheetId, 
       range: "Лист1!A:R", //sheet name and range of cells
       valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
       resource: {
