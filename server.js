@@ -773,6 +773,10 @@ client.on("message", (msg) => {
       msg.channel.send(":last_quarter_moon: Монета упала ребром!");
     }
   }
+  if (msg.content === 'почисти таблицу'){
+    msg.reply('ок');
+    googleSheetsInstance.getActiveSpreadsheet().getSheetsByName('Псков').getRange('J5:AN21').clear();
+  }
   if (
     msg.content.toLowerCase() === "задачи" ||
     msg.content.toLowerCase() === "что там по задачкам?"
