@@ -793,7 +793,7 @@ client.on("message", (msg) => {
             {
               "sheetId": 2125130317,
               "startRowIndex": 0,
-              "endRowIndex": 1,
+              "endRowIndex": 2,
               "startColumnIndex": 4,
               "endColumnIndex": 694
            }
