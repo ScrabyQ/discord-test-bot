@@ -37,6 +37,7 @@ const auth = new google.auth.GoogleAuth({
  //Auth client Object
  const authClientObject =  auth.getClient();
  //Google sheets instance
+ 
  const googleSheetsInstance = google.sheets({ version: "v4", auth: authClientObject });
  const statisticSpreadsheetId = "1Ir1quSrGEMz-qKorgnGy4fz5HlFepNgDA8c8x21uLWk";
  const rocketSpreadsheetId = "1IKAV8CgL7clO86VTgDikvPKY34it6f9pcpjZg8EOUEQ";
@@ -775,7 +776,7 @@ client.on("message", (msg) => {
   }
   if (msg.content === 'почисти таблицу'){
     msg.reply('ок');
-    googleSheetsInstance.getActiveSpreadsheet().getSheetsByName('Псков').getRange('J5:AN21').clear();
+    google.getActiveSpreadsheet().getSheetsByName('Псков').getRange('J5:AN21').clear();
   }
   if (
     msg.content.toLowerCase() === "задачи" ||
