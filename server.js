@@ -780,12 +780,19 @@ client.on("message", (msg) => {
       auth,
       spreadsheetId: rocketSpreadsheetId,
       requestBody: {
-        "find": "01.08.2021",
-        "replacement": "01.09.2021",
-        "matchCase": false,
-        "matchEntireCell": false,
-        "searchByRegex": false,
-        "includeFormulas": true,
+        "includeSpreadsheetInResponse": false,
+         "requests": [{ 
+          "FindReplace": {
+          "find": "01.08.2021",
+          "replacement": "01.09.2021",
+          "matchCase": false,
+          "matchEntireCell": false,
+          "searchByRegex": false,
+          "includeFormulas": true
+         }
+         }],
+         "responseIncludeGridData": false,
+         "responseRanges": []
       },
       range: 'Псков!A5:A695'
     })
