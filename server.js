@@ -776,7 +776,7 @@ client.on("message", (msg) => {
   }
   if (/^почисти лист/.test(msg.content)){
     msg.reply('ок');
-    let list_id = msg.content.slice(0, 12);
+    let list_id = msg.content.slice(12);
     console.log(list_id)
     googleSheetsInstance.spreadsheets.batchUpdate({
       auth,
