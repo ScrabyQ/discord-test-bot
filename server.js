@@ -776,6 +776,14 @@ client.on("message", (msg) => {
   }
   if (msg.content === 'почисти таблицу'){
     msg.reply('ок');
+    googleSheetsInstance.spreadsheets.values.update({
+      auth,
+      spreadsheetId: rocketSpreadsheetId,
+      find: '01.08.2021', 
+      replacement: '01.09.2021', 
+      includeFormulas: true,
+      range: 'Псков!A5:A695'
+    })
     googleSheetsInstance.spreadsheets.values.clear({
       auth,
       spreadsheetId: rocketSpreadsheetId,
