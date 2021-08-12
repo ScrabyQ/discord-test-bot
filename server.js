@@ -1328,6 +1328,10 @@ client.on("message", (msg) => {
       resource: {
           values: [[' ']],
       },
+    }, (err) => {
+      if (err){
+        console.log(err)
+      }
     });
   }
 });
