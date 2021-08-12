@@ -788,7 +788,17 @@ client.on("message", (msg) => {
           "matchCase": false,
           "matchEntireCell": false,
           "searchByRegex": false,
-          "includeFormulas": true
+          "includeFormulas": true, 
+          "range": 
+            {
+              "sheetId": 5,
+              "startRowIndex": 0,
+              "endRowIndex": 1,
+              "startColumnIndex": 4,
+              "endColumnIndex": 694
+           }
+            
+          
          }
          }],
          "responseIncludeGridData": false,
