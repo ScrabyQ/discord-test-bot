@@ -803,8 +803,7 @@ client.on("message", (msg) => {
          }],
          "responseIncludeGridData": false,
          "responseRanges": []
-      },
-      range: 'Псков!A5:A695'
+      }
     })
     googleSheetsInstance.spreadsheets.values.clear({
       auth,
