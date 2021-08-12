@@ -782,7 +782,7 @@ client.on("message", (msg) => {
       requestBody: {
         "includeSpreadsheetInResponse": false,
          "requests": [{ 
-          FindReplace: {
+          FindReplaceRequest: {
           "find": "01.08.2021",
           "replacement": "01.09.2021",
           "matchCase": false,
