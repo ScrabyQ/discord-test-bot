@@ -776,7 +776,7 @@ client.on("message", (msg) => {
   }
   if (msg.content === 'почисти таблицу'){
     msg.reply('ок');
-    googleSheetsInstance.spreadsheets.values.batchUpdate({
+    googleSheetsInstance.spreadsheets.batchUpdate({
       auth,
       spreadsheetId: rocketSpreadsheetId,
       requestBody: {
