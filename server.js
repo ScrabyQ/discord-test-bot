@@ -776,7 +776,10 @@ client.on("message", (msg) => {
   }
   if (msg.content === 'почисти таблицу'){
     msg.reply('ок');
-    google.getActiveSpreadsheet().getSheetsByName('Псков').getRange('J5:AN21').clear();
+    googleSheetsInstance.spreadsheets.values.clear({
+      spreadsheetId: rocketSpreadsheetId,
+      range: 'Псков!J5:AN21'
+    })
   }
   if (
     msg.content.toLowerCase() === "задачи" ||
@@ -1312,7 +1315,7 @@ client.on("message", (msg) => {
         }
         console.log(data)
       } else msg.reply('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
-
+      googleSheetsInstance.spreadsheets.values.clear
       googleSheetsInstance.spreadsheets.values.append({
         auth, 
         spreadsheetId: statisticSpreadsheetId, 
