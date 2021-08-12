@@ -792,10 +792,10 @@ client.on("message", (msg) => {
           "range": 
             {
               "sheetId": 2125130317,
-              "startRowIndex": 0,
-              "endRowIndex": 2,
-              "startColumnIndex": 4,
-              "endColumnIndex": 694
+              "startRowIndex": 4,
+              "endRowIndex": 694,
+              "startColumnIndex": 0,
+              "endColumnIndex": 1
            }
             
           
