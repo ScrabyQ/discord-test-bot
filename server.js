@@ -777,6 +777,7 @@ client.on("message", (msg) => {
   if (msg.content === 'почисти таблицу'){
     msg.reply('ок');
     googleSheetsInstance.spreadsheets.values.clear({
+      auth,
       spreadsheetId: rocketSpreadsheetId,
       range: 'Псков!J5:AN21'
     })
@@ -1315,7 +1316,6 @@ client.on("message", (msg) => {
         }
         console.log(data)
       } else msg.reply('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
-      googleSheetsInstance.spreadsheets.values.clear
       googleSheetsInstance.spreadsheets.values.append({
         auth, 
         spreadsheetId: statisticSpreadsheetId, 
