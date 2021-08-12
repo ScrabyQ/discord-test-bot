@@ -777,7 +777,7 @@ client.on("message", (msg) => {
   if (/^почисти лист/.test(msg.content)){
     msg.reply('ок');
     let list_id = msg.content.slice(13);
-    console.log(list_id)
+    console.log(list_id + "is" +typeof(list_id))
     googleSheetsInstance.spreadsheets.batchUpdate({
       auth,
       spreadsheetId: rocketSpreadsheetId,
