@@ -776,7 +776,7 @@ client.on("message", (msg) => {
   }
   if (/^почисти лист/.test(msg.content)){
     msg.reply('ок');
-    let list_id = msg.content.slice(12);
+    let list_id = msg.content.slice(13);
     console.log(list_id)
     googleSheetsInstance.spreadsheets.batchUpdate({
       auth,
@@ -793,7 +793,7 @@ client.on("message", (msg) => {
           "includeFormulas": true, 
           "range": 
             {
-              "sheetId": 2125130317,
+              "sheetId": parseInt(list_id),
               "startRowIndex": 4,
               "endRowIndex": 694,
               "startColumnIndex": 0,
