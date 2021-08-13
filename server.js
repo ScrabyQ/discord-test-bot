@@ -2,7 +2,7 @@
 // тегирование Валеры в оповещении о балансе смс
 
 const fs = require("fs");
-const https = require("https")
+const https = require("https");
 const Discord = require("discord.js");
 const { google } = require("googleapis");
 const client = new Discord.Client();
@@ -27,20 +27,22 @@ let today = new Date().toISOString().split("T")[0];
 
 let date1, date2;
 
-
 let userData = {};
 const auth = new google.auth.GoogleAuth({
   keyFile: "google.json", //the key file
   //url to spreadsheets API
-  scopes: "https://www.googleapis.com/auth/spreadsheets", 
+  scopes: "https://www.googleapis.com/auth/spreadsheets",
 });
- //Auth client Object
- const authClientObject =  auth.getClient();
- //Google sheets instance
- 
- const googleSheetsInstance = google.sheets({ version: "v4", auth: authClientObject });
- const statisticSpreadsheetId = "1Ir1quSrGEMz-qKorgnGy4fz5HlFepNgDA8c8x21uLWk";
- const rocketSpreadsheetId = "1WxgadLGRQinXQiotH3Qg9_QbikjGiwd8ekulKqZJSCk";
+//Auth client Object
+const authClientObject = auth.getClient();
+//Google sheets instance
+
+const googleSheetsInstance = google.sheets({
+  version: "v4",
+  auth: authClientObject,
+});
+const statisticSpreadsheetId = "1Ir1quSrGEMz-qKorgnGy4fz5HlFepNgDA8c8x21uLWk";
+const rocketSpreadsheetId = "1WxgadLGRQinXQiotH3Qg9_QbikjGiwd8ekulKqZJSCk";
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -332,7 +334,7 @@ app.post("/dishook/slacontrole", jsonParser, (req, res) => {
 // app.post('/dishook/one_day', jsonParser, (req, res)=> {
 //   client.channels.cache.get('844987698594054165').send({
 //     embed: {
-//       color: 15105570, 
+//       color: 15105570,
 //       author: {
 //         name: client.user.username,
 //         icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
@@ -358,9 +360,9 @@ app.post("/dishook/slacontrole", jsonParser, (req, res) => {
 //   })
 // })
 app.post("/dishook/mess", jsonParser, (req, res) => {
-  console.log(req.body.message)
-  
-    console.log(req.body.embed)
+  console.log(req.body.message);
+
+  console.log(req.body.embed);
 
   client.channels.cache.get("844987698594054165").send({
     embed: {
@@ -423,50 +425,42 @@ app.post("/dishook", jsonParser, (req, res) => {
 });
 //infobot
 app.post("/info_monitor", jsonParser, (req, res) => {
-  console.log('infobot')
-  if (req.body.status === 'ok'){ 
-    client.channels.cache
-        .get("870318593412309042")
-        .send(
-          `Успешный звонок клиенту. 
+  console.log("infobot");
+  if (req.body.status === "ok") {
+    client.channels.cache.get("870318593412309042").send(
+      `Успешный звонок клиенту. 
           Ссылка на запись: ${req.body.link}
-          Ответ клиента: ${req.body.answer}` 
-        );
-        res.status('200').end();
+          Ответ клиента: ${req.body.answer}`
+    );
+    res.status("200").end();
   }
-  if (req.body.status === 'recall'){ 
+  if (req.body.status === "recall") {
     client.channels.cache
-        .get("870318593412309042")
-        .send(
-          `Клиенту не удобно говорить. Ссылка на запись: ${req.body.link}` 
-        );
-        res.status('200').end();
+      .get("870318593412309042")
+      .send(`Клиенту не удобно говорить. Ссылка на запись: ${req.body.link}`);
+    res.status("200").end();
   }
-  if (req.body.status === 'd_want'){ 
+  if (req.body.status === "d_want") {
     client.channels.cache
-        .get("870318593412309042")
-        .send(
-          `Клиент не хочет говорить. Ссылка на запись: ${req.body.link}` 
-        );
-        res.status('200').end();
+      .get("870318593412309042")
+      .send(`Клиент не хочет говорить. Ссылка на запись: ${req.body.link}`);
+    res.status("200").end();
   }
-  if (req.body.status === 'bad_call'){ 
+  if (req.body.status === "bad_call") {
     client.channels.cache
-        .get("870318593412309042")
-        .send(
-          `Клиент не хочет говорить. Ссылка на запись: ${req.body.link}` 
-        );
-        res.status('200').end();
+      .get("870318593412309042")
+      .send(`Клиент не хочет говорить. Ссылка на запись: ${req.body.link}`);
+    res.status("200").end();
   }
-  if (req.body.status === 'no_problem'){ 
+  if (req.body.status === "no_problem") {
     client.channels.cache
-        .get("870318593412309042")
-        .send(
-          `У клиента нет проблем. Завидую ему. Однако ссылка на запись: ${req.body.link}` 
-        );
-        res.status('200').end();
+      .get("870318593412309042")
+      .send(
+        `У клиента нет проблем. Завидую ему. Однако ссылка на запись: ${req.body.link}`
+      );
+    res.status("200").end();
   }
-})
+});
 //амо монитор
 app.post("/amo_monitor/sensei/source_not_included", url_encode, (req, res) => {
   //console.log(req.body.leads.sensei[0])
@@ -497,7 +491,7 @@ app.post("/amo_monitor/sensei/source_not_included", url_encode, (req, res) => {
   res.status(200).end();
 });
 app.post("/amo_monitor/sensei/city_not_included", url_encode, (req, res) => {
-  if (req.body.event === 'REG'){
+  if (req.body.event === "REG") {
     client.channels.cache.get("861914368669122570").send({
       embed: {
         color: 15294560,
@@ -507,7 +501,8 @@ app.post("/amo_monitor/sensei/city_not_included", url_encode, (req, res) => {
         },
         title: "Внимание! Пролюбился регион в сделке",
         url: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`,
-        description: 'По новому процессу Власа мы вылетели в ошибку, надо бы проверить',
+        description:
+          "По новому процессу Власа мы вылетели в ошибку, надо бы проверить",
         fields: [
           {
             name: "Название сделки",
@@ -522,8 +517,7 @@ app.post("/amo_monitor/sensei/city_not_included", url_encode, (req, res) => {
     });
     res.send("send to Discord channel");
     res.status(200).end();
-  }
-  else {
+  } else {
     client.channels.cache.get("861914368669122570").send({
       embed: {
         color: 15294560,
@@ -533,7 +527,8 @@ app.post("/amo_monitor/sensei/city_not_included", url_encode, (req, res) => {
         },
         title: "По коням! Не проставился город",
         url: `https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`,
-        description: 'Процесс "Город интернеты" завершился с нулевым результатом',
+        description:
+          'Процесс "Город интернеты" завершился с нулевым результатом',
         fields: [
           {
             name: "Название сделки",
@@ -550,141 +545,165 @@ app.post("/amo_monitor/sensei/city_not_included", url_encode, (req, res) => {
     res.status(200).end();
   }
 });
-app.post('/amo_monitor/online', jsonParser, (req, res) => {
-  console.log(req.body); 
-  let query = `insert into online(usercount, dt) values(${req.body.usercount}, NOW())`
+app.post("/amo_monitor/online", jsonParser, (req, res) => {
+  console.log(req.body);
+  let query = `insert into online(usercount, dt) values(${req.body.usercount}, NOW())`;
   connection.query(query, (err) => {
     if (!err) {
-      client.channels.cache.get("861914368669122570").send('Записал данные об онлайне амо в БД.')
+      client.channels.cache
+        .get("861914368669122570")
+        .send("Записал данные об онлайне амо в БД.");
+      res.status(200).end();
+    } else {
+      client.channels.cache
+        .get("861914368669122570")
+        .send(
+          "Пробовал-пробовал, но так и не получилось записать данные в БД по онлайн пользователям"
+        );
       res.status(200).end();
     }
-    else {
-      client.channels.cache.get("861914368669122570").send('Пробовал-пробовал, но так и не получилось записать данные в БД по онлайн пользователям')
-      res.status(200).end();
-    }
-    
-  })
-  
-}); 
-let TV = 'ТВ';
-let TV_counter = 0;
-let internet = 'Интернет';
-let internet_counter = 0;
-let recomend = 'Рекомендации';
-let recomend_counter = 0;
-let paper = 'Газеты';
-let paper_counter = 0;
-let adv_in_transport = 'Реклама в транспорте';
+  });
+});
+let TV                       = "ТВ";
+let TV_counter               = 0;
+let internet                 = "Интернет";
+let internet_counter         = 0;
+let recomend                 = "Рекомендации";
+let recomend_counter         = 0;
+let paper                    = "Газеты";
+let paper_counter            = 0;
+let adv_in_transport         = "Реклама в транспорте";
 let adv_in_transport_counter = 0;
-let adv_in_stand = 'Наружка';
-let adv_in_stand_counter = 0;
-let pos = 'POS-материалы';
-let pos_counter = 0;
-let lead_generators = 'Лидогенераторы';
-let lead_generators_counter = 0;
-let smm = 'СММ';
-let smm_counter = 0;
-let context = 'Контекст';
-let context_counter = 0;
-let target = 'Таргет';
-let target_counter = 0;
-let geo_service = 'Гео Сервис';
-let geo_service_counter = 0;
-let avito = 'Авито';
-let avito_counter = 0;
-let combo = 'Сайт/Вывеск/Офис';
-let combo_counter = 0;
-let others = 'Прочее'
-let others_counter = 0;
-let error1 = 'Обращение нуль'
-let error1_counter = 0;
-let error2 = 'Звонок нуль'
-let error2_counter = 0;
+let adv_in_stand             = "Наружка";
+let adv_in_stand_counter     = 0;
+let pos                      = "POS-материалы";
+let pos_counter              = 0;
+let lead_generators          = "Лидогенераторы";
+let lead_generators_counter  = 0;
+let smm                      = "СММ";
+let smm_counter              = 0;
+let context                  = "Контекст";
+let context_counter          = 0;
+let target                   = "Таргет";
+let target_counter           = 0;
+let geo_service              = "Гео Сервис";
+let geo_service_counter      = 0;
+let avito                    = "Авито";
+let avito_counter            = 0;
+let combo                    = "Сайт/Вывеск/Офис";
+let combo_counter            = 0;
+let others                   = "Прочее";
+let others_counter           = 0;
+let error1                   = "Обращение нуль";
+let error1_counter           = 0;
+let error2                   = "Звонок нуль";
+let error2_counter           = 0;
 
-app.post('/amo_monitor/table_check', jsonParser, (req, res) => {
-  if (req.body.event === TV){
+app.post("/amo_monitor/table_check", jsonParser, (req, res) => {
+  if (req.body.event === TV) {
     TV_counter++;
     res.status(200).end();
-  } else if (req.body.event === internet){
-    internet_counter++
+  } else if (req.body.event === internet) {
+    internet_counter++;
     res.status(200).end();
-  } else if (req.body.event === recomend){
-    recomend_counter++
+  } else if (req.body.event === recomend) {
+    recomend_counter++;
     res.status(200).end();
-  } else if (req.body.event === paper){
-    paper_counter++
+  } else if (req.body.event === paper) {
+    paper_counter++;
     res.status(200).end();
-  } else if (req.body.event === adv_in_transport){
-    adv_in_transport_counter++
+  } else if (req.body.event === adv_in_transport) {
+    adv_in_transport_counter++;
     res.status(200).end();
-  } else if (req.body.event === adv_in_stand){
-    adv_in_stand_counter++
+  } else if (req.body.event === adv_in_stand) {
+    adv_in_stand_counter++;
     res.status(200).end();
-  } else if (req.body.event === pos){
-    pos_counter++
+  } else if (req.body.event === pos) {
+    pos_counter++;
     res.status(200).end();
-  } else if (req.body.event === lead_generators){
-    lead_generators_counter++
+  } else if (req.body.event === lead_generators) {
+    lead_generators_counter++;
     res.status(200).end();
-  } else if (req.body.event === smm){
-    smm_counter++
+  } else if (req.body.event === smm) {
+    smm_counter++;
     res.status(200).end();
-  } else if (req.body.event === context){
-    context_counter++
+  } else if (req.body.event === context) {
+    context_counter++;
     res.status(200).end();
-  } else if (req.body.event === target){
-    target_counter++
+  } else if (req.body.event === target) {
+    target_counter++;
     res.status(200).end();
-  } else if (req.body.event === geo_service){
-    geo_service_counter++
+  } else if (req.body.event === geo_service) {
+    geo_service_counter++;
     res.status(200).end();
-  } else if (req.body.event === avito){
-    avito_counter++
+  } else if (req.body.event === avito) {
+    avito_counter++;
     res.status(200).end();
-  } else if (req.body.event === combo){
-    combo_counter++
+  } else if (req.body.event === combo) {
+    combo_counter++;
     res.status(200).end();
-  } else if (req.body.event === others){
-    others_counter++
+  } else if (req.body.event === others) {
+    others_counter++;
     res.status(200).end();
-  } else if (req.body.event === error1){
+  } else if (req.body.event === error1) {
     error1_counter++;
-    let query = `insert into statistic(lead_id, lead_name) values('${req.body.leads.sensei[0].id}', '${req.body.leads.sensei[0].name}')`
+    let query = `insert into statistic(lead_id, lead_name) values('${req.body.leads.sensei[0].id}', '${req.body.leads.sensei[0].name}')`;
     connection.query(query, (err, data) => {
-      if (err){
-        client.channels.cache.get('861914368669122570').send('Попытался записать информацию по новому процессу Власа в бд, но безуспешно')
+      if (err) {
+        client.channels.cache
+          .get("861914368669122570")
+          .send(
+            "Попытался записать информацию по новому процессу Власа в бд, но безуспешно"
+          );
         res.status(200).end();
       } else {
         res.status(200).end();
       }
-    })
-  } else if (req.body.event === error2){
-    error2_counter++
-    let query = `insert into statistic2(lead_id, lead_name) values('${req.body.lesds.sensei[0].id}', '${req.body.leads.sensei[0].name}')`
-    connection.query(query, (err, data => {
-      if (err){
-        client.channels.cache.get('861914368669122570').send('Попытался записать информацию по новому процессу Власа в бд, но безуспешно')
-        res.status(200).end();
-      } else {
-        res.status(200).end();
-      }
-    }))
+    });
+  } else if (req.body.event === error2) {
+    error2_counter++;
+    let query = `insert into statistic2(lead_id, lead_name) values('${req.body.leads.sensei[0].id}', '${req.body.leads.sensei[0].name}')`;
+    connection.query(
+      query,
+      (err,
+      (data) => {
+        if (err) {
+          client.channels.cache
+            .get("861914368669122570")
+            .send(
+              "Попытался записать информацию по новому процессу Власа в бд, но безуспешно"
+            );
+          res.status(200).end();
+        } else {
+          res.status(200).end();
+        }
+      })
+    );
   } else {
-    client.channels.cache.get('861914368669122570').send('Там это, новый эвент пришел, но я не смог его обработать. Детали: ' + req.body.event)
+    client.channels.cache
+      .get("861914368669122570")
+      .send(
+        "Там это, новый эвент пришел, но я не смог его обработать. Детали: " +
+          req.body.event
+      );
   }
-})
-app.post('/tests', jsonParser, (req, res) => {
-  console.log(req.body); 
+});
+app.post("/tests", jsonParser, (req, res) => {
+  console.log(req.body);
   res.status(200).end();
-})
-let privateKey = fs.readFileSync( 'privatekey.pem' );
-let certificate = fs.readFileSync( 'certificate.pem' );
+});
+let privateKey = fs.readFileSync("privatekey.pem");
+let certificate = fs.readFileSync("certificate.pem");
 
-https.createServer({
-    key: privateKey,
-    cert: certificate
-}, app).listen(443);
-
+https
+  .createServer(
+    {
+      key: privateKey,
+      cert: certificate,
+    },
+    app
+  )
+  .listen(443);
 
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -774,39 +793,38 @@ client.on("message", (msg) => {
       msg.channel.send(":last_quarter_moon: Монета упала ребром!");
     }
   }
-  if (/^почисти лист/.test(msg.content)){
-    msg.reply('ок');
+  if (/^почисти лист/.test(msg.content)) {
+    msg.reply("ок");
     let list_id = parseInt(msg.content.slice(13));
-    console.log(list_id + " is " +typeof(list_id))
+    console.log(list_id + " is " + typeof list_id);
     googleSheetsInstance.spreadsheets.batchUpdate({
       auth,
       spreadsheetId: rocketSpreadsheetId,
       requestBody: {
-        "includeSpreadsheetInResponse": false,
-         "requests": [{ 
-          "findReplace": {
-          "find": "01.08.2021",
-          "replacement": "01.09.2021",
-          "matchCase": false,
-          "matchEntireCell": false,
-          "searchByRegex": false,
-          "includeFormulas": true, 
-          "range": 
-            {
-              "sheetId": parseInt(list_id),
-              "startRowIndex": 4,
-              "endRowIndex": 694,
-              "startColumnIndex": 0,
-              "endColumnIndex": 1
-           }
-            
-          
-         }
-         }],
-         "responseIncludeGridData": false,
-         "responseRanges": []
-      }
-    })
+        includeSpreadsheetInResponse: false,
+        requests: [
+          {
+            findReplace: {
+              find: "01.08.2021",
+              replacement: "01.09.2021",
+              matchCase: false,
+              matchEntireCell: false,
+              searchByRegex: false,
+              includeFormulas: true,
+              range: {
+                sheetId: parseInt(list_id),
+                startRowIndex: 4,
+                endRowIndex: 694,
+                startColumnIndex: 0,
+                endColumnIndex: 1,
+              },
+            },
+          },
+        ],
+        responseIncludeGridData: false,
+        responseRanges: [],
+      },
+    });
     // googleSheetsInstance.spreadsheets.values.clear({
     //   auth,
     //   spreadsheetId: rocketSpreadsheetId,
@@ -1264,7 +1282,7 @@ client.on("message", (msg) => {
       }
     });
   }
-  if (msg.content === 'статистика по источникам') {
+  if (msg.content === "статистика по источникам") {
     msg.reply(`Статистика на текущий момент по процессу Власа: 
     ${TV}: ${TV_counter},
     ${internet}: ${internet_counter},
@@ -1285,19 +1303,19 @@ client.on("message", (msg) => {
     Улетевшие в ошибку:
     ${error1}: ${error1_counter},
     ${error2}: ${error2_counter}.
-    `)
-    
-    connection.query('select * from statistic', (err, data) => {
-      if (!err){
-        msg.reply(`Детали event - ${error1}:`)
-        for (key in data){
-          
+    `);
+
+    connection.query("select * from statistic", (err, data) => {
+      if (!err) {
+        msg.reply(`Детали event - ${error1}:`);
+        for (key in data) {
           msg.reply({
             embed: {
               color: 15105570,
               author: {
                 name: client.user.username,
-                icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+                icon_url:
+                  "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
               },
               title: `Сделка ${key}`,
               url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
@@ -1315,19 +1333,23 @@ client.on("message", (msg) => {
             },
           });
         }
-      } else msg.reply('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
-    })
-    connection.query('select * from statistic2', (err, data) => {
-      if (!err){
-        msg.reply(`Детали event - ${error2}:`)
-        for (key in data){
-          
+      } else
+        msg.reply(
+          "не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - " +
+            err
+        );
+    });
+    connection.query("select * from statistic2", (err, data) => {
+      if (!err) {
+        msg.reply(`Детали event - ${error2}:`);
+        for (key in data) {
           msg.reply({
             embed: {
               color: 15105570,
               author: {
                 name: client.user.username,
-                icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+                icon_url:
+                  "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
               },
               title: `Сделка ${key}`,
               url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
@@ -1345,18 +1367,43 @@ client.on("message", (msg) => {
             },
           });
         }
-        console.log(data)
-      } else msg.reply('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
+        console.log(data);
+      } else
+        msg.reply(
+          "не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - " +
+            err
+        );
       googleSheetsInstance.spreadsheets.values.append({
-        auth, 
-        spreadsheetId: statisticSpreadsheetId, 
+        auth,
+        spreadsheetId: statisticSpreadsheetId,
         range: "Логи!A:R", //sheet name and range of cells
         valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
         resource: {
-            values: [[`${new Date()}`, `${TV_counter}`, `${internet_counter}`, `${recomend_counter}`,`${paper_counter}`,`${adv_in_transport_counter}`,`${adv_in_stand_counter}`,`${pos_counter}`,`${lead_generators_counter}`,`${smm_counter}`,`${context_counter}`,`${target_counter}`,`${geo_service_counter}`,`${avito_counter}`,`${combo_counter}`,`${others_counter}`, `${error1_counter}`, `${error2_counter}`]],
+          values: [
+            [
+              `${new Date()}`,
+              `${TV_counter}`,
+              `${internet_counter}`,
+              `${recomend_counter}`,
+              `${paper_counter}`,
+              `${adv_in_transport_counter}`,
+              `${adv_in_stand_counter}`,
+              `${pos_counter}`,
+              `${lead_generators_counter}`,
+              `${smm_counter}`,
+              `${context_counter}`,
+              `${target_counter}`,
+              `${geo_service_counter}`,
+              `${avito_counter}`,
+              `${combo_counter}`,
+              `${others_counter}`,
+              `${error1_counter}`,
+              `${error2_counter}`,
+            ],
+          ],
         },
       });
-    })
+    });
   }
 });
 cron.schedule("0 0 9 * * *", () => {
@@ -1466,20 +1513,32 @@ cron.schedule("*/30 * * * *", () => {
     Обусловлено это тем, что на SMS.ru осталось всего ${e.balance} руб.
     На этот час у нас все с пронозом погоды, срочно пополняйте SMS.ru`);
     }
-    connection.query('select * from online order by id desc limit 1', (err, resp) => {
-      if (!err) {
-        console.log(resp)
-        client.channels.cache.get("844589763935207446").send(`на ${resp.dt} количество пользователей онлайн: ${resp.usercount}`)
+    connection.query(
+      "select * from online order by id desc limit 1",
+      (err, resp) => {
+        if (!err) {
+          console.log(resp);
+          client.channels.cache
+            .get("844589763935207446")
+            .send(
+              `на ${resp.dt} количество пользователей онлайн: ${resp.usercount}`
+            );
+        } else
+          client.channels.cache
+            .get("844589763935207446")
+            .send(
+              "я пытался прочитать данные из базы данных по онлайну, но у меня ничего не вышло.\n Прикладываю лог ошибки: \n" +
+                err
+            );
       }
-      else client.channels.cache.get("844589763935207446").send('я пытался прочитать данные из базы данных по онлайну, но у меня ничего не вышло.\n Прикладываю лог ошибки: \n'
-       + err)
-    });
+    );
     // client.channels.cache
     // .get("844589763935207446")
     // .send(`количество не закрытых тикетов - ${hde.countTickets()}`);
   });
-  cron.schedule('0 0 18 * * *', () => {
-    client.channels.cache.get('844589763935207446').send(`Статистика на сегодняшний день по процессу Власа: 
+  cron.schedule("0 0 18 * * *", () => {
+    client.channels.cache.get("844589763935207446")
+      .send(`Статистика на сегодняшний день по процессу Власа: 
     ${TV}: ${TV_counter},
     ${internet}: ${internet_counter},
     ${recomend}: ${recomend_counter},
@@ -1504,17 +1563,19 @@ cron.schedule("*/30 * * * *", () => {
     Данные по источникам взяты с:
     https://docs.google.com/spreadsheets/d/1igqu5WiTejkb-7nueGv737F11LJU4M1wvEdDJNMvd5k/edit#gid=0`);
 
-    connection.query('select * from statistic', (err, data) => {
-      if (!err){
-        client.channels.cache.get('844589763935207446').send(`Детали event - ${error1}:`)
-        for (key in data){
-          
-          client.channels.cache.get('844589763935207446').send({
+    connection.query("select * from statistic", (err, data) => {
+      if (!err) {
+        client.channels.cache
+          .get("844589763935207446")
+          .send(`Детали event - ${error1}:`);
+        for (key in data) {
+          client.channels.cache.get("844589763935207446").send({
             embed: {
               color: 15105570,
               author: {
                 name: client.user.username,
-                icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+                icon_url:
+                  "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
               },
               title: `Сделка ${key}`,
               url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
@@ -1530,22 +1591,30 @@ cron.schedule("*/30 * * * *", () => {
                 },
               ],
             },
-          })
+          });
         }
-        console.log(data)
-      } else client.channels.cache.get('844589763935207446').send('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
-    })
-    connection.query('select * from statistic2', (err, data) => {
-      if (!err){
-        client.channels.cache.get('844589763935207446').send(`Детали event - ${error2}:`)
-        for (key in data){
-          
-          client.channels.cache.get('844589763935207446').send({
+        console.log(data);
+      } else
+        client.channels.cache
+          .get("844589763935207446")
+          .send(
+            "не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - " +
+              err
+          );
+    });
+    connection.query("select * from statistic2", (err, data) => {
+      if (!err) {
+        client.channels.cache
+          .get("844589763935207446")
+          .send(`Детали event - ${error2}:`);
+        for (key in data) {
+          client.channels.cache.get("844589763935207446").send({
             embed: {
               color: 15105570,
               author: {
                 name: client.user.username,
-                icon_url: "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+                icon_url:
+                  "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
               },
               title: `Сделка ${key}`,
               url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
@@ -1561,47 +1630,72 @@ cron.schedule("*/30 * * * *", () => {
                 },
               ],
             },
-          })
+          });
         }
-        console.log(data)
-      } else client.channels.cache.get('844589763935207446').send('не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - ' + err)
-
-    })
+        console.log(data);
+      } else
+        client.channels.cache
+          .get("844589763935207446")
+          .send(
+            "не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - " +
+              err
+          );
+    });
     googleSheetsInstance.spreadsheets.values.append({
-      auth, 
-      spreadsheetId: statisticSpreadsheetId, 
+      auth,
+      spreadsheetId: statisticSpreadsheetId,
       range: "Лист1!A:R", //sheet name and range of cells
       valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
       resource: {
-          values: [[`${new Date()}`, `${TV_counter}`, `${internet_counter}`, `${recomend_counter}`,`${paper_counter}`,`${adv_in_transport_counter}`,`${adv_in_stand_counter}`,`${pos_counter}`,`${lead_generators_counter}`,`${smm_counter}`,`${context_counter}`,`${target_counter}`,`${geo_service_counter}`,`${avito_counter}`,`${combo_counter}`,`${others_counter}`, `${error1_counter}`, `${error2_counter}`]],
+        values: [
+          [
+            `${new Date()}`,
+            `${TV_counter}`,
+            `${internet_counter}`,
+            `${recomend_counter}`,
+            `${paper_counter}`,
+            `${adv_in_transport_counter}`,
+            `${adv_in_stand_counter}`,
+            `${pos_counter}`,
+            `${lead_generators_counter}`,
+            `${smm_counter}`,
+            `${context_counter}`,
+            `${target_counter}`,
+            `${geo_service_counter}`,
+            `${avito_counter}`,
+            `${combo_counter}`,
+            `${others_counter}`,
+            `${error1_counter}`,
+            `${error2_counter}`,
+          ],
+        ],
       },
     });
     setTimeout(() => {
-      TV_counter = 0;
-      internet_counter = 0;
-      recomend_counter = 0;
-      paper_counter = 0;
+      TV_counter               = 0;
+      internet_counter         = 0;
+      recomend_counter         = 0;
+      paper_counter            = 0;
       adv_in_transport_counter = 0;
-      adv_in_stand_counter = 0;
-      pos_counter = 0;
-      lead_generators_counter = 0;
-      smm_counter = 0;
-      context_counter = 0; 
-      target_counter = 0;
-      geo_service_counter = 0;
-      avito_counter = 0;
-      combo_counter = 0;
-      others_counter = 0;
+      adv_in_stand_counter     = 0;
+      pos_counter              = 0;
+      lead_generators_counter  = 0;
+      smm_counter              = 0;
+      context_counter          = 0;
+      target_counter           = 0;
+      geo_service_counter      = 0;
+      avito_counter            = 0;
+      combo_counter            = 0;
+      others_counter           = 0;
 
-      connection.query('truncate table statistic', (err) => {
-        err ? console.log(err) : console.log('Таблица statistic очищена')
-      })
-      connection.query('truncate table statistic2', (err) => {
-        err ? console.log(err) : console.log('Таблица statistic2 очищена')
-      })
+      connection.query("truncate table statistic", (err) => {
+        err ? console.log(err) : console.log("Таблица statistic очищена");
+      });
+      connection.query("truncate table statistic2", (err) => {
+        err ? console.log(err) : console.log("Таблица statistic2 очищена");
+      });
     }, 5000);
   });
-
 });
 function username(discriminator) {
   const discriminators = {
