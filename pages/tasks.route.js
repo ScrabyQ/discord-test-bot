@@ -3,10 +3,7 @@ const path = require('path')
 
 const tasks = Router(); 
 
-tasks.get(
-  "/",
-  static(path.join(__dirname, "../js")),
-  (req, res) => {
-    res.sendFile("tasks.html", { root: __dirname }).end();
+tasks.get("/", (req, res) => {
+    res.sendFile("tasks.html", { root: __dirname });
   }
 );
