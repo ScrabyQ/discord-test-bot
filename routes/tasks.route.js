@@ -1,10 +1,10 @@
-const {Router} = require("express");
+const {Router, static} = require("express");
 const path = require('path')
 const router = Router()
 
 router.get(
     "/tasks.html",
-    router.static(path.join(__dirname, "/js")),
+    static(path.join(__dirname, "/js")),
     (req, res) => {
       res.sendFile("tasks.html", { root: __dirname });
     }
