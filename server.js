@@ -1,7 +1,7 @@
 //TODO: доделать модуль hde и вывод кол-во тикетов
 // тегирование Валеры в оповещении о балансе смс
 
-const {tasksRoute} = require('./routes/tasks.route')
+const {router} = require('./routes/tasks.route')
 const fs         = require("fs");
 const https      = require("https");
 const Discord    = require("discord.js");
@@ -53,6 +53,7 @@ const connection = mysql.createConnection({
 app.use(cookie());
 app.use(bp.json());
 app.use(url_encode);
+app.use(router)
 //#region подгрузка страниц и компонентов
 app.get(
   "/auth.html",
