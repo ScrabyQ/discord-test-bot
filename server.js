@@ -162,6 +162,7 @@ app.get("/", express.static(path.join(__dirname, "/js")), (req, res) => {
 // app.get('/', express.static(path.join(__dirname, '/img')), (req, res) => {
 //   res.sendFile('index.html', { root: __dirname });
 // })
+app.use('', tasks)
 // app.get(
 //   "/tasks.html",
 //   express.static(path.join(__dirname, "/js")),
