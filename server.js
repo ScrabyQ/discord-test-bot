@@ -53,7 +53,7 @@ const connection = mysql.createConnection({
 app.use(cookie());
 app.use(bp.json());
 app.use(url_encode);
-app.use(router)
+app.use('', router)
 //#region подгрузка страниц и компонентов
 app.get(
   "/auth.html",
