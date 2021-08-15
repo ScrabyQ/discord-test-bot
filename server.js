@@ -1,24 +1,23 @@
 //TODO: доделать модуль hde и вывод кол-во тикетов
 // тегирование Валеры в оповещении о балансе смс
 
-const fs = require("fs");
-const https = require("https");
-const Discord = require("discord.js");
+const fs         = require("fs");
+const https      = require("https");
+const Discord    = require("discord.js");
 const { google } = require("googleapis");
-const client = new Discord.Client();
-// let guild = new Discord.GuildChannel(client, {type: 'text'});
-const express = require("express");
-const cookie = require("cookie-parser");
-const app = require("express")();
-const path = require("path");
-const bp = require("body-parser");
-const cfg = require("./config.json");
-const mysql = require("mysql2");
-var cron = require("node-cron");
-let SMSru = require("sms_ru");
-let hde = require("./hdeconnect.js");
-let config = require("./config.json");
-let sms = new SMSru(config.SMSRU_TOKEN);
+const client     = new Discord.Client();
+const express    = require("express");
+const cookie     = require("cookie-parser");
+const app        = require("express")();
+const path       = require("path");
+const bp         = require("body-parser");
+const cfg        = require("./config.json");
+const mysql      = require("mysql2");
+var   cron       = require("node-cron");
+let   SMSru      = require("sms_ru");
+let   hde        = require("./hdeconnect.js");
+let   config     = require("./config.json");
+let   sms        = new SMSru(config.SMSRU_TOKEN);
 
 let jsonParser = bp.json();
 let url_encode = bp.urlencoded({ extended: true });
@@ -44,8 +43,8 @@ const googleSheetsInstance = google.sheets({
 const statisticSpreadsheetId = "1Ir1quSrGEMz-qKorgnGy4fz5HlFepNgDA8c8x21uLWk";
 const rocketSpreadsheetId = "1WxgadLGRQinXQiotH3Qg9_QbikjGiwd8ekulKqZJSCk";
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
+  host    : "localhost",
+  user    : "root",
   database: "discordTasks",
   password: "password",
 });
@@ -300,6 +299,7 @@ app.post("/create_task", url_encode, (req, res) => {
   res.redirect("tasks.html");
   res.status(200).end();
 });
+// пуш о потере заявки
 app.post("/dishook/slacontrole", jsonParser, (req, res) => {
   client.channels.cache.get("844987698594054165").send({
     embed: {
@@ -359,6 +359,7 @@ app.post("/dishook/slacontrole", jsonParser, (req, res) => {
 //     }
 //   })
 // })
+//Новый ответ в тикете
 app.post("/dishook/mess", jsonParser, (req, res) => {
   console.log(req.body.message);
 
@@ -393,6 +394,7 @@ app.post("/dishook/mess", jsonParser, (req, res) => {
   res.send("send to Discord channel");
   res.status(200).end();
 });
+//Новая заявка в hde
 app.post("/dishook", jsonParser, (req, res) => {
   client.channels.cache.get("844987698594054165").send({
     embed: {
@@ -406,15 +408,15 @@ app.post("/dishook", jsonParser, (req, res) => {
       description: "Информация по новому тикету",
       fields: [
         {
-          name: "Тема тикета",
+          name : "Тема тикета",
           value: req.body.name,
         },
         {
-          name: "Оставил заявку",
+          name : "Оставил заявку",
           value: req.body.author,
         },
         {
-          name: "Комментарий",
+          name : "Комментарий",
           value: req.body.message,
         },
       ],
@@ -545,6 +547,7 @@ app.post("/amo_monitor/sensei/city_not_included", url_encode, (req, res) => {
     res.status(200).end();
   }
 });
+//принимаем инфу каждые пять минут об онлайн пользователях
 app.post("/amo_monitor/online", jsonParser, (req, res) => {
   console.log(req.body);
   let query = `insert into online(usercount, dt) values(${req.body.usercount}, NOW())`;
@@ -598,7 +601,7 @@ let error1                   = "Обращение нуль";
 let error1_counter           = 0;
 let error2                   = "Звонок нуль";
 let error2_counter           = 0;
-
+//проверка данных, связанных с таблицей
 app.post("/amo_monitor/table_check", jsonParser, (req, res) => {
   if (req.body.event === TV) {
     TV_counter++;
@@ -688,11 +691,12 @@ app.post("/amo_monitor/table_check", jsonParser, (req, res) => {
       );
   }
 });
+//принимаем пост запросы для теста
 app.post("/tests", jsonParser, (req, res) => {
   console.log(req.body);
   res.status(200).end();
 });
-let privateKey = fs.readFileSync("privatekey.pem");
+let privateKey  = fs.readFileSync("privatekey.pem");
 let certificate = fs.readFileSync("certificate.pem");
 
 https
@@ -704,10 +708,11 @@ https
     app
   )
   .listen(443);
-
+//запуск дискорда
 client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
+//прослушка сообщений от бота
 client.on("message", (msg) => {
   if (msg.content === "/h") {
     msg.delete().catch();
@@ -1406,6 +1411,7 @@ client.on("message", (msg) => {
     });
   }
 });
+//Пушим задачи в канал каждый день в девять часов утра
 cron.schedule("0 0 9 * * *", () => {
   client.channels.cache.get("835159002403831879").send(
     `Короче, @everyone, 
@@ -1484,6 +1490,7 @@ cron.schedule("0 0 9 * * *", () => {
     });
   }, 10000);
 });
+//каждые пол часа мониторим показатели (нахуя?)
 cron.schedule("*/30 * * * *", () => {
   sms.my_balance((e) => {
     if (Number(Math.floor(e.balance)) >= 15000) {
@@ -1536,6 +1543,7 @@ cron.schedule("*/30 * * * *", () => {
     // .get("844589763935207446")
     // .send(`количество не закрытых тикетов - ${hde.countTickets()}`);
   });
+
   cron.schedule("0 0 18 * * *", () => {
     client.channels.cache.get("844589763935207446")
       .send(`Статистика на сегодняшний день по процессу Власа: 
