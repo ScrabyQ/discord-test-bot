@@ -1,7 +1,6 @@
 //TODO: доделать модуль hde и вывод кол-во тикетов
 // тегирование Валеры в оповещении о балансе смс
 
-let {tasks} = require('./pages/tasks.route')
 const fs         = require("fs");
 const https      = require("https");
 const Discord    = require("discord.js");
@@ -50,6 +49,7 @@ const connection = mysql.createConnection({
   database: "discordTasks",
   password: "password",
 });
+app.use(express.static(path.join(__dirname, '/js')))
 app.use(cookie());
 app.use(bp.json());
 app.use(url_encode);
