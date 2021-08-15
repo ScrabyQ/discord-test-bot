@@ -1,6 +1,6 @@
 const {Router, static} = require("express");
 const path = require('path')
-const router = Router()
+const tasks = Router()
 
 router.get(
     "/tasks.html",
@@ -10,4 +10,4 @@ router.get(
     }
   );
 
-module.exports = router
+module.exports = tasks
