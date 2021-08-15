@@ -3,7 +3,12 @@ const path = require('path')
 
 const tasks = Router(); 
 
-tasks.get("/", (req, res) => {
+tasks.get(
+  "/",
+  static(path.join(__dirname, "../js")),
+  (req, res) => {
     res.sendFile("tasks.html", { root: __dirname });
   }
 );
+
+module.exports = tasks
