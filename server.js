@@ -1,6 +1,7 @@
 //TODO: доделать модуль hde и вывод кол-во тикетов
 // тегирование Валеры в оповещении о балансе смс
 
+const {tasks} = require('./pages/tasks.route')
 const fs         = require("fs");
 const https      = require("https");
 const Discord    = require("discord.js");
@@ -52,6 +53,7 @@ const connection = mysql.createConnection({
 app.use(cookie());
 app.use(bp.json());
 app.use(url_encode);
+app.use(tasks)
 //#region подгрузка страниц и компонентов
 app.get(
   "/auth.html",
@@ -160,13 +162,13 @@ app.get("/", express.static(path.join(__dirname, "/js")), (req, res) => {
 // app.get('/', express.static(path.join(__dirname, '/img')), (req, res) => {
 //   res.sendFile('index.html', { root: __dirname });
 // })
-app.get(
-  "/tasks.html",
-  express.static(path.join(__dirname, "/js")),
-  (req, res) => {
-    res.sendFile("tasks.html", { root: __dirname });
-  }
-);
+// app.get(
+//   "/tasks.html",
+//   express.static(path.join(__dirname, "/js")),
+//   (req, res) => {
+//     res.sendFile("tasks.html", { root: __dirname });
+//   }
+// );
 app.get(
   "/done.html",
   express.static(path.join(__dirname, "/js")),
