@@ -161,7 +161,7 @@ app.get("/", express.static(path.join(__dirname, "/js")), (req, res) => {
 // app.get('/', express.static(path.join(__dirname, '/img')), (req, res) => {
 //   res.sendFile('index.html', { root: __dirname });
 // })
-app.use('', require('./pages/tasks.route'))
+app.use('/tasks.html', require('./pages/tasks.route'))
 // app.get(
 //   "/tasks.html",
 //   express.static(path.join(__dirname, "/js")),
