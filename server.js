@@ -1708,6 +1708,9 @@ cron.schedule("*/30 * * * *", () => {
     }, 5000);
   });
 });
+cron.schedule("3 * * * * *", () => {
+client.channels.cache.get('766772577460420648').send('БУНД!!1')
+})
 function username(discriminator) {
   const discriminators = {
     user_1: ["4261", "Садовников Сергей"],
