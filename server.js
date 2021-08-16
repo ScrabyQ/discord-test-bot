@@ -1308,7 +1308,7 @@ client.on("message", (msg) => {
         client.channels.cache.get('766772577460420648').send('Мы не рабы!');
         break; 
         case 4: 
-        client.channels.cache.get('766772577460420648').send('Долой капиталистический строй ЦПКД!');
+        client.channels.cache.get('766772577460420648').send('Долой капиталистический строй нашей фирмы!');
         break; 
         case 5: 
         client.channels.cache.get('766772577460420648').send('Нахуй Валенка!');
