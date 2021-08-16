@@ -1292,6 +1292,45 @@ client.on("message", (msg) => {
   }
   if (msg.content === "БУНД mod on"){
     setInterval(() => {
+      let random = Math.floor(Math.random() * 10);
+
+      switch (random) {
+        case 0:
+          client.channels.cache.get('766772577460420648').send('БУНД!!1')
+          break;
+        case 1: 
+        client.channels.cache.get('766772577460420648').send('Наш коллектив - за стабильные выплаты зарплат!');
+        break; 
+        case 2: 
+        client.channels.cache.get('766772577460420648').send('Поработал месяц - получи ЗАРПЛАТУ!')
+        break;
+        case 3: 
+        client.channels.cache.get('766772577460420648').send('Мы не рабы!');
+        break; 
+        case 4: 
+        client.channels.cache.get('766772577460420648').send('Долой капиталистический строй ЦПКД!');
+        break; 
+        case 5: 
+        client.channels.cache.get('766772577460420648').send('Нахуй Валенка!');
+        break; 
+        case 6: 
+        client.channels.cache.get('766772577460420648').send('Нахуй Гриненко!');
+        break; 
+        case 7: 
+        client.channels.cache.get('766772577460420648').send('Мы победим!');
+        break; 
+        case 8: 
+        client.channels.cache.get('766772577460420648').send('За честные трудовые отношения!');
+        break; 
+        case 9: 
+        client.channels.cache.get('766772577460420648').send('Феминизм!');
+        break; 
+        case 10: 
+        client.channels.cache.get('766772577460420648').send('Наш коллектив - за стабильные выплаты зарплат!');
+        break; 
+        default:
+          break;
+      }
       client.channels.cache.get('766772577460420648').send('БУНД!!1')
     }, 5000);
   }
