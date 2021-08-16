@@ -1292,7 +1292,7 @@ client.on("message", (msg) => {
   }
   if (msg.content === "БУНД mod on"){
     setInterval(() => {
-      let random = Math.floor(Math.random() * 10);
+      let random = Math.floor(Math.random() * 25);
 
       switch (random) {
         case 0:
@@ -1314,7 +1314,7 @@ client.on("message", (msg) => {
         client.channels.cache.get('766772577460420648').send('Нахуй Валенка!');
         break; 
         case 6: 
-        client.channels.cache.get('766772577460420648').send('Нахуй Гриненко!');
+        client.channels.cache.get('766772577460420648').send('Нахуй Новую ЦЭРЭМЭ!');
         break; 
         case 7: 
         client.channels.cache.get('766772577460420648').send('Мы победим!');
@@ -1328,6 +1328,48 @@ client.on("message", (msg) => {
         case 10: 
         client.channels.cache.get('766772577460420648').send('Наш коллектив - за стабильные выплаты зарплат!');
         break; 
+        case 11: 
+        client.channels.cache.get('766772577460420648').send('Я не собираюсь работать бесплатно!');
+        break; 
+        case 12: 
+        client.channels.cache.get('766772577460420648').send('Какая оплата, такая и работа!');
+        break; 
+        case 13: 
+        client.channels.cache.get('766772577460420648').send('Ув@жения р0б0т@м!');
+        break; 
+        case 14: 
+        client.channels.cache.get('766772577460420648').send('Мы против! Мы против! Мы против!');
+        break; 
+        case 15: 
+        client.channels.cache.get('766772577460420648').send('Свободу зарплате!');
+        break; 
+        case 16: 
+        client.channels.cache.get('766772577460420648').send('Требуем выпустить зарплату из незаконного заключения!');
+        break; 
+        case 17: 
+        client.channels.cache.get('766772577460420648').send('За своевременное пополнение SMSru!');
+        break; 
+        case 18: 
+        client.channels.cache.get('766772577460420648').send('Против зарплаты Валенку!');
+        break;
+        case 19: 
+        client.channels.cache.get('766772577460420648').send('Мы хотитм кушоц!');
+        break;
+        case 20: 
+        client.channels.cache.get('766772577460420648').send('Капитализм! Счастье! Дай зарплату!');
+        break;
+        case 21: 
+        client.channels.cache.get('766772577460420648').send('За права рабочих!');
+        break;
+        case 22: 
+        client.channels.cache.get('766772577460420648').send('Против зарплаты Валенку! За Наш зарплату!');
+        break;
+        case 23: 
+        client.channels.cache.get('766772577460420648').send('Нам не похуй на ЗП!');
+        break;
+        case 24: 
+        client.channels.cache.get('766772577460420648').send('Против зарплаты Валенку!');
+        break;
         default:
           break;
       }
