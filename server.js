@@ -1290,6 +1290,11 @@ client.on("message", (msg) => {
       }
     });
   }
+  if (msg.content === "БУНД mod on"){
+    setInterval(() => {
+      client.channels.cache.get('766772577460420648').send('БУНД!!1')
+    }, 5000);
+  }
   if (msg.content === "статистика по источникам") {
     msg.reply(`Статистика на текущий момент по процессу Власа: 
     ${TV}: ${TV_counter},
@@ -1708,9 +1713,6 @@ cron.schedule("*/30 * * * *", () => {
     }, 5000);
   });
 });
-cron.schedule("3 * * * * *", () => {
-client.channels.cache.get('766772577460420648').send('БУНД!!1')
-})
 function username(discriminator) {
   const discriminators = {
     user_1: ["4261", "Садовников Сергей"],
