@@ -570,6 +570,10 @@ app.post("/amo_monitor/online", jsonParser, (req, res) => {
     }
   });
 });
+app.post('/amo_monitor/infobot_bufer_sms', jsonParser, (req, res) => {
+  client.channels.cache.get('861914368669122570').send(`Не отправилась СМС по городу из инфобота. Ссылка на сделку - https://yristmsk.amocrm.ru/leads/detail/${req.body.leads.sensei[0].id}`)
+  res.status(200).end();
+})
 let TV                       = "ТВ";
 let TV_counter               = 0;
 let internet                 = "Интернет";
