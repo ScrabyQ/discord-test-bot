@@ -17,7 +17,7 @@ module.exports.getTickets = async function getTickets() {
     if (response.ok){
         let res = await response.json();
       //  module.exports.open_ticketes_count = res.pagination.total;
-      console.log()
+      console.log("c модуля количество тикетов " + res.pagination.total)
       return res.pagination.total
     }
     else {
