@@ -13,9 +13,9 @@ module.exports.getTickets = function getTickets() {
         headers: {
             'Authorization': 'Basic ' + api_key
         }
-    }).then(response => response.json)
+    }).then(response => response.json())
     .then( result => {
         console.log("c модуля количество тикетов " + result.pagination.total)
-        return  result
+        return  result.pagination.total
     })
 }
