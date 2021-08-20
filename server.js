@@ -19,6 +19,9 @@ let   hde        = require("./hdeconnect.js");
 let   config     = require("./config.json");
 let   sms        = new SMSru(config.SMSRU_TOKEN);
 let { rp } = require("./modules/randomPhrase")
+async () => {
+  console.log(hde.getTickets())
+}
 console.log(hde.getTickets())
 
 let jsonParser = bp.json();
