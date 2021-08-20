@@ -13,7 +13,7 @@ module.exports.gt = function getTickets() {
         }
     }).then(response => response.json())
     .then( result => {
-        console.log("c модуля количество тикетов " + result.pagination.total)
+        console.log("c модуля количество тикетов " + this.result.pagination.total)
         return  result.pagination.total
     })
 }
