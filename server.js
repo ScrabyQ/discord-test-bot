@@ -19,7 +19,7 @@ let   hde        = require("./hdeconnect.js");
 let   config     = require("./config.json");
 let   sms        = new SMSru(config.SMSRU_TOKEN);
 let { rp } = require("./modules/randomPhrase")
-console.log(rp('Тест 1', 'Тест 2', 'Тест 3'))
+console.log(rp(['Тест 1', 'Тест 2', 'Тест 3']))
 
 let jsonParser = bp.json();
 let url_encode = bp.urlencoded({ extended: true });
