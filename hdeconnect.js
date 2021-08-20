@@ -23,5 +23,3 @@ module.exports.getTickets = async function getTickets() {
         console.log('ошибка: ' + response.statusText)
     }
 }
-getTickets();
-setInterval(getTickets, 60000 * 15);
