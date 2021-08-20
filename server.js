@@ -19,12 +19,12 @@ let   hde        = require("./hdeconnect.js");
 let   config     = require("./config.json");
 let   sms        = new SMSru(config.SMSRU_TOKEN);
 let { rp } = require("./modules/randomPhrase")
-(async function () {
+async () => {
   await hde.getTickets().then(data => {
     console.log(data)
   })
-})
-console.log(hde.getTickets())
+}
+//console.log(hde.getTickets())
 
 let jsonParser = bp.json();
 let url_encode = bp.urlencoded({ extended: true });
