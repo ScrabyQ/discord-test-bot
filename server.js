@@ -778,7 +778,7 @@ client.on("message", (msg) => {
     msg.delete().catch();
     sms.my_balance(function (e) {
       msg.reply(`Текущий баланс sms.ru: ${e.balance}`, { tts: true });
-      console.log(rp(['Тест 1', 'Тест 2', 'Тест 3']))
+      console.log(rp.rp(['Тест 1', 'Тест 2', 'Тест 3']))
     });
   }
   if (msg.content == "лимиты sms") {
