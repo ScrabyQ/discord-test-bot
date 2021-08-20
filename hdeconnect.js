@@ -16,6 +16,6 @@ module.exports.getTickets = function getTickets() {
     }).then(response => response.json)
     .then( result => {
         console.log("c модуля количество тикетов " + result.pagination.total)
-        return  result.pagination.total
+        return  result
     })
 }
