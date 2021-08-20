@@ -4,7 +4,7 @@ const api_key = Buffer.from(config.HDE_TOKEN).toString('base64');
 const domain = 'https://itgt.helpdeskeddy.com/api/v2/'
 
 
-module.exports = function getTickets() {
+function getTickets() {
     let url = `${domain}tickets/?status_list=open`;
         fetch(url, {
         method: 'GET',
@@ -17,3 +17,5 @@ module.exports = function getTickets() {
         return result.pagination.total
     })
 }
+
+module.exports.getTickets = getTickets;
