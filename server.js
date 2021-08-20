@@ -20,7 +20,9 @@ let   config     = require("./config.json");
 let   sms        = new SMSru(config.SMSRU_TOKEN);
 let { rp } = require("./modules/randomPhrase")
 async () => {
-  console.log(await hde.getTickets())
+  await hde.getTickets().then(data => {
+    console.log(data)
+  })
 }
 console.log(hde.getTickets())
 
