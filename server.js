@@ -19,7 +19,7 @@ let   hde        = require("./hdeconnect.js");
 let   config     = require("./config.json");
 let   sms        = new SMSru(config.SMSRU_TOKEN);
 let { rp } = require("./modules/randomPhrase")
-(async () => {
+(async function () {
   await hde.getTickets().then(data => {
     console.log(data)
   })
