@@ -20,7 +20,7 @@ let   config     = require("./config.json");
 let   sms        = new SMSru(config.SMSRU_TOKEN);
 let { rp } = require("./modules/randomPhrase")
 
-console.log(hde.getTickets())
+console.log(hde.gt())
 
 let jsonParser = bp.json();
 let url_encode = bp.urlencoded({ extended: true });
