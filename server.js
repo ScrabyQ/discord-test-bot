@@ -18,7 +18,7 @@ let   SMSru      = require("sms_ru");
 let   hde        = require("./hdeconnect.js");
 let   config     = require("./config.json");
 let   sms        = new SMSru(config.SMSRU_TOKEN);
-let rp = require("./modules/randomPhrase")()
+let { rp }= require("./modules/randomPhrase")
 
 
 let jsonParser = bp.json();
