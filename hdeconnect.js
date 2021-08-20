@@ -4,7 +4,7 @@ const api_key = Buffer.from(config.HDE_TOKEN).toString('base64');
 const domain = 'https://itgt.helpdeskeddy.com/api/v2/'
 
 
-module.exports.gt = function getTickets() {
+module.exports = function getTickets() {
     let url = `${domain}tickets/?status_list=open`;
         fetch(url, {
         method: 'GET',
@@ -14,6 +14,6 @@ module.exports.gt = function getTickets() {
     }).then(response => response.json())
     .then( result => {
         console.log("c модуля количество тикетов " + result.pagination.total)
-        return  this.result.pagination.total
+        return result.pagination.total
     })
 }
