@@ -18,4 +18,4 @@ function getTickets() {
     })
 }
 
-module.exports.getTickets = getTickets;
+module.exports = getTickets;
