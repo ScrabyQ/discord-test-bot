@@ -20,7 +20,6 @@ let   config     = require("./config.json");
 let   sms        = new SMSru(config.SMSRU_TOKEN);
 let { rp } = require("./modules/randomPhrase")
 
-console.log("с приложения кол-во тикетов "+hde())
 
 let jsonParser = bp.json();
 let url_encode = bp.urlencoded({ extended: true });
@@ -779,6 +778,9 @@ client.on("message", (msg) => {
     msg.delete().catch();
     sms.my_balance(function (e) {
       msg.reply(`Текущий баланс sms.ru: ${e.balance}`, { tts: true });
+      hde().then(res => { 
+        msg.reply("Количество тикетов: " + res.pagination.total)
+      })
     });
   }
   if (msg.content == "лимиты sms") {
