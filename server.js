@@ -778,9 +778,6 @@ client.on("message", (msg) => {
     msg.delete().catch();
     sms.my_balance(function (e) {
       msg.reply(`Текущий баланс sms.ru: ${e.balance}`, { tts: true });
-      hde().then(res => { 
-        msg.reply("Количество тикетов: " + res.pagination.total)
-      })
     });
   }
   if (msg.content == "лимиты sms") {
@@ -791,7 +788,10 @@ client.on("message", (msg) => {
   }
   if (msg.content === "тикеты") {
     msg.delete().catch();
-    // msg.reply(`Количество не закрытых тикетов - ${hde.tickets}`, {tts: true})
+    hde().then(res => {
+      msg.reply(`${rp(['Количество не закрытых тикетов', 'Не закрытые тикеты', 'Тикетов не закрыто', 'Тикеты к закрытию'])} - ${res.pagination.total}.
+      ${rp(['@Karl_Denitz#4819 да прибудет с тобой сила', 'пора бы их все позакрывать, не думаешь @Karl_Denitz#4819?', '@Karl_Denitz#4819 ну как ж так вышло-то?'])}`);
+      })
   }
   if (msg.content.toLocaleLowerCase() == "монетка") {
     msg.channel.send("Монета подбрасывается...");
@@ -1636,9 +1636,12 @@ cron.schedule("*/30 * * * *", () => {
             );
       }
     );
-    // client.channels.cache
-    // .get("844589763935207446")
-    // .send(`количество не закрытых тикетов - ${hde.countTickets()}`);
+    hde().then(res => {
+    client.channels.cache
+    .get("844589763935207446")
+    .send(`${rp(['Количество не закрытых тикетов', 'Не закрытые тикеты', 'Тикетов не закрыто', 'Тикеты к закрытию'])} - ${res.pagination.total}.
+    ${rp(['@Karl_Denitz#4819 да прибудет с тобой сила', 'пора бы их все позакрывать, не думаешь @Karl_Denitz#4819?', '@Karl_Denitz#4819 ну как ж так вышло-то?'])}`);
+    })
   });
 
   cron.schedule("0 0 18 * * *", () => {
