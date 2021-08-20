@@ -1,5 +1,5 @@
 const config = require('./config.json');
-global.fetch = require('node-fetch');
+const fetch = require('node-fetch');
 const api_key = Buffer.from(config.HDE_TOKEN).toString('base64');
 const domain = 'https://itgt.helpdeskeddy.com/api/v2/'
 
