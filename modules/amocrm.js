@@ -53,6 +53,12 @@ crm.on('connection:newToken', (token) => {
 module.exports.getLead = async function (lead_id, msg) {
     console.log('client id: ' + client_id)
     let data = await crm.request.get(`/api/v4/leads/${lead_id}/notes`)
+    for (key in data.data._embedded.notes){
+        if (data.data._embedded.notes[key].note_type === 'common' ){
+            console.log("Тип примечания: " + data.data._embedded.notes[key].note_type)
+            console.log("Текст примечания: " + data.data._embedded.notes[key].params.text)
+        }
+    }
     console.log(data.data._embedded.notes)
 }
 
