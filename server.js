@@ -474,7 +474,7 @@ app.post("amo_monitor/new_lead", url_encode, (req, res) => {
     let body = [];
     req.on('data', (chunk) => {
       body.push(chunk);
-      //data += chunk;
+      data += chunk;
     }).on('end', () => {
        body = Buffer.concat(body).toString();
        // at this point, `body` has the entire request body stored in it as a string
