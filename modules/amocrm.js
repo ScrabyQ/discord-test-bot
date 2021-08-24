@@ -3,11 +3,11 @@ const fs = require('fs');
 const currentToken = require('../token.json')
 const config = require('../config.json');
 
-const client_id = config.get("amoCRM.client_id");
-const client_secret = config.get("amoCRM.client_secret");
-const code = config.get("amoCRM.code");
-const domain = config.get("amoCRM.domain")
-const redirect_uri = config.get("amoCRM.redirect_uri")
+const client_id = Buffer.from(config.client_id).toString('base64');
+const client_secret = Buffer.from(config.client_secret).toString('base64');
+const code = Buffer.from(config.code).toString('base64');
+const domain = Buffer.from(config.domain).toString('base64');
+const redirect_uri = Buffer.from(config.redirect_uri).toString('base64');
 
 const crm = new amoCRM({
     domain,
@@ -49,8 +49,8 @@ crm.on('connection:newToken', (token) => {
     fs.writeFileSync('./token.json', JSON.stringify(token.data))
 })
 
-module.exports.getLead = async function (lead_id) {
-    let data = await crm.request.get(`/api/v4/leads/${lead_id}`)
+module.exports.getLead = async function (lead_id, msg) {
+    let data = await crm.request.get(`/api/v4/leads/${lead_id}/notes`)
     console.log(data)
 }
 

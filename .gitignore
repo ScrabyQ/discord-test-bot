@@ -2,3 +2,4 @@ config.json
 certificate.pem
 privatekey.pem
 node_modules
+token.json
