@@ -470,26 +470,7 @@ app.post("/info_monitor", jsonParser, (req, res) => {
 //свой амо монитор 
 app.post("/amo_monitor/new_lead", url_encode, (req, res) => {
   console.log('amo_monitor')
-  console.log(req.body)
-  let data;
-  
-    let body = [];
-    req.on('data', (chunk) => {
-      body.push(chunk);
-      data += chunk;
-    }).on('end', () => {
-       body = Buffer.concat(body).toString();
-       // at this point, `body` has the entire request body stored in it as a string
-       data = JSON.parse(body)
-     //  console.log(body)
-       console.log(data)
-       console.log(body)
-      // if (data.result.callInfo.state === "recorded"){
-      //   console.log('Запись!!!')
-      //   console.log(data)
-      // }
-      res.status(200).end()
-    }); 
+  console.log(req.body.leads)
 })
 //амо монитор
 app.post("/amo_monitor/sensei/source_not_included", url_encode, (req, res) => {
