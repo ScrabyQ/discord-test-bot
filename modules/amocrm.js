@@ -55,7 +55,7 @@ module.exports.getLead = async function (lead_id) {
     let data = await crm.request.get(`/api/v4/leads/${lead_id}/notes`)
     for (key in data.data._embedded.notes){
         if (data.data._embedded.notes[key].note_type === 'common' ){
-            return data.data._embedded.notes[key].params.text
+            return await data.data._embedded.notes[key].params.text
         }
     }
     console.log(data.data._embedded.notes)
