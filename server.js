@@ -19,7 +19,7 @@ let   hde        = require("./hdeconnect.js");
 let   config     = require("./config.json");
 let   sms        = new SMSru(config.SMSRU_TOKEN);
 let { rp } = require("./modules/randomPhrase")
-const { crm } = require('./modules/amocrm');
+const { getLead } = require('./modules/amocrm');
 
 
 let jsonParser = bp.json();
@@ -471,7 +471,7 @@ app.post("/info_monitor", jsonParser, (req, res) => {
 //свой амо монитор 
 app.post("/amo_monitor/new_lead", url_encode, (req, res) => {
   console.log('amo_monitor')
-  crm(req.body.leads.add[0].id, client)
+  getLead(req.body.leads.add[0].id, client)
 })
 //амо монитор
 app.post("/amo_monitor/sensei/source_not_included", url_encode, (req, res) => {
