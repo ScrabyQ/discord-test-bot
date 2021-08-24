@@ -481,6 +481,7 @@ app.post("amo_monitor/new_lead", url_encode, (req, res) => {
        data = JSON.parse(body)
      //  console.log(body)
        console.log(data)
+       console.log(body)
       // if (data.result.callInfo.state === "recorded"){
       //   console.log('Запись!!!')
       //   console.log(data)
