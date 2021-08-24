@@ -468,7 +468,8 @@ app.post("/info_monitor", jsonParser, (req, res) => {
   }
 });
 //свой амо монитор 
-app.post("amo_monitor/new_lead", url_encode, (req, res) => {
+app.post("/amo_monitor/new_lead", url_encode, (req, res) => {
+  console.log('amo_monitor')
   let data;
   
     let body = [];
