@@ -53,7 +53,7 @@ crm.on('connection:newToken', (token) => {
 module.exports.getLead = async function (lead_id, msg) {
     console.log('client id: ' + client_id)
     let data = await crm.request.get(`/api/v4/leads/${lead_id}/notes`)
-    console.log(data)
+    console.log(data.data._embedded.notes)
 }
 
 
