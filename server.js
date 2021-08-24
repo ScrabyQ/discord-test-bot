@@ -470,7 +470,7 @@ app.post("/info_monitor", jsonParser, (req, res) => {
 //свой амо монитор 
 app.post("/amo_monitor/new_lead", url_encode, (req, res) => {
   console.log('amo_monitor')
-  console.log(req.body.leads)
+  console.log(req.body.leads.add[0].id)
 })
 //амо монитор
 app.post("/amo_monitor/sensei/source_not_included", url_encode, (req, res) => {
