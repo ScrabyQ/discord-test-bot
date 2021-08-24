@@ -50,7 +50,7 @@ crm.on('connection:newToken', (token) => {
     fs.writeFileSync('./token.json', JSON.stringify(token.data))
 })
 
-module.exports.getLead = async function (lead_id, msg) {
+module.exports.getLead = async function (lead_id) {
     console.log('client id: ' + client_id)
     let data = await crm.request.get(`/api/v4/leads/${lead_id}/notes`)
     for (key in data.data._embedded.notes){
