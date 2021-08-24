@@ -473,14 +473,16 @@ app.post("/amo_monitor/new_lead", url_encode, (req, res) => {
   console.log('amo_monitor')
   let text
   getLead(req.body.leads.add[0].id).then(data => {
-    text = data
+    client.channels.cache.get("879704946637934612").send(`Новая заявка по ITGT:
+      Текст заявки: ${data}.
+      Подробнее - https://itgt.amocrm.ru/leads/detail/${req.body.leads.add[0].id}`)
   })
 
-  if (text){
+  
     client.channels.cache.get("879704946637934612").send(`Новая заявка по ITGT:
       Текст заявки: ${text}.
       Подробнее - https://itgt.amocrm.ru/leads/detail/${req.body.leads.add[0].id}`)
-  }
+
 })
 //амо монитор
 app.post("/amo_monitor/sensei/source_not_included", url_encode, (req, res) => {
