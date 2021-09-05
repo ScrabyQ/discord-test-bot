@@ -21,9 +21,7 @@ let   sms        = new SMSru(config.SMSRU_TOKEN);
 let { rp } = require("./modules/randomPhrase")
 const { getLead } = require('./modules/amocrm');
 const { infobot_getBalance } = require('./modules/infobot')
-infobot_getBalance().then(data => {
-  console.log(data)
-})
+
 
 let jsonParser = bp.json();
 let url_encode = bp.urlencoded({ extended: true });
@@ -1640,6 +1638,13 @@ cron.schedule("*/30 * * * *", () => {
     .get("844589763935207446")
     .send(`${rp(['Количество не закрытых тикетов', 'Не закрытые тикеты', 'Тикетов не закрыто', 'Тикеты к закрытию'])} - ${res.pagination.total}.
     ${rp(['@&846295813617221632 да прибудет с вами сила', 'пора бы их все позакрывать, не думаете @846295813617221632?', '<@846295813617221632 ну как ж так вышло-то?'])}`);
+    })
+    infobot_getBalance().then(data => { 
+      client.channels.cache
+        .get("844589763935207446")
+        .send(
+          `Тем временем, на инфоботе - ${data} руб.`
+        );
     })
   });
 
