@@ -21,9 +21,7 @@ let   sms        = new SMSru(config.SMSRU_TOKEN);
 let { rp } = require("./modules/randomPhrase")
 const { getLead } = require('./modules/amocrm');
 const { infobot_getBalance } = require('./modules/infobot')
-infobot_getBalance().then((data) => {
-  console.log(data)
-})
+console.log(typeof(infobot_getBalance))
 
 let jsonParser = bp.json();
 let url_encode = bp.urlencoded({ extended: true });
