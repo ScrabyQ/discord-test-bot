@@ -1653,167 +1653,166 @@ cron.schedule("*/30 * * * *", () => {
         );
     })
   });
+});
+cron.schedule("0 0 18 * * *", () => {
+  client.channels.cache.get("844589763935207446")
+    .send(`Статистика на сегодняшний день по процессу Власа: 
+  ${TV}: ${TV_counter},
+  ${internet}: ${internet_counter},
+  ${recomend}: ${recomend_counter},
+  ${paper}: ${paper_counter},
+  ${adv_in_transport}: ${adv_in_transport_counter},
+  ${adv_in_stand}: ${adv_in_stand_counter},
+  ${pos}: ${pos_counter},
+  ${lead_generators}: ${lead_generators_counter},
+  ${smm}: ${smm_counter},
+  ${context}: ${context_counter}, 
+  ${target}: ${target_counter},
+  ${geo_service}: ${geo_service_counter},
+  ${avito}: ${avito_counter},
+  ${combo}: ${combo_counter},
+  ${others}: ${others_counter}.
 
-  cron.schedule("0 0 18 * * *", () => {
-    client.channels.cache.get("844589763935207446")
-      .send(`Статистика на сегодняшний день по процессу Власа: 
-    ${TV}: ${TV_counter},
-    ${internet}: ${internet_counter},
-    ${recomend}: ${recomend_counter},
-    ${paper}: ${paper_counter},
-    ${adv_in_transport}: ${adv_in_transport_counter},
-    ${adv_in_stand}: ${adv_in_stand_counter},
-    ${pos}: ${pos_counter},
-    ${lead_generators}: ${lead_generators_counter},
-    ${smm}: ${smm_counter},
-    ${context}: ${context_counter}, 
-    ${target}: ${target_counter},
-    ${geo_service}: ${geo_service_counter},
-    ${avito}: ${avito_counter},
-    ${combo}: ${combo_counter},
-    ${others}: ${others_counter}.
+  Улетевшие в ошибку:
+  ${error1}: ${error1_counter},
+  ${error2}: ${error2_counter}.
+  
+  
+  Данные по источникам взяты с:
+  https://docs.google.com/spreadsheets/d/1igqu5WiTejkb-7nueGv737F11LJU4M1wvEdDJNMvd5k/edit#gid=0`);
 
-    Улетевшие в ошибку:
-    ${error1}: ${error1_counter},
-    ${error2}: ${error2_counter}.
-    
-    
-    Данные по источникам взяты с:
-    https://docs.google.com/spreadsheets/d/1igqu5WiTejkb-7nueGv737F11LJU4M1wvEdDJNMvd5k/edit#gid=0`);
-
-    connection.query("select * from statistic", (err, data) => {
-      if (!err) {
-        client.channels.cache
-          .get("844589763935207446")
-          .send(`Детали event - ${error1}:`);
-        for (key in data) {
-          client.channels.cache.get("844589763935207446").send({
-            embed: {
-              color: 15105570,
-              author: {
-                name: client.user.username,
-                icon_url:
-                  "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
-              },
-              title: `Сделка ${key}`,
-              url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
-              description: "Информация по сделке",
-              fields: [
-                {
-                  name: "Название сделки",
-                  value: data[key].lead_name,
-                },
-                {
-                  name: "id сделки",
-                  value: data[key].lead_id,
-                },
-              ],
+  connection.query("select * from statistic", (err, data) => {
+    if (!err) {
+      client.channels.cache
+        .get("844589763935207446")
+        .send(`Детали event - ${error1}:`);
+      for (key in data) {
+        client.channels.cache.get("844589763935207446").send({
+          embed: {
+            color: 15105570,
+            author: {
+              name: client.user.username,
+              icon_url:
+                "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
             },
-          });
-        }
-        console.log(data);
-      } else
-        client.channels.cache
-          .get("844589763935207446")
-          .send(
-            "не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - " +
-              err
-          );
-    });
-    connection.query("select * from statistic2", (err, data) => {
-      if (!err) {
-        client.channels.cache
-          .get("844589763935207446")
-          .send(`Детали event - ${error2}:`);
-        for (key in data) {
-          client.channels.cache.get("844589763935207446").send({
-            embed: {
-              color: 15105570,
-              author: {
-                name: client.user.username,
-                icon_url:
-                  "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+            title: `Сделка ${key}`,
+            url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
+            description: "Информация по сделке",
+            fields: [
+              {
+                name: "Название сделки",
+                value: data[key].lead_name,
               },
-              title: `Сделка ${key}`,
-              url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
-              description: "Информация по сделке",
-              fields: [
-                {
-                  name: "Название сделки",
-                  value: data[key].lead_name,
-                },
-                {
-                  name: "id сделки",
-                  value: data[key].lead_id,
-                },
-              ],
-            },
-          });
-        }
-        console.log(data);
-      } else
-        client.channels.cache
-          .get("844589763935207446")
-          .send(
-            "не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - " +
-              err
-          );
-    });
-    googleSheetsInstance.spreadsheets.values.append({
-      auth,
-      spreadsheetId: statisticSpreadsheetId,
-      range: "Лист1!A:R", //sheet name and range of cells
-      valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
-      resource: {
-        values: [
-          [
-            `${new Date()}`,
-            `${TV_counter}`,
-            `${internet_counter}`,
-            `${recomend_counter}`,
-            `${paper_counter}`,
-            `${adv_in_transport_counter}`,
-            `${adv_in_stand_counter}`,
-            `${pos_counter}`,
-            `${lead_generators_counter}`,
-            `${smm_counter}`,
-            `${context_counter}`,
-            `${target_counter}`,
-            `${geo_service_counter}`,
-            `${avito_counter}`,
-            `${combo_counter}`,
-            `${others_counter}`,
-            `${error1_counter}`,
-            `${error2_counter}`,
-          ],
-        ],
-      },
-    });
-    setTimeout(() => {
-      TV_counter               = 0;
-      internet_counter         = 0;
-      recomend_counter         = 0;
-      paper_counter            = 0;
-      adv_in_transport_counter = 0;
-      adv_in_stand_counter     = 0;
-      pos_counter              = 0;
-      lead_generators_counter  = 0;
-      smm_counter              = 0;
-      context_counter          = 0;
-      target_counter           = 0;
-      geo_service_counter      = 0;
-      avito_counter            = 0;
-      combo_counter            = 0;
-      others_counter           = 0;
-
-      connection.query("truncate table statistic", (err) => {
-        err ? console.log(err) : console.log("Таблица statistic очищена");
-      });
-      connection.query("truncate table statistic2", (err) => {
-        err ? console.log(err) : console.log("Таблица statistic2 очищена");
-      });
-    }, 5000);
+              {
+                name: "id сделки",
+                value: data[key].lead_id,
+              },
+            ],
+          },
+        });
+      }
+      console.log(data);
+    } else
+      client.channels.cache
+        .get("844589763935207446")
+        .send(
+          "не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - " +
+            err
+        );
   });
+  connection.query("select * from statistic2", (err, data) => {
+    if (!err) {
+      client.channels.cache
+        .get("844589763935207446")
+        .send(`Детали event - ${error2}:`);
+      for (key in data) {
+        client.channels.cache.get("844589763935207446").send({
+          embed: {
+            color: 15105570,
+            author: {
+              name: client.user.username,
+              icon_url:
+                "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg",
+            },
+            title: `Сделка ${key}`,
+            url: `https://yristmsk.amocrm.ru/leads/detail/${data[key].lead_id}`,
+            description: "Информация по сделке",
+            fields: [
+              {
+                name: "Название сделки",
+                value: data[key].lead_name,
+              },
+              {
+                name: "id сделки",
+                value: data[key].lead_id,
+              },
+            ],
+          },
+        });
+      }
+      console.log(data);
+    } else
+      client.channels.cache
+        .get("844589763935207446")
+        .send(
+          "не могу показать тебе ссылки на ошибочные сделки, сорь. Ошибка - " +
+            err
+        );
+  });
+  googleSheetsInstance.spreadsheets.values.append({
+    auth,
+    spreadsheetId: statisticSpreadsheetId,
+    range: "Лист1!A:R", //sheet name and range of cells
+    valueInputOption: "USER_ENTERED", // The information will be passed according to what the usere passes in as date, number or text
+    resource: {
+      values: [
+        [
+          `${new Date()}`,
+          `${TV_counter}`,
+          `${internet_counter}`,
+          `${recomend_counter}`,
+          `${paper_counter}`,
+          `${adv_in_transport_counter}`,
+          `${adv_in_stand_counter}`,
+          `${pos_counter}`,
+          `${lead_generators_counter}`,
+          `${smm_counter}`,
+          `${context_counter}`,
+          `${target_counter}`,
+          `${geo_service_counter}`,
+          `${avito_counter}`,
+          `${combo_counter}`,
+          `${others_counter}`,
+          `${error1_counter}`,
+          `${error2_counter}`,
+        ],
+      ],
+    },
+  });
+  setTimeout(() => {
+    TV_counter               = 0;
+    internet_counter         = 0;
+    recomend_counter         = 0;
+    paper_counter            = 0;
+    adv_in_transport_counter = 0;
+    adv_in_stand_counter     = 0;
+    pos_counter              = 0;
+    lead_generators_counter  = 0;
+    smm_counter              = 0;
+    context_counter          = 0;
+    target_counter           = 0;
+    geo_service_counter      = 0;
+    avito_counter            = 0;
+    combo_counter            = 0;
+    others_counter           = 0;
+
+    connection.query("truncate table statistic", (err) => {
+      err ? console.log(err) : console.log("Таблица statistic очищена");
+    });
+    connection.query("truncate table statistic2", (err) => {
+      err ? console.log(err) : console.log("Таблица statistic2 очищена");
+    });
+  }, 5000);
 });
 function username(discriminator) {
   const discriminators = {
