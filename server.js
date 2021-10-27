@@ -1,5 +1,5 @@
-//TODO: доделать модуль hde и вывод кол-во тикетов
-// тегирование Валеры в оповещении о балансе смс
+//TODO: 
+
 
 const fs         = require("fs");
 const https      = require("https");
